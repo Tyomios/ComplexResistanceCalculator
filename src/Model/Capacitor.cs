@@ -9,15 +9,27 @@ namespace ComplexResistanceCalculator.src.Model
 	/// <summary>
 	/// Конденсатор
 	/// </summary>
-	class Capacitor : IElement
+	public class Capacitor : IElement
 	{
 		public string Name { get; set; }
 
 		public double Value { get; set; }
 
-		public Complex CalculateZ(double f)
+		public List<Complex> CalculateZ(List<double> frequency)
 		{
-			return (2 * Math.PI * f * Value);
+			var impedances = new List<Complex>();
+			foreach (var f in frequency)
+			{
+				impedances.Add(new Complex(0, 2 * Math.PI * f * Value));
+			}
+
+			return impedances;
+		}
+
+		public Capacitor(string name, double value)
+		{
+			Name = name;
+			Value = value;
 		}
 	}
 }

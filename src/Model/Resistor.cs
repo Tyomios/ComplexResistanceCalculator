@@ -8,23 +8,27 @@ namespace Model
 	/// <summary>
 	/// Резистор
 	/// </summary>
-	class Resistor: IElement
+	public class Resistor: IElement
 	{
-		/// <summary>
-		/// Название элемента
-		/// </summary>
 		public string Name { get; set; }
 
-		/// <summary>
-		/// Номинал
-		/// </summary>
 		public double Value { get; set; }
 
-		
-		public Complex CalculateZ(double f)
+		public List<Complex> CalculateZ(List<double> frequency)
 		{
-			return Value + f * 0;
+			var res = new List<Complex>();
+			foreach (var f in frequency)
+			{
+				res.Add(new Complex(Value, 0));
+			}
+
+			return res;
 		}
 
+		public Resistor(string name, double value)
+		{
+			Name = name;
+			Value = value;
+		}
 	}
 }

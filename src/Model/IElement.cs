@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Model
@@ -21,9 +22,9 @@ namespace Model
 		/// <summary>
 		/// Рассчет реактивного сопротивления
 		/// </summary>
-		/// <param name="f"> Частота </param>
-		/// <returns> Возвращает сопротивление </returns>
-		abstract Complex CalculateZ(double f);
+		/// <param name="frequency"> Диапазон частот </param>
+		/// <returns> Возвращает сопротивление для каждой частоты из диапазона </returns>
+		abstract List<Complex> CalculateZ(List<double> frequency);
 
 		//event void ValueChanged(object f, object k);
 	}
