@@ -18,10 +18,10 @@ namespace Model
 		public List<IElement> Elements { get; set; } = new List<IElement>();
 
 		/// <summary>
-		/// Подсчет сопротивления в цепи
+		/// Расчет импеданса в цепи для каждого значения частоты
 		/// </summary>
-		/// <param name="frequencies"></param>
-		/// <returns></returns>
+		/// <param name="frequencies"> Список частот </param>
+		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
 			var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);

@@ -1,7 +1,7 @@
 ﻿
 namespace ComplexResistanceCalculator.UI
 {
-	partial class MainForm
+	partial class mainForm
 	{
 		/// <summary>
 		///  Required designer variable.
@@ -37,10 +37,12 @@ namespace ComplexResistanceCalculator.UI
 			this.ElementsFrequencyLabel = new System.Windows.Forms.Label();
 			this.elementNameTextBox = new System.Windows.Forms.TextBox();
 			this.elementsValueTextBox = new System.Windows.Forms.TextBox();
-			this.elementsFrequencyTextBox = new System.Windows.Forms.TextBox();
+			this.firstFrequencyValueTextBox = new System.Windows.Forms.TextBox();
 			this.button4 = new System.Windows.Forms.Button();
 			this.RemoveElementButton = new System.Windows.Forms.Button();
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.circuitElementsPanel = new System.Windows.Forms.Panel();
+			this.linkFrequencyLabel = new System.Windows.Forms.Label();
+			this.lastFrequencyValueTextBox = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -51,6 +53,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton.TabIndex = 0;
 			this.AddResistorButton.Text = "Add R";
 			this.AddResistorButton.UseVisualStyleBackColor = true;
+			this.AddResistorButton.Click += new System.EventHandler(this.AddResistorButton_Click);
 			// 
 			// AddInductorButton
 			// 
@@ -60,6 +63,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.TabIndex = 1;
 			this.AddInductorButton.Text = "Add L";
 			this.AddInductorButton.UseVisualStyleBackColor = true;
+			this.AddInductorButton.Click += new System.EventHandler(this.AddInductorButton_Click);
 			// 
 			// AddCapacitorButton
 			// 
@@ -69,11 +73,12 @@ namespace ComplexResistanceCalculator.UI
 			this.AddCapacitorButton.TabIndex = 2;
 			this.AddCapacitorButton.Text = "Add C";
 			this.AddCapacitorButton.UseVisualStyleBackColor = true;
+			this.AddCapacitorButton.Click += new System.EventHandler(this.AddCapacitorButton_Click);
 			// 
 			// ElementsNameLabel
 			// 
 			this.ElementsNameLabel.AutoSize = true;
-			this.ElementsNameLabel.Location = new System.Drawing.Point(50, 77);
+			this.ElementsNameLabel.Location = new System.Drawing.Point(45, 141);
 			this.ElementsNameLabel.Name = "ElementsNameLabel";
 			this.ElementsNameLabel.Size = new System.Drawing.Size(49, 20);
 			this.ElementsNameLabel.TabIndex = 3;
@@ -82,7 +87,7 @@ namespace ComplexResistanceCalculator.UI
 			// ElementsValueLabel
 			// 
 			this.ElementsValueLabel.AutoSize = true;
-			this.ElementsValueLabel.Location = new System.Drawing.Point(54, 139);
+			this.ElementsValueLabel.Location = new System.Drawing.Point(49, 203);
 			this.ElementsValueLabel.Name = "ElementsValueLabel";
 			this.ElementsValueLabel.Size = new System.Drawing.Size(45, 20);
 			this.ElementsValueLabel.TabIndex = 4;
@@ -91,7 +96,7 @@ namespace ComplexResistanceCalculator.UI
 			// ElementsFrequencyLabel
 			// 
 			this.ElementsFrequencyLabel.AutoSize = true;
-			this.ElementsFrequencyLabel.Location = new System.Drawing.Point(39, 202);
+			this.ElementsFrequencyLabel.Location = new System.Drawing.Point(214, 35);
 			this.ElementsFrequencyLabel.Name = "ElementsFrequencyLabel";
 			this.ElementsFrequencyLabel.Size = new System.Drawing.Size(76, 20);
 			this.ElementsFrequencyLabel.TabIndex = 5;
@@ -99,24 +104,24 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// elementNameTextBox
 			// 
-			this.elementNameTextBox.Location = new System.Drawing.Point(22, 100);
+			this.elementNameTextBox.Location = new System.Drawing.Point(17, 164);
 			this.elementNameTextBox.Name = "elementNameTextBox";
 			this.elementNameTextBox.Size = new System.Drawing.Size(114, 27);
 			this.elementNameTextBox.TabIndex = 6;
 			// 
 			// elementsValueTextBox
 			// 
-			this.elementsValueTextBox.Location = new System.Drawing.Point(22, 162);
+			this.elementsValueTextBox.Location = new System.Drawing.Point(17, 226);
 			this.elementsValueTextBox.Name = "elementsValueTextBox";
 			this.elementsValueTextBox.Size = new System.Drawing.Size(115, 27);
 			this.elementsValueTextBox.TabIndex = 7;
 			// 
-			// elementsFrequencyTextBox
+			// firstFrequencyValueTextBox
 			// 
-			this.elementsFrequencyTextBox.Location = new System.Drawing.Point(22, 225);
-			this.elementsFrequencyTextBox.Name = "elementsFrequencyTextBox";
-			this.elementsFrequencyTextBox.Size = new System.Drawing.Size(115, 27);
-			this.elementsFrequencyTextBox.TabIndex = 8;
+			this.firstFrequencyValueTextBox.Location = new System.Drawing.Point(320, 32);
+			this.firstFrequencyValueTextBox.Name = "firstFrequencyValueTextBox";
+			this.firstFrequencyValueTextBox.Size = new System.Drawing.Size(115, 27);
+			this.firstFrequencyValueTextBox.TabIndex = 8;
 			// 
 			// button4
 			// 
@@ -135,23 +140,43 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.TabIndex = 10;
 			this.RemoveElementButton.Text = "Remove element";
 			this.RemoveElementButton.UseVisualStyleBackColor = true;
+			this.RemoveElementButton.Click += new System.EventHandler(this.RemoveElementButton_Click);
 			// 
-			// panel1
+			// circuitElementsPanel
 			// 
-			this.panel1.Location = new System.Drawing.Point(143, 77);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(645, 238);
-			this.panel1.TabIndex = 11;
+			this.circuitElementsPanel.Location = new System.Drawing.Point(137, 65);
+			this.circuitElementsPanel.Name = "circuitElementsPanel";
+			this.circuitElementsPanel.Size = new System.Drawing.Size(650, 315);
+			this.circuitElementsPanel.TabIndex = 11;
+			this.circuitElementsPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.circuitElementsPanel_ControlAdded);
 			// 
-			// MainForm
+			// linkFrequencyLabel
+			// 
+			this.linkFrequencyLabel.AutoSize = true;
+			this.linkFrequencyLabel.Location = new System.Drawing.Point(452, 35);
+			this.linkFrequencyLabel.Name = "linkFrequencyLabel";
+			this.linkFrequencyLabel.Size = new System.Drawing.Size(23, 20);
+			this.linkFrequencyLabel.TabIndex = 12;
+			this.linkFrequencyLabel.Text = "to";
+			// 
+			// lastFrequencyValueTextBox
+			// 
+			this.lastFrequencyValueTextBox.Location = new System.Drawing.Point(495, 32);
+			this.lastFrequencyValueTextBox.Name = "lastFrequencyValueTextBox";
+			this.lastFrequencyValueTextBox.Size = new System.Drawing.Size(125, 27);
+			this.lastFrequencyValueTextBox.TabIndex = 13;
+			// 
+			// mainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.lastFrequencyValueTextBox);
+			this.Controls.Add(this.linkFrequencyLabel);
+			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
 			this.Controls.Add(this.button4);
-			this.Controls.Add(this.elementsFrequencyTextBox);
+			this.Controls.Add(this.firstFrequencyValueTextBox);
 			this.Controls.Add(this.elementsValueTextBox);
 			this.Controls.Add(this.elementNameTextBox);
 			this.Controls.Add(this.ElementsFrequencyLabel);
@@ -160,7 +185,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.AddCapacitorButton);
 			this.Controls.Add(this.AddInductorButton);
 			this.Controls.Add(this.AddResistorButton);
-			this.Name = "MainForm";
+			this.Name = "mainForm";
 			this.Text = "ComplexResistance Calculator";
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -177,11 +202,13 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Label ElementsFrequencyLabel;
 		private System.Windows.Forms.TextBox elementNameTextBox;
 		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox elementsFrequencyTextBox;
+		private System.Windows.Forms.TextBox firstFrequencyValueTextBox;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button RemoveElementButton;
 		private System.Windows.Forms.TextBox elementsValueTextBox;
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel circuitElementsPanel;
+		private System.Windows.Forms.Label linkFrequencyLabel;
+		private System.Windows.Forms.TextBox lastFrequencyValueTextBox;
 	}
 }
 

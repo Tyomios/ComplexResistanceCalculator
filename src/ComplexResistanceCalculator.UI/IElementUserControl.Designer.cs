@@ -55,8 +55,11 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.Controls.Add(this.valueChangedlabel);
 			this.Controls.Add(this.pictureBox);
+			this.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
 			this.Name = "IElementUserControl";
 			this.Size = new System.Drawing.Size(100, 100);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
