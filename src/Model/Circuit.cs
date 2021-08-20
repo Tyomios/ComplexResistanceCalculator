@@ -24,54 +24,19 @@ namespace Model
 		/// <returns></returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			var allFrequenciesImpedance = new List<Complex>();
-			var realPart = new List<Complex>();
-			var imaginaryPart = new List<Complex>();
-			foreach (var element in Elements)
+			var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
+			for (int i = 1; i < Elements.Count; i++)
 			{
-				if (element is Resistor)
+				var elementZs = Elements[i].CalculateZ(frequencies);
+				for (int j = 0; j < elementZs.Count; j++)
 				{
-					if (realPart.Count == 0)
-					{
-						realPart = element.CalculateZ(frequencies);
-					}
-					else
-					{
-						var addValueRealPart = element.CalculateZ(frequencies);
-						var index = 0;
-						foreach (var value in addValueRealPart)
-						{
-							realPart[index] += value;
-							++index;
-						}
-					}
+					allFrequenciesImpedance[j] += elementZs[j];
 				}
-				else
-				{
-					if (imaginaryPart.Count == 0)
-					{
-						imaginaryPart = element.CalculateZ(frequencies);
-					}
-					else
-					{
-						var addValueImaginaryPart = element.CalculateZ(frequencies);
-						var index = 0;
-						foreach (var value in addValueImaginaryPart)
-						{
-							imaginaryPart[index] += value;
-							++index;
-						}
-					}
-				}
-				
-			}
-
-			for (int i = 0; i < frequencies.Count; i++)
-			{
-				allFrequenciesImpedance.Add(new Complex(realPart[i].Real, imaginaryPart[i].Imaginary));
 			}
 
 			return allFrequenciesImpedance;
 		}
 	}
 }
+
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using ComplexResistanceCalculator.src.Model;
 
@@ -60,26 +61,41 @@ namespace Model
 		{
 			List<double> f = new List<double>()
 			{
-				1.0, 1.4, 1.7
+				1.0, 1.4, 2.0, 2.5
 			};
 
 			var r = new Resistor("R1", 45);
+			var r2 = new Resistor("R2", 43);
 			var c = new Capacitor("c1", 22);
 			var l = new Inductor("L1", 11);
+			var l2 = new Inductor("L2", 21);
 
 			var circuit = new Circuit();
 			circuit.Elements.Add(r);
+			circuit.Elements.Add(r2);
 			circuit.Elements.Add(c);
 			circuit.Elements.Add(l);
+			
 
 			var test = circuit.CalculateZ(f);
 
 			foreach (var res in test)
 			{
-				Console.WriteLine(String.Format(new ComplexFormatter(), "{0:I0}", res));
+				Console.WriteLine((res.Real + res.Imaginary));
 			}
 
 			Console.ReadLine();
+
+			circuit.Elements.Add(l2);
+			var test2 = circuit.CalculateZ(f);
+
+			foreach (var res in test2)
+			{
+				Console.WriteLine(res);
+			}
+
+			Console.ReadLine();
+
 		}
 	}
 }
