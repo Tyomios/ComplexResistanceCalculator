@@ -27,11 +27,11 @@ namespace ComplexResistanceCalculator.UI
 			}
 			if (element is Inductor)
 			{
-				pictureBox.Image = Image.FromFile($"{_iconPath}/inductor.jpg");
+				pictureBox.Image = Image.FromFile($"{_iconPath}/inductor.png");
 			}
 			if (element is Capacitor)
 			{
-				pictureBox.Image = Image.FromFile($"{_iconPath}/capacitor.jpg");
+				pictureBox.Image = Image.FromFile($"{_iconPath}/capacitor.png");
 			}
 
 			ContainElement = element;
