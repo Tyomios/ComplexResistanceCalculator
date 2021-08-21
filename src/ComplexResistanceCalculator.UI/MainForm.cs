@@ -51,6 +51,13 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddElement(IElement element)
 		{
+			AddForm addForm = new AddForm(element);
+			var dialogresult = addForm.ShowDialog();
+			if (dialogresult != DialogResult.OK)
+			{
+				return;
+			}
+
 			IElementUserControl newElementUserControl = new IElementUserControl(element);
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
@@ -58,7 +65,7 @@ namespace ComplexResistanceCalculator.UI
 			newElementUserControl.Location = _userControlLocation[_elementsCount];
 			++_elementsCount;
 			_circuit.Elements.Add(element);
-			
+
 			_currentElement = element;
 			ShowCurrentElementInfo();
 		}
@@ -71,7 +78,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
 		{
-			Resistor resistor = new Resistor("R1", 4);
+			Resistor resistor = new Resistor("", 0.0);
 			AddElement(resistor);
 		}
 

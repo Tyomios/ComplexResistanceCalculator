@@ -12,9 +12,30 @@ namespace ComplexResistanceCalculator.UI
 	public partial class AddForm : Form
 	{
 		public IElement Element { get; set; }
-		public AddForm()
+		public AddForm(IElement newElement)
 		{
 			InitializeComponent();
+			Element = newElement;
+		}
+
+		private void saveButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Element.Name = elementNameTextBox.Text;
+				Element.Value = System.Convert.ToDouble(elementValueTextBox.Text);
+				DialogResult = DialogResult.OK;
+				Close();
+			}
+			catch (Exception exception)
+			{
+				MessageBox.Show(exception.Message);
+			}
+		}
+
+		private void cancelButton_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 	}
 }

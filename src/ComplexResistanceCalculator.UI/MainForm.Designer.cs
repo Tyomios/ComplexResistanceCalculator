@@ -37,7 +37,7 @@ namespace ComplexResistanceCalculator.UI
 			this.ElementsValueLabel = new System.Windows.Forms.Label();
 			this.elementNameTextBox = new System.Windows.Forms.TextBox();
 			this.elementsValueTextBox = new System.Windows.Forms.TextBox();
-			this.button4 = new System.Windows.Forms.Button();
+			this.calculateZbutton = new System.Windows.Forms.Button();
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
 			this.SuspendLayout();
@@ -111,14 +111,17 @@ namespace ComplexResistanceCalculator.UI
 			this.elementsValueTextBox.Size = new System.Drawing.Size(115, 27);
 			this.elementsValueTextBox.TabIndex = 7;
 			// 
-			// button4
+			// calculateZbutton
 			// 
-			this.button4.Location = new System.Drawing.Point(12, 390);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(66, 53);
-			this.button4.TabIndex = 9;
-			this.button4.Text = "Рассчитать";
-			this.button4.UseVisualStyleBackColor = true;
+			this.calculateZbutton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("calculateZbutton.BackgroundImage")));
+			this.calculateZbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.calculateZbutton.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.calculateZbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.calculateZbutton.Location = new System.Drawing.Point(27, 384);
+			this.calculateZbutton.Name = "calculateZbutton";
+			this.calculateZbutton.Size = new System.Drawing.Size(32, 32);
+			this.calculateZbutton.TabIndex = 9;
+			this.calculateZbutton.UseVisualStyleBackColor = true;
 			// 
 			// RemoveElementButton
 			// 
@@ -148,7 +151,7 @@ namespace ComplexResistanceCalculator.UI
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
-			this.Controls.Add(this.button4);
+			this.Controls.Add(this.calculateZbutton);
 			this.Controls.Add(this.elementsValueTextBox);
 			this.Controls.Add(this.elementNameTextBox);
 			this.Controls.Add(this.ElementsValueLabel);
@@ -172,7 +175,7 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Label ElementsValueLabel;
 		private System.Windows.Forms.TextBox elementNameTextBox;
 		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Button calculateZbutton;
 		private System.Windows.Forms.Button RemoveElementButton;
 		private System.Windows.Forms.TextBox elementsValueTextBox;
 		private System.Windows.Forms.Panel circuitElementsPanel;
