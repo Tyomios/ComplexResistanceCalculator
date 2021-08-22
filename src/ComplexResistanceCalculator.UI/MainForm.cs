@@ -204,7 +204,9 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateZbutton_Click(object sender, EventArgs e)
 		{
-			
+			CalculateImpedanceForm calculateImpedance = new CalculateImpedanceForm();
+			calculateImpedance.Circuit = _circuit;
+			calculateImpedance.ShowDialog();
 		}
 	}
 }
