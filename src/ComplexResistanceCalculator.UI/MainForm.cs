@@ -20,8 +20,8 @@ namespace ComplexResistanceCalculator.UI
 
 		private List<Point> _userControlLocation = new List<Point>()
 		{
-			new Point(),
-			new Point(15, 80),
+			new Point(0, 0),
+			new Point(15, 80), 
 			new Point(135, 80),
 			new Point(255, 80),
 			new Point(375, 80),
@@ -34,6 +34,22 @@ namespace ComplexResistanceCalculator.UI
 		public mainForm()
 		{
 			InitializeComponent();
+			
+		}
+
+		private void ControlLocation()
+		{
+			int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
+			for (int i = 2; i < _userControlLocation.Count; i++)
+			{
+				_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
+												, _userControlLocation[i].Y);
+			}
+
+			for (int i = 0; i < _elementsCount; i++)
+			{
+				circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
+			}
 		}
 
 		private void ShowCurrentElementInfo()
@@ -51,6 +67,13 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddElement(IElement element)
 		{
+			if (_elementsCount == 5)
+			{
+				MessageBox.Show("Circuit may include just 5 or less elements" +
+				                "\n Remove someone element from your circuit",
+								"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
 			AddForm addForm = new AddForm(element);
 			var dialogresult = addForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
@@ -62,7 +85,7 @@ namespace ComplexResistanceCalculator.UI
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			// TODO: проблема с индексированием - элементы и индексы не синхронизированы
-			newElementUserControl.Location = _userControlLocation[_elementsCount];
+			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
 			_circuit.Elements.Add(element);
 
@@ -115,7 +138,13 @@ namespace ComplexResistanceCalculator.UI
 				_circuit.Elements.Remove(_currentElement);
 				--_elementsCount;
 				ShowCurrentElementInfo();
+				ControlLocation();
 			}
+		}
+
+		private void mainForm_SizeChanged(object sender, EventArgs e)
+		{
+			ControlLocation();
 		}
 	}
 }

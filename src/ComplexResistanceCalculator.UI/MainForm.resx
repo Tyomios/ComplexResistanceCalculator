@@ -142,20 +142,20 @@
   </data>
   <data name="calculateZbutton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK9SURBVFhHvZe7T9tQFMZdVR06VK06dKi6detQqUKNH3nc
-        2PEzcYIDOMzdu3VHYmsn/gAktnbmb4A8QAmmBeIkdhwoCwsDAwNCKLfnwq0qKFHA2PmknxTF55zvi2Jf
-        38v8lX3IPZ0fmEuVfbNXGZhOZb+4aB+qL+nl+GUHhRUwxjc4hu8/29h+TMvi0fQ2emEPCuc2mI5gtxIU
-        ZFoevWYHeRYCgNFo5oL8cC4wVq3f+lvaFp2sgY7AgJiMZTbIn0GQr6WO8Iy2P1wkAAwmw+/MTN84KveN
-        TwxmHtEx4UUCzAQGDofenPVVgY4KJ8uDAH0dflU4yr4+LAfa97Knv6Ej7yfLk1G5r+EIOLX66gIHawod
-        fTeRABYMiAxfPbAGWoWOHy+TBPBV0hgpJU9ZK3m5D9RmtEiAaV/BcVDylQsIsqz0lVfU7n+RAFBIimOj
-        6CknRV/+MtWaekJt/8n0sqjoyVA0AXqyU+rIr6n1la4C5KBgMpg9qUGtr0QCmJ6EJ4neld5Te4bRIUCh
-        J+GJ0RGxvpW6GUCEi/GT74rYcLLX/wISIN/L4rgx2lmstZAjV4XrN6HuppDRhYK4cBHWnMyJ2sjc/hiS
-        AHoXwY0RMR2E1Z/pC6WRWlZq/OiFSL4MkIGm6NB2M1jZTK3lavz4pZgE0DrQFAHqXhorzdRBrirM0/Hj
-        RQKonTR+EG4ay07yVKoLC1z9nq9jEkBxUzgs8nZyKDWEH2gjEW5DIrtcqADyThJLG3xTrPEP25KRALKb
-        xHdmT8BSkz8Sa2w0m9IsBMi5Ah5LW8DiFn8Gxt+EaoTb8myLZXNtHgxuRyJs80Oxzq2KVSH6g4ncmnou
-        7nDnl0Y3EH9xGG2we2idi+9oRpTZTKyIuxwW2xT4jJrsMVpPwOGUifdwSkSe3UyVXUINtocaCQetf1zk
-        6u9iPp4zzB/ZYo+SDje4+gAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAr1JREFUWEe9l7tP21AUxl1VHTpUrTp0qLp161CpQo0fedzY8TNxggM4zN27dUdi
+        ayf+ACS2duZvgDxACaYF4iR2HCgLCwMDA0Iot+fCrSooUcDY+aSfFMXnnO+LYl/fy/yVfcg9nR+YS5V9
+        s1cZmE5lv7hoH6ov6eX4ZQeFFTDGNziG7z/b2H5My+LR9DZ6YQ8K5zaYjmC3EhRkWh69Zgd5FgKA0Wjm
+        gvxwLjBWrd/6W9oWnayBjsCAmIxlNsifQZCvpY7wjLY/XCQADCbD78xM3zgq941PDGYe0THhRQLMBAYO
+        h96c9VWBjgony4MAfR1+VTjKvj4sB9r3sqe/oSPvJ8uTUbmv4Qg4tfrqAgdrCh19N5EAFgyIDF89sAZa
+        hY4fL5ME8FXSGCklT1krebkP1Ga0SIBpX8FxUPKVCwiyrPSVV9Tuf5EAUEiKY6PoKSdFX/4y1Zp6Qm3/
+        yfSyqOjJUDQBerJT6sivqfWVrgLkoGAymD2pQa2vRAKYnoQnid6V3lN7htEhQKEn4YnREbG+lboZQISL
+        8ZPvithwstf/AhIg38viuDHaWay1kCNXhes3oe6mkNGFgrhwEdaczInayNz+GJIAehfBjRExHYTVn+kL
+        pZFaVmr86IVIvgyQgabo0HYzWNlMreVq/PilmATQOtAUAepeGivN1EGuKszT8eNFAqidNH4QbhrLTvJU
+        qgsLXP2er2MSQHFTOCzydnIoNYQfaCMRbkMiu1yoAPJOEksbfFOs8Q/bkpEAspvEd2ZPwFKTPxJrbDSb
+        0iwEyLkCHktbwOIWfwbG34RqhNvybItlc20eDG5HImzzQ7HOrYpVIfqDidyaei7ucOeXRjcQf3EYbbB7
+        aJ2L72hGlNlMrIi7HBbbFPiMmuwxWk/A4ZSJ93BKRJ7dTJVdQg22hxoJB61/XOTq72I+njPMH9lij5IO
+        N7j6AAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="RemoveElementButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
