@@ -124,27 +124,87 @@ namespace ComplexResistanceCalculator.UI
 
 		private void RemoveElementButton_Click(object sender, EventArgs e)
 		{
-			var result = MessageBox.Show($"Delete element {_currentElement.Name} ?", "?", MessageBoxButtons.YesNo);
-			if (result == DialogResult.Yes)
+			if (_currentElement != null)
 			{
-				foreach (IElementUserControl control in circuitElementsPanel.Controls)
+				var result = MessageBox.Show($"Delete element {_currentElement.Name} ?", "?", MessageBoxButtons.YesNo);
+				if (result == DialogResult.Yes)
 				{
-					if (control.ContainElement == _currentElement)
+					foreach (IElementUserControl control in circuitElementsPanel.Controls)
 					{
-						circuitElementsPanel.Controls.Remove(control);
+						if (control.ContainElement == _currentElement)
+						{
+							circuitElementsPanel.Controls.Remove(control);
+						}
 					}
-				}
 
-				_circuit.Elements.Remove(_currentElement);
-				--_elementsCount;
-				ShowCurrentElementInfo();
-				ControlLocation();
+					_circuit.Elements.Remove(_currentElement);
+					--_elementsCount;
+					ShowCurrentElementInfo();
+					ControlLocation();
+				}
+			}
+			else
+			{
+				MessageBox.Show("Select or add element");
 			}
 		}
 
 		private void mainForm_SizeChanged(object sender, EventArgs e)
 		{
 			ControlLocation();
+		}
+
+		// Перенесу в user control
+		private void elementsValueTextBox_TextChanged(object sender, EventArgs e)
+		{
+			var dialogresult = MessageBox.Show("Are u want to change value ?",
+				"", MessageBoxButtons.YesNo);
+			if (dialogresult == DialogResult.Yes)
+			{
+				try
+				{
+					_currentElement.Value = System.Convert.ToDouble(elementsValueTextBox.Text);
+				}
+				catch (Exception exception)
+				{
+					MessageBox.Show(exception.Message);
+				}
+			}
+		}
+
+		private void CreateButtonToolTip(Control control, string toolTipText)
+		{
+			var toolTip = new ToolTip();
+			toolTip.SetToolTip(control, toolTipText);
+		}
+		private void RemoveElementButton_MouseEnter(object sender, EventArgs e)
+		{
+			CreateButtonToolTip(RemoveElementButton, "Delete element");
+		}
+
+		private void AddCapacitorButton_MouseEnter(object sender, EventArgs e)
+		{
+			CreateButtonToolTip(AddCapacitorButton, "Add capacitor");
+		}
+
+		private void AddResistorButton_MouseEnter(object sender, EventArgs e)
+		{
+			CreateButtonToolTip(AddResistorButton, "Add resistor");
+		}
+
+		private void AddInductorButton_MouseEnter(object sender, EventArgs e)
+		{
+			CreateButtonToolTip(AddInductorButton, "Add inductor");
+		}
+
+		private void calculateZbutton_MouseEnter(object sender, EventArgs e)
+		{
+			CreateButtonToolTip(calculateZbutton, "Calculate Z");
+		}
+
+		private void calculateZbutton_Click(object sender, EventArgs e)
+		{
+			
 		}
 	}
 }

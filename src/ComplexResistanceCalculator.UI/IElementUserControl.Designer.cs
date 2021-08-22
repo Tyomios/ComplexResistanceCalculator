@@ -35,11 +35,11 @@ namespace ComplexResistanceCalculator.UI
 			// valueChangedlabel
 			// 
 			this.valueChangedlabel.AutoSize = true;
-			this.valueChangedlabel.Location = new System.Drawing.Point(16, 66);
+			this.valueChangedlabel.Location = new System.Drawing.Point(9, 66);
 			this.valueChangedlabel.Name = "valueChangedlabel";
-			this.valueChangedlabel.Size = new System.Drawing.Size(50, 20);
+			this.valueChangedlabel.Size = new System.Drawing.Size(23, 20);
 			this.valueChangedlabel.TabIndex = 1;
-			this.valueChangedlabel.Text = "label1";
+			this.valueChangedlabel.Text = "⨂";
 			// 
 			// IElementUserControl
 			// 

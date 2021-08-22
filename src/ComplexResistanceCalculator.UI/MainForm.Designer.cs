@@ -56,6 +56,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton.TabIndex = 0;
 			this.AddResistorButton.UseVisualStyleBackColor = true;
 			this.AddResistorButton.Click += new System.EventHandler(this.AddResistorButton_Click);
+			this.AddResistorButton.MouseEnter += new System.EventHandler(this.AddResistorButton_MouseEnter);
 			// 
 			// AddInductorButton
 			// 
@@ -70,6 +71,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.TabIndex = 1;
 			this.AddInductorButton.UseVisualStyleBackColor = true;
 			this.AddInductorButton.Click += new System.EventHandler(this.AddInductorButton_Click);
+			this.AddInductorButton.MouseEnter += new System.EventHandler(this.AddInductorButton_MouseEnter);
 			// 
 			// AddCapacitorButton
 			// 
@@ -86,6 +88,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddCapacitorButton.TabIndex = 2;
 			this.AddCapacitorButton.UseVisualStyleBackColor = true;
 			this.AddCapacitorButton.Click += new System.EventHandler(this.AddCapacitorButton_Click);
+			this.AddCapacitorButton.MouseEnter += new System.EventHandler(this.AddCapacitorButton_MouseEnter);
 			// 
 			// ElementsNameLabel
 			// 
@@ -132,6 +135,8 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton.Size = new System.Drawing.Size(32, 32);
 			this.calculateZbutton.TabIndex = 9;
 			this.calculateZbutton.UseVisualStyleBackColor = true;
+			this.calculateZbutton.Click += new System.EventHandler(this.calculateZbutton_Click);
+			this.calculateZbutton.MouseEnter += new System.EventHandler(this.calculateZbutton_MouseEnter);
 			// 
 			// RemoveElementButton
 			// 
@@ -146,6 +151,7 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.TabIndex = 10;
 			this.RemoveElementButton.UseVisualStyleBackColor = true;
 			this.RemoveElementButton.Click += new System.EventHandler(this.RemoveElementButton_Click);
+			this.RemoveElementButton.MouseEnter += new System.EventHandler(this.RemoveElementButton_MouseEnter);
 			// 
 			// circuitElementsPanel
 			// 
