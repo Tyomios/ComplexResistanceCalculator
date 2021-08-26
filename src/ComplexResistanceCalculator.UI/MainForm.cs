@@ -15,7 +15,7 @@ namespace ComplexResistanceCalculator.UI
 	public partial class mainForm : Form
 	{
 		/// <summary>
-		/// 
+		/// Количество элементов в цепи.
 		/// </summary>
 		private int _elementsCount;
 		
@@ -45,25 +45,6 @@ namespace ComplexResistanceCalculator.UI
 		public mainForm()
 		{
 			InitializeComponent();
-			
-		}
-
-		/// <summary>
-		/// Размещает элементы цепи пропорционально размеру окна.
-		/// </summary>
-		private void ControlLocation()
-		{
-			int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
-			for (int i = 2; i < _userControlLocation.Count; i++)
-			{
-				_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
-												, _userControlLocation[i].Y);
-			}
-
-			for (int i = 0; i < _elementsCount; i++)
-			{
-				circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
-			}
 		}
 
 		/// <summary>
@@ -104,7 +85,6 @@ namespace ComplexResistanceCalculator.UI
 			IElementUserControl newElementUserControl = new IElementUserControl(element);
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
-			// TODO: проблема с индексированием - элементы и индексы не синхронизированы
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
 			_circuit.Elements.Add(element);
@@ -127,9 +107,9 @@ namespace ComplexResistanceCalculator.UI
 
 		private void circuitElementsPanel_ControlAdded(object sender, ControlEventArgs e)
 		{
-			var addedElement = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
-			elementNameTextBox.Text = addedElement.ContainElement.Name;
-			elementsValueTextBox.Text = addedElement.ContainElement.Value.ToString();
+			var addedControl = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
+			_currentElement = addedControl.ContainElement;
+			ShowCurrentElementInfo();
 		}
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
@@ -176,6 +156,24 @@ namespace ComplexResistanceCalculator.UI
 			ControlLocation();
 		}
 
+		/// <summary>
+		/// Размещает элементы цепи пропорционально размеру окна.
+		/// </summary>
+		private void ControlLocation()
+		{
+			int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
+			for (int i = 2; i < _userControlLocation.Count; i++)
+			{
+				_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
+					, _userControlLocation[i].Y);
+			}
+
+			for (int i = 0; i < _elementsCount; i++)
+			{
+				circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
+			}
+		}
+
 		// Перенесу в user control
 		private void elementsValueTextBox_TextChanged(object sender, EventArgs e)
 		{
@@ -194,6 +192,11 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+		/// <summary>
+		/// Создает подсказку при наведении на элемент управления.
+		/// </summary>
+		/// <param name="control"> Элемент управления </param>
+		/// <param name="toolTipText"> Текст подсказки </param>
 		private void CreateButtonToolTip(Control control, string toolTipText)
 		{
 			var toolTip = new ToolTip();
