@@ -12,7 +12,20 @@ namespace Model
 	/// </summary>
 	public class Inductor : IElement
 	{
-		public string Name { get; set; }
+		private string _name;
+		public string Name 
+		{
+			get => _name;
+			set
+			{
+				if (value.Length > 10)
+				{
+					throw new ArgumentException("Inductor's name might be shorter, " +
+					                            "then 10 symbols");
+				}
+				_name = value;
+			}
+		}
 
 		public double Value { get; set; }
 
@@ -31,6 +44,11 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
+		}
+
+		public Inductor()
+		{
+			
 		}
 	}
 }

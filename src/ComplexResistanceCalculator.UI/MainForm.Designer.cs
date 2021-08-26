@@ -112,6 +112,7 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.elementNameTextBox.Location = new System.Drawing.Point(153, 32);
 			this.elementNameTextBox.Name = "elementNameTextBox";
+			this.elementNameTextBox.ReadOnly = true;
 			this.elementNameTextBox.Size = new System.Drawing.Size(114, 27);
 			this.elementNameTextBox.TabIndex = 6;
 			// 
@@ -119,6 +120,7 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.elementsValueTextBox.Location = new System.Drawing.Point(345, 32);
 			this.elementsValueTextBox.Name = "elementsValueTextBox";
+			this.elementsValueTextBox.ReadOnly = true;
 			this.elementsValueTextBox.Size = new System.Drawing.Size(115, 27);
 			this.elementsValueTextBox.TabIndex = 7;
 			// 

@@ -14,8 +14,7 @@ namespace ComplexResistanceCalculator.UI
 	{
 		private List<double> Frequency { get; set; }
 
-		public Circuit Circuit { get;
-			set; }
+		public Circuit Circuit { get; set; }
 
 		private List<double> GetFrequencyFromTextBox()
 		{
@@ -44,6 +43,7 @@ namespace ComplexResistanceCalculator.UI
 
 			return frequency;
 		}
+
 		public CalculateImpedanceForm()
 		{
 			InitializeComponent();
@@ -54,9 +54,12 @@ namespace ComplexResistanceCalculator.UI
 			richTextBox1.Text = String.Empty;
 			Frequency = GetFrequencyFromTextBox();
 			var impedances = Circuit.CalculateZ(Frequency);
+			var frequencyIndex = 0;
 			foreach (var result in impedances)
 			{
-				richTextBox1.Text += $"{result.Real + result.Imaginary}\n";
+				var showedResult = Math.Round(result.Real + result.Imaginary, 3);
+				richTextBox1.Text += $"For{Frequency[frequencyIndex]}, \t Z = {showedResult} \n";
+				++frequencyIndex;
 			}
 		}
 	}

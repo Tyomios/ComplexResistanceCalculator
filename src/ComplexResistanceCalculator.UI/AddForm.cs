@@ -23,13 +23,13 @@ namespace ComplexResistanceCalculator.UI
 			try
 			{
 				Element.Name = elementNameTextBox.Text;
-				Element.Value = System.Convert.ToDouble(elementValueTextBox.Text);
+				Element.Value = Convert.ToDouble(elementValueTextBox.Text);
 				DialogResult = DialogResult.OK;
 				Close();
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(exception.Message);
+				MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 

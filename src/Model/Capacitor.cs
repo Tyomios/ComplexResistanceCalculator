@@ -11,7 +11,20 @@ namespace ComplexResistanceCalculator.src.Model
 	/// </summary>
 	public class Capacitor : IElement
 	{
-		public string Name { get; set; }
+		private string _name;
+		public string Name
+		{
+			get => _name;
+			set
+			{
+				if (value.Length > 10)
+				{
+					throw new ArgumentException("Capacitor's name might be shorter, " +
+					                            "then 10 symbols");
+				}
+				_name = value;
+			}
+		}
 
 		public double Value { get; set; }
 
@@ -30,6 +43,10 @@ namespace ComplexResistanceCalculator.src.Model
 		{
 			Name = name;
 			Value = value;
+		}
+
+		public Capacitor()
+		{
 		}
 	}
 }

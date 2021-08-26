@@ -24,17 +24,25 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
-			for (int i = 1; i < Elements.Count; i++)
+			try
 			{
-				var elementZs = Elements[i].CalculateZ(frequencies);
-				for (int j = 0; j < elementZs.Count; j++)
+				var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
+				for (int i = 1; i < Elements.Count; i++)
 				{
-					allFrequenciesImpedance[j] += elementZs[j];
+					var elementZs = Elements[i].CalculateZ(frequencies);
+					for (int j = 0; j < elementZs.Count; j++)
+					{
+						allFrequenciesImpedance[j] += elementZs[j];
+					}
 				}
-			}
 
-			return allFrequenciesImpedance;
+				return allFrequenciesImpedance;
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+			
 		}
 	}
 }

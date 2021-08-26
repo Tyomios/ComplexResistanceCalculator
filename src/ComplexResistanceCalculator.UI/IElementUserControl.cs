@@ -36,15 +36,5 @@ namespace ComplexResistanceCalculator.UI
 
 			ContainElement = element;
 		}
-
-		private void IElementUserControl_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void pictureBox_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show("d");
-		}
 	}
 }

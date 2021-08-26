@@ -35,16 +35,19 @@ namespace ComplexResistanceCalculator.UI
 			this.toLabel = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.stepLabel = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
+			this.calculateButton = new System.Windows.Forms.Button();
 			this.lastValueTextBox = new System.Windows.Forms.TextBox();
 			this.stepTextBox = new System.Windows.Forms.TextBox();
+			this.welcomingLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// richTextBox1
 			// 
-			this.richTextBox1.Location = new System.Drawing.Point(363, 12);
+			this.richTextBox1.Location = new System.Drawing.Point(370, 12);
+			this.richTextBox1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
 			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(425, 283);
+			this.richTextBox1.ReadOnly = true;
+			this.richTextBox1.Size = new System.Drawing.Size(425, 285);
 			this.richTextBox1.TabIndex = 0;
 			this.richTextBox1.Text = "";
 			// 
@@ -91,15 +94,15 @@ namespace ComplexResistanceCalculator.UI
 			this.stepLabel.TabIndex = 7;
 			this.stepLabel.Text = "Step:";
 			// 
-			// button1
+			// calculateButton
 			// 
-			this.button1.Location = new System.Drawing.Point(134, 262);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(94, 29);
-			this.button1.TabIndex = 8;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.calculateButton.Location = new System.Drawing.Point(134, 262);
+			this.calculateButton.Name = "calculateButton";
+			this.calculateButton.Size = new System.Drawing.Size(95, 30);
+			this.calculateButton.TabIndex = 8;
+			this.calculateButton.Text = "Calculate";
+			this.calculateButton.UseVisualStyleBackColor = true;
+			this.calculateButton.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// lastValueTextBox
 			// 
@@ -115,22 +118,35 @@ namespace ComplexResistanceCalculator.UI
 			this.stepTextBox.Size = new System.Drawing.Size(125, 27);
 			this.stepTextBox.TabIndex = 10;
 			// 
+			// welcomingLabel
+			// 
+			this.welcomingLabel.AutoSize = true;
+			this.welcomingLabel.Location = new System.Drawing.Point(109, 42);
+			this.welcomingLabel.Name = "welcomingLabel";
+			this.welcomingLabel.Size = new System.Drawing.Size(154, 20);
+			this.welcomingLabel.TabIndex = 11;
+			this.welcomingLabel.Text = "Enter frequency range";
+			// 
 			// CalculateImpedanceForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 303);
+			this.ClientSize = new System.Drawing.Size(802, 303);
+			this.Controls.Add(this.welcomingLabel);
 			this.Controls.Add(this.stepTextBox);
 			this.Controls.Add(this.lastValueTextBox);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.calculateButton);
 			this.Controls.Add(this.stepLabel);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.toLabel);
 			this.Controls.Add(this.fromLabel);
 			this.Controls.Add(this.firstValueTextBox);
 			this.Controls.Add(this.richTextBox1);
+			this.MaximumSize = new System.Drawing.Size(820, 350);
+			this.MinimumSize = new System.Drawing.Size(820, 350);
 			this.Name = "CalculateImpedanceForm";
-			this.Text = "CalculateImpedanceForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Calculate impedance";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -150,5 +166,6 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Label stepLabel;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox stepTextBox;
+		private System.Windows.Forms.Label welcomingLabel;
 	}
 }

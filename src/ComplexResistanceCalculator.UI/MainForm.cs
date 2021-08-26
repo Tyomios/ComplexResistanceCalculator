@@ -101,7 +101,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
 		{
-			Resistor resistor = new Resistor("", 0.0);
+			Resistor resistor = new Resistor();
 			AddElement(resistor);
 		}
 
@@ -114,12 +114,12 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
 		{
-			AddElement(new Inductor("L1", 0.33));
+			AddElement(new Inductor());
 		}
 
 		private void AddCapacitorButton_Click(object sender, EventArgs e)
 		{
-			AddElement(new Capacitor("C1", 1));
+			AddElement(new Capacitor());
 		}
 
 		private void RemoveElementButton_Click(object sender, EventArgs e)
@@ -139,13 +139,15 @@ namespace ComplexResistanceCalculator.UI
 
 					_circuit.Elements.Remove(_currentElement);
 					--_elementsCount;
+					_currentElement = null;
 					ShowCurrentElementInfo();
 					ControlLocation();
 				}
 			}
 			else
 			{
-				MessageBox.Show("Select or add element");
+				MessageBox.Show("Select or add element", "Warning",
+								MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 
@@ -204,6 +206,12 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateZbutton_Click(object sender, EventArgs e)
 		{
+			if (_elementsCount == 0)
+			{
+				MessageBox.Show("Add element in circuit", "Warning", 
+								MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
 			CalculateImpedanceForm calculateImpedance = new CalculateImpedanceForm();
 			calculateImpedance.Circuit = _circuit;
 			calculateImpedance.ShowDialog();

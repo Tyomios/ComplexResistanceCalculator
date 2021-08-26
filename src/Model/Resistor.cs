@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 
 namespace Model
 {
@@ -10,7 +11,20 @@ namespace Model
 	/// </summary>
 	public class Resistor: IElement
 	{
-		public string Name { get; set; }
+		private string _name;
+		public string Name
+		{
+			get => _name;
+			set
+			{
+				if (value.Length > 10)
+				{
+					throw new ArgumentException("Resistor's name might be shorter, " +
+					                            "then 10 symbols");
+				}
+				_name = value;
+			}
+		}
 
 		public double Value { get; set; }
 
@@ -29,6 +43,11 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
+		}
+
+		public Resistor()
+		{
+			
 		}
 	}
 }
