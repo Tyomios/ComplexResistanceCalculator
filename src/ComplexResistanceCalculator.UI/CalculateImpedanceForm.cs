@@ -32,14 +32,14 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
-			richTextBox1.Text = String.Empty;
+			richTextBox1.Text = string.Empty;
 			Frequency = GetFrequencyList();
 			var impedances = Circuit.CalculateZ(Frequency);
 			var frequencyIndex = 0;
 			foreach (var result in impedances)
 			{
 				var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-				richTextBox1.Text += $"For{Frequency[frequencyIndex]}, \t Z = {showedResult} \n";
+				richTextBox1.Text += $"For {Frequency[frequencyIndex]}, \t Z = {showedResult} \n";
 				++frequencyIndex;
 			}
 		}
@@ -53,17 +53,17 @@ namespace ComplexResistanceCalculator.UI
 			List<double> frequency = new List<double>();
 			try
 			{
-				var firstValue = System.Convert.ToDouble(firstValueTextBox.Text);
-				var lastValue = System.Convert.ToDouble(lastValueTextBox.Text);
-				var step = System.Convert.ToDouble(stepTextBox.Text);
+				var firstValue = Convert.ToDouble(firstValueTextBox.Text);
+				var lastValue = Convert.ToDouble(lastValueTextBox.Text);
+				var step = Convert.ToDouble(stepTextBox.Text);
 
-				while (firstValue != lastValue)
+				if (firstValue > lastValue)
 				{
-					if (firstValue > lastValue)
-					{
-						frequency.Add(lastValue);
-						return frequency;
-					}
+					MessageBox.Show("Last value from range can't be less, than first one.", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				while (firstValue <= lastValue)
+				{
 					frequency.Add(firstValue);
 					firstValue += step;
 				}

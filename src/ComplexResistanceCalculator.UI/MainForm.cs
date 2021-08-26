@@ -75,7 +75,7 @@ namespace ComplexResistanceCalculator.UI
 								"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			AddForm addForm = new AddForm(element);
+			AddEditForm addForm = new AddEditForm(element);
 			var dialogresult = addForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
 			{

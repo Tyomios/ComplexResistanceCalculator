@@ -9,7 +9,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-	public partial class AddForm : Form
+	public partial class AddEditForm : Form
 	{
 		/// <summary>
 		/// Добавляемый элемент.
@@ -20,10 +20,13 @@ namespace ComplexResistanceCalculator.UI
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		/// <param name="newElement"> Элемент для внесения данных </param>
-		public AddForm(IElement newElement)
+		public AddEditForm(IElement newElement)
 		{
 			InitializeComponent();
 			Element = newElement;
+			elementNameTextBox.Text = Element.Name;
+			elementValueTextBox.Text = Element.Value.ToString();
+
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)

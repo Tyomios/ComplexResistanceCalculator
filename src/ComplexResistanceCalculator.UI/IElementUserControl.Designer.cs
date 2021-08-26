@@ -29,17 +29,28 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.valueChangedlabel = new System.Windows.Forms.Label();
+			this.eventLabel = new System.Windows.Forms.Label();
+			this.editButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// valueChangedlabel
+			// eventLabel
 			// 
-			this.valueChangedlabel.AutoSize = true;
-			this.valueChangedlabel.Location = new System.Drawing.Point(9, 66);
-			this.valueChangedlabel.Name = "valueChangedlabel";
-			this.valueChangedlabel.Size = new System.Drawing.Size(23, 20);
-			this.valueChangedlabel.TabIndex = 1;
-			this.valueChangedlabel.Text = "⨂";
+			this.eventLabel.AutoSize = true;
+			this.eventLabel.Location = new System.Drawing.Point(9, 66);
+			this.eventLabel.Name = "eventLabel";
+			this.eventLabel.Size = new System.Drawing.Size(23, 20);
+			this.eventLabel.TabIndex = 1;
+			this.eventLabel.Text = "⨂";
+			// 
+			// editButton
+			// 
+			this.editButton.Location = new System.Drawing.Point(48, 60);
+			this.editButton.Name = "editButton";
+			this.editButton.Size = new System.Drawing.Size(25, 30);
+			this.editButton.TabIndex = 2;
+			this.editButton.Text = "e";
+			this.editButton.UseVisualStyleBackColor = true;
+			this.editButton.Click += new System.EventHandler(this.editButton_Click);
 			// 
 			// IElementUserControl
 			// 
@@ -47,7 +58,8 @@ namespace ComplexResistanceCalculator.UI
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.Controls.Add(this.valueChangedlabel);
+			this.Controls.Add(this.editButton);
+			this.Controls.Add(this.eventLabel);
 			this.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
 			this.Name = "IElementUserControl";
@@ -58,6 +70,7 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		#endregion
-		private System.Windows.Forms.Label valueChangedlabel;
+		private System.Windows.Forms.Label eventLabel;
+		private System.Windows.Forms.Button editButton;
 	}
 }

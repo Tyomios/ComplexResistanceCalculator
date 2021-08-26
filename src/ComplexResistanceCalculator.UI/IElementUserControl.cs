@@ -10,7 +10,6 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-
 	public partial class IElementUserControl : UserControl
 	{
 		/// <summary>
@@ -47,6 +46,18 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			ContainElement = element;
+		}
+
+		private void editButton_Click(object sender, EventArgs e)
+		{
+			AddEditForm editForm = new AddEditForm(ContainElement);
+			var dialogresult = editForm.ShowDialog();
+			if (dialogresult != DialogResult.OK)
+			{
+				return;
+			}
+
+			ContainElement = editForm.Element;
 		}
 	}
 }

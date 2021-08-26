@@ -1,7 +1,7 @@
 ﻿
 namespace ComplexResistanceCalculator.UI
 {
-	partial class AddForm
+	partial class AddEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
