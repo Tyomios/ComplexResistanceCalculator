@@ -10,17 +10,29 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
+
 	public partial class IElementUserControl : UserControl
 	{
+		/// <summary>
+		/// Расположение папки с изображением элемента.
+		/// </summary>
 		private const string _iconPath = "../../../../icons";
 
 		public Point Position { get; set; }
+
+		/// <summary>
+		/// Элемент цепи.
+		/// </summary>
 		public IElement ContainElement { get; set; }
+
+		/// <summary>
+		/// Создает экземпляр класса <see cref="Control"/>.
+		/// </summary>
+		/// <param name="element"> элемент цепи, который будет отображаться контролом </param>
 		public IElementUserControl(IElement element)
 		{
 			InitializeComponent();
 			
-
 			if (element is Resistor)
 			{
 				BackgroundImage = Image.FromFile($"{_iconPath}/resistor.jpg");

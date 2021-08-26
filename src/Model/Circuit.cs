@@ -8,17 +8,17 @@ using Model;
 namespace Model
 {
 	/// <summary>
-	/// Электрическая цепь
+	/// Электрическая цепь.
 	/// </summary>
 	public class Circuit
 	{
 		/// <summary>
-		/// Список элементов в цепи
+		/// Список элементов в цепи.
 		/// </summary>
 		public List<IElement> Elements { get; set; } = new List<IElement>();
 
 		/// <summary>
-		/// Расчет импеданса в цепи для каждого значения частоты
+		/// Расчет импеданса в цепи для каждого значения частоты.
 		/// </summary>
 		/// <param name="frequencies"> Список частот </param>
 		/// <returns> Список комплексных сопротивлений </returns>

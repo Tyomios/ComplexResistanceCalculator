@@ -11,7 +11,15 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class AddForm : Form
 	{
+		/// <summary>
+		/// Добавляемый элемент.
+		/// </summary>
 		public IElement Element { get; set; }
+
+		/// <summary>
+		/// Создает экземпляр класса <see cref="Form"/>.
+		/// </summary>
+		/// <param name="newElement"> Элемент для внесения данных </param>
 		public AddForm(IElement newElement)
 		{
 			InitializeComponent();

@@ -7,10 +7,13 @@ using Model;
 namespace ComplexResistanceCalculator.src.Model
 {
 	/// <summary>
-	/// Конденсатор
+	/// Конденсатор.
 	/// </summary>
 	public class Capacitor : IElement
 	{
+		/// <summary>
+		/// Название.
+		/// </summary>
 		private string _name;
 		public string Name
 		{
@@ -39,12 +42,20 @@ namespace ComplexResistanceCalculator.src.Model
 			return impedances;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Capacitor"/>.
+		/// </summary>
+		/// <param name="name"> Название </param>
+		/// <param name="value"> Номинал </param>
 		public Capacitor(string name, double value)
 		{
 			Name = name;
 			Value = value;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Capacitor"/>.
+		/// </summary>
 		public Capacitor()
 		{
 		}

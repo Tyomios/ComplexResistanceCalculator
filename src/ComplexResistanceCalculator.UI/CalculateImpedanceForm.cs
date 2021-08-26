@@ -12,10 +12,20 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class CalculateImpedanceForm : Form
 	{
+		/// <summary>
+		/// Диапазон частот для рассчета сопротивлений
+		/// </summary>
 		private List<double> Frequency { get; set; }
 
+		/// <summary>
+		/// Цепь
+		/// </summary>
 		public Circuit Circuit { get; set; }
 
+		/// <summary>
+		/// Создание диапазона частот по 2 значениям, введенные пользователем
+		/// </summary>
+		/// <returns> Список с частотами для рассчета сопротивлений </returns>
 		private List<double> GetFrequencyFromTextBox()
 		{
 			List<double> frequency = new List<double>();

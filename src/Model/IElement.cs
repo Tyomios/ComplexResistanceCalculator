@@ -10,12 +10,12 @@ namespace Model
 	public interface IElement
 	{
 		/// <summary>
-		/// Название
+		/// Возвращает или задает название элемента
 		/// </summary>
 		string Name { get; set; }
 
 		/// <summary>
-		/// Значение
+		/// Возвращает или задает значение элемента
 		/// </summary>
 		double Value { get; set; }
 

@@ -8,10 +8,13 @@ using Model;
 namespace Model
 {
 	/// <summary>
-	/// Катушка индуктивности
+	/// Катушка индуктивности.
 	/// </summary>
 	public class Inductor : IElement
 	{
+		/// <summary>
+		/// Название.
+		/// </summary>
 		private string _name;
 		public string Name 
 		{
@@ -40,12 +43,20 @@ namespace Model
 			return impedances;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Inductor"/>.
+		/// </summary>
+		/// <param name="name"> Название </param>
+		/// <param name="value"> Номинал </param>
 		public Inductor(string name, double value)
 		{
 			Name = name;
 			Value = value;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Inductor"/>.
+		/// </summary>
 		public Inductor()
 		{
 			

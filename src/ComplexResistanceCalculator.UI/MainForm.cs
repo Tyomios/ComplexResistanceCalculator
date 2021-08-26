@@ -14,10 +14,19 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class mainForm : Form
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		private int _elementsCount;
 		
+		/// <summary>
+		/// Выбранный пользователем элемент цепи.
+		/// </summary>
 		private IElement _currentElement;
 
+		/// <summary>
+		/// Координаты расположения элементов цепи для стартового размера окна.
+		/// </summary>
 		private List<Point> _userControlLocation = new List<Point>()
 		{
 			new Point(0, 0),
@@ -28,7 +37,9 @@ namespace ComplexResistanceCalculator.UI
 			new Point(495, 80)
 		};
 			
-
+		/// <summary>
+		/// Цепь.
+		/// </summary>
 		private Circuit _circuit = new Circuit();
 
 		public mainForm()
@@ -37,6 +48,9 @@ namespace ComplexResistanceCalculator.UI
 			
 		}
 
+		/// <summary>
+		/// Размещает элементы цепи пропорционально размеру окна.
+		/// </summary>
 		private void ControlLocation()
 		{
 			int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
@@ -52,6 +66,9 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+		/// <summary>
+		/// Отображение данных выбранного элемента.
+		/// </summary>
 		private void ShowCurrentElementInfo()
 		{
 			if (_currentElement == null)
@@ -64,7 +81,10 @@ namespace ComplexResistanceCalculator.UI
 			elementsValueTextBox.Text = _currentElement.Value.ToString();
 		}
 
-
+		/// <summary>
+		/// Добавление элемента в цепь.
+		/// </summary>
+		/// <param name="element"> Добавляемый элемент </param>
 		private void AddElement(IElement element)
 		{
 			if (_elementsCount == 5)

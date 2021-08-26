@@ -7,10 +7,13 @@ using System.Threading;
 namespace Model
 {
 	/// <summary>
-	/// Резистор
+	/// Резистор.
 	/// </summary>
 	public class Resistor: IElement
 	{
+		/// <summary>
+		/// Название.
+		/// </summary>
 		private string _name;
 		public string Name
 		{
@@ -39,12 +42,20 @@ namespace Model
 			return res;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Resistor"/>.
+		/// </summary>
+		/// <param name="name"> Название </param>
+		/// <param name="value"> Номинал </param>
 		public Resistor(string name, double value)
 		{
 			Name = name;
 			Value = value;
 		}
 
+		/// <summary>
+		/// Создает экземпляр <see cref="Resistor"/>.
+		/// </summary>
 		public Resistor()
 		{
 			
