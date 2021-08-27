@@ -63,6 +63,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.AddInductorButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddInductorButton.BackgroundImage")));
 			this.AddInductorButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.AddInductorButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.AddInductorButton.FlatAppearance.BorderSize = 0;
 			this.AddInductorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.AddInductorButton.Location = new System.Drawing.Point(27, 298);

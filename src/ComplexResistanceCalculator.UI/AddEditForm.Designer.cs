@@ -35,6 +35,7 @@ namespace ComplexResistanceCalculator.UI
 			this.elementNameTextBox = new System.Windows.Forms.TextBox();
 			this.elementValueTextBox = new System.Windows.Forms.TextBox();
 			this.cancelButton = new System.Windows.Forms.Button();
+			this.dimensionLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -67,16 +68,16 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// elementNameTextBox
 			// 
-			this.elementNameTextBox.Location = new System.Drawing.Point(72, 41);
+			this.elementNameTextBox.Location = new System.Drawing.Point(63, 41);
 			this.elementNameTextBox.Name = "elementNameTextBox";
-			this.elementNameTextBox.Size = new System.Drawing.Size(125, 27);
+			this.elementNameTextBox.Size = new System.Drawing.Size(120, 27);
 			this.elementNameTextBox.TabIndex = 4;
 			// 
 			// elementValueTextBox
 			// 
-			this.elementValueTextBox.Location = new System.Drawing.Point(72, 116);
+			this.elementValueTextBox.Location = new System.Drawing.Point(63, 116);
 			this.elementValueTextBox.Name = "elementValueTextBox";
-			this.elementValueTextBox.Size = new System.Drawing.Size(125, 27);
+			this.elementValueTextBox.Size = new System.Drawing.Size(120, 27);
 			this.elementValueTextBox.TabIndex = 5;
 			// 
 			// cancelButton
@@ -89,11 +90,21 @@ namespace ComplexResistanceCalculator.UI
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
 			// 
-			// AddForm
+			// dimensionLabel
+			// 
+			this.dimensionLabel.AutoSize = true;
+			this.dimensionLabel.Location = new System.Drawing.Point(184, 119);
+			this.dimensionLabel.Name = "dimensionLabel";
+			this.dimensionLabel.Size = new System.Drawing.Size(13, 20);
+			this.dimensionLabel.TabIndex = 7;
+			this.dimensionLabel.Text = "l";
+			// 
+			// AddEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(212, 228);
+			this.Controls.Add(this.dimensionLabel);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.elementValueTextBox);
 			this.Controls.Add(this.elementNameTextBox);
@@ -102,7 +113,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.label1);
 			this.MaximumSize = new System.Drawing.Size(230, 275);
 			this.MinimumSize = new System.Drawing.Size(230, 275);
-			this.Name = "AddForm";
+			this.Name = "AddEditForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -118,5 +129,7 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Button cancelButton;
 		private System.Windows.Forms.TextBox elementValueTextBox;
+		private System.Windows.Forms.Label dimensionLabel;
+		private System.Windows.Forms.Label dimentionLabel;
 	}
 }

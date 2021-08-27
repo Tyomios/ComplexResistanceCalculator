@@ -59,5 +59,11 @@ namespace ComplexResistanceCalculator.UI
 
 			ContainElement = editForm.Element;
 		}
+
+		private void editButton_MouseEnter(object sender, EventArgs e)
+		{
+			var toolTip = new ToolTip();
+			toolTip.SetToolTip(editButton, "Edit");
+		}
 	}
 }

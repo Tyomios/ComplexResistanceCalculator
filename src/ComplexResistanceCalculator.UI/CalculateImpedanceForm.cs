@@ -52,16 +52,16 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
-			richTextBox1.Text = string.Empty;
+			resultTextBox.Text = string.Empty;
 			Frequency = GetFrequencyList();
 			var impedances = Circuit.CalculateZ(Frequency);
 			var frequencyIndex = 0;
 			foreach (var result in impedances)
 			{
+				var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
 				var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-				richTextBox1.Text += $"For {Frequency[frequencyIndex]} {prefixValueComboBox1.SelectedItem}," +
-				                     $" \t Z = {showedResult} \n"; // TODO: приставка частоты не синхронизирована со значением
-					// частота хранится в Hz
+				resultTextBox.Text += $"For {showedFrequency} {prefixValueComboBox1.SelectedItem}," +
+				                     $" \t Z = {showedResult} \n";
 				++frequencyIndex;
 			}
 		}
@@ -86,6 +86,20 @@ namespace ComplexResistanceCalculator.UI
 			if (selectedPrefix == ValuePrefix.GHz)
 			{
 				return (value * prefixG);
+			}
+
+			return value;
+		}
+
+		private double ConvertUndoPrefix(double value)
+		{
+			if ((ValuePrefix)prefixValueComboBox2.SelectedItem == ValuePrefix.MHz)
+			{
+				return value / 1000000;
+			}
+			if ((ValuePrefix)prefixValueComboBox2.SelectedItem == ValuePrefix.GHz)
+			{
+				return value / 1000000000;
 			}
 
 			return value;

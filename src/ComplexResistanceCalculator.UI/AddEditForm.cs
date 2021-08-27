@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ComplexResistanceCalculator.src.Model;
 using Model;
 
 namespace ComplexResistanceCalculator.UI
@@ -24,9 +25,29 @@ namespace ComplexResistanceCalculator.UI
 		{
 			InitializeComponent();
 			Element = newElement;
+			SetDimension(Element);
 			elementNameTextBox.Text = Element.Name;
 			elementValueTextBox.Text = Element.Value.ToString();
+		}
 
+		/// <summary>
+		/// Устанавливает величину номинала элемента.
+		/// </summary>
+		/// <param name="element"> Элемент </param>
+		private void SetDimension(IElement element)
+		{
+			if (element is Resistor)
+			{
+				dimensionLabel.Text = "Ω";
+			}
+			if (element is Capacitor)
+			{
+				dimensionLabel.Text = "F";
+			}
+			if (element is Inductor)
+			{
+				dimensionLabel.Text = "H";
+			}
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)

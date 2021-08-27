@@ -29,6 +29,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IElementUserControl));
 			this.eventLabel = new System.Windows.Forms.Label();
 			this.editButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
@@ -44,13 +45,18 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// editButton
 			// 
-			this.editButton.Location = new System.Drawing.Point(48, 60);
+			this.editButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("editButton.BackgroundImage")));
+			this.editButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.editButton.FlatAppearance.BorderSize = 0;
+			this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.editButton.Location = new System.Drawing.Point(45, 65);
+			this.editButton.Margin = new System.Windows.Forms.Padding(0);
 			this.editButton.Name = "editButton";
-			this.editButton.Size = new System.Drawing.Size(25, 30);
+			this.editButton.Size = new System.Drawing.Size(25, 25);
 			this.editButton.TabIndex = 2;
-			this.editButton.Text = "e";
 			this.editButton.UseVisualStyleBackColor = true;
 			this.editButton.Click += new System.EventHandler(this.editButton_Click);
+			this.editButton.MouseEnter += new System.EventHandler(this.editButton_MouseEnter);
 			// 
 			// IElementUserControl
 			// 
@@ -63,7 +69,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
 			this.Name = "IElementUserControl";
-			this.Size = new System.Drawing.Size(80, 97);
+			this.Size = new System.Drawing.Size(80, 100);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

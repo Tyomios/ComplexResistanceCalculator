@@ -29,7 +29,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+			this.resultTextBox = new System.Windows.Forms.RichTextBox();
 			this.firstValueTextBox = new System.Windows.Forms.TextBox();
 			this.fromLabel = new System.Windows.Forms.Label();
 			this.toLabel = new System.Windows.Forms.Label();
@@ -44,15 +44,15 @@ namespace ComplexResistanceCalculator.UI
 			this.prefixStepComboBox3 = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
-			// richTextBox1
+			// resultTextBox
 			// 
-			this.richTextBox1.Location = new System.Drawing.Point(370, 12);
-			this.richTextBox1.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.ReadOnly = true;
-			this.richTextBox1.Size = new System.Drawing.Size(425, 285);
-			this.richTextBox1.TabIndex = 0;
-			this.richTextBox1.Text = "";
+			this.resultTextBox.Location = new System.Drawing.Point(370, 12);
+			this.resultTextBox.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+			this.resultTextBox.Name = "resultTextBox";
+			this.resultTextBox.ReadOnly = true;
+			this.resultTextBox.Size = new System.Drawing.Size(425, 285);
+			this.resultTextBox.TabIndex = 0;
+			this.resultTextBox.Text = "";
 			// 
 			// firstValueTextBox
 			// 
@@ -174,7 +174,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.toLabel);
 			this.Controls.Add(this.fromLabel);
 			this.Controls.Add(this.firstValueTextBox);
-			this.Controls.Add(this.richTextBox1);
+			this.Controls.Add(this.resultTextBox);
 			this.MaximumSize = new System.Drawing.Size(820, 350);
 			this.MinimumSize = new System.Drawing.Size(820, 350);
 			this.Name = "CalculateImpedanceForm";
@@ -187,7 +187,7 @@ namespace ComplexResistanceCalculator.UI
 
 		#endregion
 
-		private System.Windows.Forms.RichTextBox richTextBox1;
+		private System.Windows.Forms.RichTextBox resultTextBox;
 		private System.Windows.Forms.Label enterFrequencyRangeLabel;
 		private System.Windows.Forms.Label enterLabel;
 		private System.Windows.Forms.TextBox firstValueTextBox;
