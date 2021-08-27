@@ -39,6 +39,9 @@ namespace ComplexResistanceCalculator.UI
 			this.lastValueTextBox = new System.Windows.Forms.TextBox();
 			this.stepTextBox = new System.Windows.Forms.TextBox();
 			this.welcomingLabel = new System.Windows.Forms.Label();
+			this.prefixValueComboBox1 = new System.Windows.Forms.ComboBox();
+			this.prefixValueComboBox2 = new System.Windows.Forms.ComboBox();
+			this.prefixStepComboBox3 = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// richTextBox1
@@ -55,7 +58,7 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.firstValueTextBox.Location = new System.Drawing.Point(70, 80);
 			this.firstValueTextBox.Name = "firstValueTextBox";
-			this.firstValueTextBox.Size = new System.Drawing.Size(238, 27);
+			this.firstValueTextBox.Size = new System.Drawing.Size(193, 27);
 			this.firstValueTextBox.TabIndex = 1;
 			// 
 			// fromLabel
@@ -108,14 +111,14 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.lastValueTextBox.Location = new System.Drawing.Point(70, 119);
 			this.lastValueTextBox.Name = "lastValueTextBox";
-			this.lastValueTextBox.Size = new System.Drawing.Size(238, 27);
+			this.lastValueTextBox.Size = new System.Drawing.Size(193, 27);
 			this.lastValueTextBox.TabIndex = 9;
 			// 
 			// stepTextBox
 			// 
 			this.stepTextBox.Location = new System.Drawing.Point(70, 156);
 			this.stepTextBox.Name = "stepTextBox";
-			this.stepTextBox.Size = new System.Drawing.Size(125, 27);
+			this.stepTextBox.Size = new System.Drawing.Size(127, 27);
 			this.stepTextBox.TabIndex = 10;
 			// 
 			// welcomingLabel
@@ -127,11 +130,41 @@ namespace ComplexResistanceCalculator.UI
 			this.welcomingLabel.TabIndex = 11;
 			this.welcomingLabel.Text = "Enter frequency range";
 			// 
+			// prefixValueComboBox1
+			// 
+			this.prefixValueComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.prefixValueComboBox1.FormattingEnabled = true;
+			this.prefixValueComboBox1.Location = new System.Drawing.Point(266, 80);
+			this.prefixValueComboBox1.Name = "prefixValueComboBox1";
+			this.prefixValueComboBox1.Size = new System.Drawing.Size(60, 28);
+			this.prefixValueComboBox1.TabIndex = 12;
+			// 
+			// prefixValueComboBox2
+			// 
+			this.prefixValueComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.prefixValueComboBox2.FormattingEnabled = true;
+			this.prefixValueComboBox2.Location = new System.Drawing.Point(266, 119);
+			this.prefixValueComboBox2.Name = "prefixValueComboBox2";
+			this.prefixValueComboBox2.Size = new System.Drawing.Size(60, 28);
+			this.prefixValueComboBox2.TabIndex = 13;
+			// 
+			// prefixStepComboBox3
+			// 
+			this.prefixStepComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.prefixStepComboBox3.FormattingEnabled = true;
+			this.prefixStepComboBox3.Location = new System.Drawing.Point(203, 155);
+			this.prefixStepComboBox3.Name = "prefixStepComboBox3";
+			this.prefixStepComboBox3.Size = new System.Drawing.Size(60, 28);
+			this.prefixStepComboBox3.TabIndex = 14;
+			// 
 			// CalculateImpedanceForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(802, 303);
+			this.Controls.Add(this.prefixStepComboBox3);
+			this.Controls.Add(this.prefixValueComboBox2);
+			this.Controls.Add(this.prefixValueComboBox1);
 			this.Controls.Add(this.welcomingLabel);
 			this.Controls.Add(this.stepTextBox);
 			this.Controls.Add(this.lastValueTextBox);
@@ -167,5 +200,9 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox stepTextBox;
 		private System.Windows.Forms.Label welcomingLabel;
+		private System.Windows.Forms.ComboBox prefixValueComboBox1;
+		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox prefixValueComboBox2;
+		private System.Windows.Forms.ComboBox prefixStepComboBox3;
 	}
 }

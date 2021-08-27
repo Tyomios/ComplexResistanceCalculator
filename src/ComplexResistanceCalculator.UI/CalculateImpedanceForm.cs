@@ -13,6 +13,16 @@ namespace ComplexResistanceCalculator.UI
 	public partial class CalculateImpedanceForm : Form
 	{
 		/// <summary>
+		/// Величина частоты.
+		/// </summary>
+		private enum ValuePrefix
+		{
+			Hz,
+			MHz,
+			GHz
+		}
+
+		/// <summary>
 		/// Диапазон частот для рассчета сопротивлений.
 		/// </summary>
 		private List<double> Frequency { get; set; }
@@ -23,6 +33,16 @@ namespace ComplexResistanceCalculator.UI
 		public CalculateImpedanceForm()
 		{
 			InitializeComponent();
+			foreach (var prefix in Enum.GetValues(typeof(ValuePrefix)))
+			{
+				prefixValueComboBox1.Items.Add(prefix);
+				prefixValueComboBox2.Items.Add(prefix);
+				prefixStepComboBox3.Items.Add(prefix);
+			}
+
+			prefixValueComboBox1.SelectedItem = ValuePrefix.Hz;
+			prefixValueComboBox2.SelectedItem = ValuePrefix.Hz;
+			prefixStepComboBox3.SelectedItem = ValuePrefix.Hz;
 		}
 
 		/// <summary>
@@ -39,9 +59,36 @@ namespace ComplexResistanceCalculator.UI
 			foreach (var result in impedances)
 			{
 				var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-				richTextBox1.Text += $"For {Frequency[frequencyIndex]}, \t Z = {showedResult} \n";
+				richTextBox1.Text += $"For {Frequency[frequencyIndex]} {prefixValueComboBox1.SelectedItem}," +
+				                     $" \t Z = {showedResult} \n"; // TODO: приставка частоты не синхронизирована со значением
+					// частота хранится в Hz
 				++frequencyIndex;
 			}
+		}
+
+		/// <summary>
+		/// Получение значения в герцах.
+		/// </summary>
+		/// <param name="textFormatValue"> Введенное пользователем значение </param>
+		/// <param name="prefixKeeper"> Контрол, отвечающий за величину </param>
+		/// <returns></returns>
+		private double ConvertPrefixValue(string textFormatValue, ComboBox prefixKeeper)
+		{
+			var value = Convert.ToDouble(textFormatValue);
+			var selectedPrefix = (ValuePrefix)prefixKeeper.SelectedItem;
+			var prefixM = 1000000;
+			var prefixG = 1000000000;
+
+			if (selectedPrefix == ValuePrefix.MHz)
+			{
+				  return (value * prefixM);
+			}
+			if (selectedPrefix == ValuePrefix.GHz)
+			{
+				return (value * prefixG);
+			}
+
+			return value;
 		}
 
 		/// <summary>
@@ -53,9 +100,9 @@ namespace ComplexResistanceCalculator.UI
 			List<double> frequency = new List<double>();
 			try
 			{
-				var firstValue = Convert.ToDouble(firstValueTextBox.Text);
-				var lastValue = Convert.ToDouble(lastValueTextBox.Text);
-				var step = Convert.ToDouble(stepTextBox.Text);
+				var firstValue = ConvertPrefixValue(firstValueTextBox.Text, prefixValueComboBox1);
+				var lastValue = ConvertPrefixValue(lastValueTextBox.Text, prefixValueComboBox2);
+				var step = ConvertPrefixValue(stepTextBox.Text, prefixStepComboBox3);
 
 				if (firstValue > lastValue)
 				{
