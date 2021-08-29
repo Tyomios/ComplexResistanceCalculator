@@ -4,13 +4,16 @@ using System.Numerics;
 using System.Text;
 using Model;
 
-namespace ComplexResistanceCalculator.src.Model
+namespace Model
 {
 	/// <summary>
 	/// Конденсатор.
 	/// </summary>
 	public class Capacitor : IElement
 	{
+
+		private double _value;
+
 		/// <summary>
 		/// Название.
 		/// </summary>
@@ -29,7 +32,19 @@ namespace ComplexResistanceCalculator.src.Model
 			}
 		}
 
-		public double Value { get; set; }
+		public double Value
+		{
+			get => _value;
+			set
+			{
+				if (_value != value)
+				{
+					ValueChanged?.Invoke();
+				}
+				_value = value;
+			}
+
+		}
 
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
@@ -58,6 +73,18 @@ namespace ComplexResistanceCalculator.src.Model
 		/// </summary>
 		public Capacitor()
 		{
+		}
+
+		public event ValueChanged ValueChanged;
+
+		public bool HasValueChanged()
+		{
+			if (ValueChanged == null)
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

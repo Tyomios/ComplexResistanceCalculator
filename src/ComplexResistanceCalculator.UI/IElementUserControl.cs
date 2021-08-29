@@ -5,11 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ComplexResistanceCalculator.src.Model;
 using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
+	public delegate void CulculateButtonClick();
 	public partial class IElementUserControl : UserControl
 	{
 		/// <summary>
@@ -57,13 +57,28 @@ namespace ComplexResistanceCalculator.UI
 				return;
 			}
 
-			ContainElement = editForm.Element;
+			ContainElement.ValueChanged += ChangeEventLabelColor;
+			ContainElement.Name = editForm.Element.Name;
+			ContainElement.Value = editForm.Element.Value;
+
+		}
+
+		private void ChangeEventLabelColor()
+		{
+			eventLabel.Text = "⨀";
+			eventLabel.ForeColor = Color.Brown;
 		}
 
 		private void editButton_MouseEnter(object sender, EventArgs e)
 		{
 			var toolTip = new ToolTip();
 			toolTip.SetToolTip(editButton, "Edit");
+		}
+
+		public void clearEventLabel()
+		{
+			eventLabel.Text = string.Empty;
+			ContainElement.ValueChanged -= ChangeEventLabelColor;
 		}
 	}
 }

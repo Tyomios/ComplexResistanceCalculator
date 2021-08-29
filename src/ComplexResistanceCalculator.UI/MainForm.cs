@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ComplexResistanceCalculator.src.Model;
 using Model;
 
 namespace ComplexResistanceCalculator.UI
@@ -97,6 +96,34 @@ namespace ComplexResistanceCalculator.UI
 		{
 			_currentElement = (sender as IElementUserControl).ContainElement;
 			ShowCurrentElementInfo();
+			CircuitChanged();
+			_circuit.CircuitChanged();
+		}
+
+		private void CircuitChanged()
+		{
+			foreach (IElementUserControl control in circuitElementsPanel.Controls)
+			{
+				if (control.ContainElement.HasValueChanged())
+				{
+					_circuit.circuitChanged += ChangeEventCircuitLabel;
+					return;
+				}
+			}
+
+			_circuit.circuitChanged -= ChangeEventCircuitLabel;
+			_circuit.circuitChanged += OffeventCircuitLabel;
+		}
+
+		private void ChangeEventCircuitLabel()
+		{
+			eventCircuitChangedLabel.Text = "Circuit changed";
+			eventCircuitChangedLabel.ForeColor = Color.Brown;
+		}
+
+		private void OffeventCircuitLabel()
+		{
+			eventCircuitChangedLabel.Text = string.Empty;
 		}
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
@@ -174,24 +201,6 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
-		// Перенесу в user control
-		private void elementsValueTextBox_TextChanged(object sender, EventArgs e)
-		{
-			var dialogresult = MessageBox.Show("Are u want to change value ?",
-				"", MessageBoxButtons.YesNo);
-			if (dialogresult == DialogResult.Yes)
-			{
-				try
-				{
-					_currentElement.Value = System.Convert.ToDouble(elementsValueTextBox.Text);
-				}
-				catch (Exception exception)
-				{
-					MessageBox.Show(exception.Message);
-				}
-			}
-		}
-
 		/// <summary>
 		/// Создает подсказку при наведении на элемент управления.
 		/// </summary>
@@ -238,6 +247,10 @@ namespace ComplexResistanceCalculator.UI
 			CalculateImpedanceForm calculateImpedance = new CalculateImpedanceForm();
 			calculateImpedance.Circuit = _circuit;
 			calculateImpedance.ShowDialog();
+			foreach (IElementUserControl control in circuitElementsPanel.Controls)
+			{
+				control.clearEventLabel();
+			}
 		}
 	}
 }

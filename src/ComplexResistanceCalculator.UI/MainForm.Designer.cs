@@ -40,6 +40,7 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton = new System.Windows.Forms.Button();
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
+			this.eventCircuitChangedLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -169,12 +170,21 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.TabIndex = 11;
 			this.circuitElementsPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.circuitElementsPanel_ControlAdded);
 			// 
+			// eventCircuitChangedLabel
+			// 
+			this.eventCircuitChangedLabel.AutoSize = true;
+			this.eventCircuitChangedLabel.Location = new System.Drawing.Point(633, 35);
+			this.eventCircuitChangedLabel.Name = "eventCircuitChangedLabel";
+			this.eventCircuitChangedLabel.Size = new System.Drawing.Size(0, 20);
+			this.eventCircuitChangedLabel.TabIndex = 12;
+			// 
 			// mainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.ClientSize = new System.Drawing.Size(802, 453);
+			this.Controls.Add(this.eventCircuitChangedLabel);
 			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
 			this.Controls.Add(this.calculateZbutton);
@@ -207,6 +217,7 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Button RemoveElementButton;
 		private System.Windows.Forms.TextBox elementsValueTextBox;
 		private System.Windows.Forms.Panel circuitElementsPanel;
+		private System.Windows.Forms.Label eventCircuitChangedLabel;
 	}
 }
 

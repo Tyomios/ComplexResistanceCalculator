@@ -7,6 +7,7 @@ using Model;
 
 namespace Model
 {
+	public delegate void CircuitChanged();
 	/// <summary>
 	/// Электрическая цепь.
 	/// </summary>
@@ -43,6 +44,13 @@ namespace Model
 				throw new Exception(e.Message);
 			}
 			
+		}
+
+		public event CircuitChanged circuitChanged;
+
+		public void CircuitChanged()
+		{
+			circuitChanged?.Invoke();
 		}
 	}
 }

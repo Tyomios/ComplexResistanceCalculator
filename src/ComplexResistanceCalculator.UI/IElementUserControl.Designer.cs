@@ -37,11 +37,11 @@ namespace ComplexResistanceCalculator.UI
 			// eventLabel
 			// 
 			this.eventLabel.AutoSize = true;
+			this.eventLabel.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.eventLabel.Location = new System.Drawing.Point(9, 66);
 			this.eventLabel.Name = "eventLabel";
-			this.eventLabel.Size = new System.Drawing.Size(23, 20);
+			this.eventLabel.Size = new System.Drawing.Size(0, 20);
 			this.eventLabel.TabIndex = 1;
-			this.eventLabel.Text = "⨂";
 			// 
 			// editButton
 			// 

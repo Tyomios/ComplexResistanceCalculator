@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ComplexResistanceCalculator.src.Model;
 using Model;
 
 namespace ComplexResistanceCalculator.UI
@@ -61,7 +60,8 @@ namespace ComplexResistanceCalculator.UI
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(exception.Message, "Error"
+								, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 

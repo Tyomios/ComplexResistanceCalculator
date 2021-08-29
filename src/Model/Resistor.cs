@@ -15,6 +15,8 @@ namespace Model
 		/// Название.
 		/// </summary>
 		private string _name;
+
+		private double _value;
 		public string Name
 		{
 			get => _name;
@@ -29,7 +31,19 @@ namespace Model
 			}
 		}
 
-		public double Value { get; set; }
+		public double Value
+		{
+			get => _value;
+			set
+			{
+				if ( _value != value)
+				{
+					ValueChanged?.Invoke();
+				}
+				_value = value;
+			}
+
+		}
 
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
@@ -58,7 +72,18 @@ namespace Model
 		/// </summary>
 		public Resistor()
 		{
-			
+		}
+
+		public event ValueChanged ValueChanged;
+
+		public bool HasValueChanged()
+		{
+			if (ValueChanged == null)
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

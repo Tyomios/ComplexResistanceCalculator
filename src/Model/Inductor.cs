@@ -12,6 +12,8 @@ namespace Model
 	/// </summary>
 	public class Inductor : IElement
 	{
+		private double _value;
+
 		/// <summary>
 		/// Название.
 		/// </summary>
@@ -30,7 +32,19 @@ namespace Model
 			}
 		}
 
-		public double Value { get; set; }
+		public double Value
+		{
+			get => _value;
+			set
+			{
+				if (_value != value)
+				{
+					ValueChanged?.Invoke();
+				}
+				_value = value;
+			}
+
+		}
 
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
@@ -60,6 +74,18 @@ namespace Model
 		public Inductor()
 		{
 			
+		}
+
+		public event ValueChanged ValueChanged;
+
+		public bool HasValueChanged()
+		{
+			if (ValueChanged == null)
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Reflection.Emit;
 
 namespace Model
 {
+	public delegate void ValueChanged();
 	/// <summary>
 	/// Интерфейс элементов
 	/// </summary>
@@ -26,6 +28,8 @@ namespace Model
 		/// <returns> Возвращает сопротивление для каждой частоты из диапазона </returns>
 		abstract List<Complex> CalculateZ(List<double> frequency);
 
-		//event void ValueChanged(object f, object k);
+		public event ValueChanged ValueChanged;
+
+		public bool HasValueChanged();
 	}
 }
