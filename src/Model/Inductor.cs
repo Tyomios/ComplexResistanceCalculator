@@ -78,7 +78,7 @@ namespace Model
 
 		public event ValueChanged ValueChanged;
 
-		public bool HasValueChanged()
+		public bool HasEventValueChanged()
 		{
 			if (ValueChanged == null)
 			{
@@ -86,6 +86,11 @@ namespace Model
 			}
 
 			return true;
+		}
+
+		public void InvokeEvent()
+		{
+			ValueChanged?.Invoke();
 		}
 	}
 }

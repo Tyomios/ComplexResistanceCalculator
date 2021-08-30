@@ -48,7 +48,7 @@ namespace Model
 
 		public event CircuitChanged circuitChanged;
 
-		public void CircuitChanged()
+		public void InvokeEvent()
 		{
 			circuitChanged?.Invoke();
 		}

@@ -30,6 +30,8 @@ namespace Model
 
 		public event ValueChanged ValueChanged;
 
-		public bool HasValueChanged();
+		public bool HasEventValueChanged();
+
+		public void InvokeEvent();
 	}
 }

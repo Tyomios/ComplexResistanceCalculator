@@ -96,15 +96,19 @@ namespace ComplexResistanceCalculator.UI
 		{
 			_currentElement = (sender as IElementUserControl).ContainElement;
 			ShowCurrentElementInfo();
-			CircuitChanged();
-			_circuit.CircuitChanged();
+			CheckCircuitChanged();
+			//_circuit.InvokeEvent();
 		}
 
-		private void CircuitChanged()
+		/// <summary>
+		/// Вызов события изменение цепи
+		/// </summary>
+		/// TODO: перенести в бизнес-логику
+		private void CheckCircuitChanged()
 		{
 			foreach (IElementUserControl control in circuitElementsPanel.Controls)
 			{
-				if (control.ContainElement.HasValueChanged())
+				if (control.ContainElement.HasEventValueChanged())
 				{
 					_circuit.circuitChanged += ChangeEventCircuitLabel;
 					return;
@@ -112,16 +116,22 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			_circuit.circuitChanged -= ChangeEventCircuitLabel;
-			_circuit.circuitChanged += OffeventCircuitLabel;
+			_circuit.circuitChanged += OffEventCircuitLabel;
 		}
 
+		/// <summary>
+		/// Метод для события изменение цепи.
+		/// </summary>
 		private void ChangeEventCircuitLabel()
 		{
 			eventCircuitChangedLabel.Text = "Circuit changed";
 			eventCircuitChangedLabel.ForeColor = Color.Brown;
 		}
 
-		private void OffeventCircuitLabel()
+		/// <summary>
+		/// Метод для события изменение цепи.
+		/// </summary>
+		private void OffEventCircuitLabel()
 		{
 			eventCircuitChangedLabel.Text = string.Empty;
 		}
@@ -137,6 +147,7 @@ namespace ComplexResistanceCalculator.UI
 			var addedControl = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
 			_currentElement = addedControl.ContainElement;
 			ShowCurrentElementInfo();
+			// событие изменения цепи
 		}
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
@@ -169,6 +180,7 @@ namespace ComplexResistanceCalculator.UI
 					_currentElement = null;
 					ShowCurrentElementInfo();
 					ControlLocation();
+					// событие изменения цепи
 				}
 			}
 			else
@@ -251,6 +263,14 @@ namespace ComplexResistanceCalculator.UI
 			{
 				control.clearEventLabel();
 			}
+			CheckCircuitChanged();
+			_circuit.InvokeEvent();
+		}
+
+		private void circuitElementsPanel_MouseEnter(object sender, EventArgs e)
+		{
+			CheckCircuitChanged();
+			_circuit.InvokeEvent();
 		}
 	}
 }

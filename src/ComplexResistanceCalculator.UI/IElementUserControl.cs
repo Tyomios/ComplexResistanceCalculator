@@ -9,7 +9,6 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-	public delegate void CulculateButtonClick();
 	public partial class IElementUserControl : UserControl
 	{
 		/// <summary>
@@ -56,13 +55,14 @@ namespace ComplexResistanceCalculator.UI
 			{
 				return;
 			}
-
 			ContainElement.ValueChanged += ChangeEventLabelColor;
-			ContainElement.Name = editForm.Element.Name;
-			ContainElement.Value = editForm.Element.Value;
-
+			ContainElement = editForm.Element;
+			ContainElement.InvokeEvent();
 		}
 
+		/// <summary>
+		/// Метод для события изменение номинала элемента.
+		/// </summary>
 		private void ChangeEventLabelColor()
 		{
 			eventLabel.Text = "⨀";
@@ -75,6 +75,9 @@ namespace ComplexResistanceCalculator.UI
 			toolTip.SetToolTip(editButton, "Edit");
 		}
 
+		/// <summary>
+		/// Скрытие лейбла, отвечающего за сообщение об изменении элемента внутри контрола.
+		/// </summary>
 		public void clearEventLabel()
 		{
 			eventLabel.Text = string.Empty;
