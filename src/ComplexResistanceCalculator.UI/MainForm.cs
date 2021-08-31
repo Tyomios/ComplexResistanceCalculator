@@ -126,6 +126,10 @@ namespace ComplexResistanceCalculator.UI
 		{
 			eventCircuitChangedLabel.Text = "Circuit changed";
 			eventCircuitChangedLabel.ForeColor = Color.Brown;
+
+			//TODO: изменить кнопку подсчета импеданса для события изменения цепи
+			//circuitChangedPictureBox.Image = Image.FromFile("../../../../icons/circuitChanged.png");
+			//circuitChangedPictureBox.Visible = true;
 		}
 
 		/// <summary>
@@ -134,6 +138,7 @@ namespace ComplexResistanceCalculator.UI
 		private void OffEventCircuitLabel()
 		{
 			eventCircuitChangedLabel.Text = string.Empty;
+			//circuitChangedPictureBox.Visible = false;
 		}
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
@@ -256,9 +261,9 @@ namespace ComplexResistanceCalculator.UI
 								MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
-			CalculateImpedanceForm calculateImpedance = new CalculateImpedanceForm();
-			calculateImpedance.Circuit = _circuit;
-			calculateImpedance.ShowDialog();
+			CalculateImpedanceForm calculateImpedanceForm = new CalculateImpedanceForm();
+			calculateImpedanceForm.Circuit = _circuit;
+			calculateImpedanceForm.ShowDialog();
 			foreach (IElementUserControl control in circuitElementsPanel.Controls)
 			{
 				control.clearEventLabel();

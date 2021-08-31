@@ -178,6 +178,7 @@ namespace ComplexResistanceCalculator.UI
 			this.MaximumSize = new System.Drawing.Size(820, 350);
 			this.MinimumSize = new System.Drawing.Size(820, 350);
 			this.Name = "CalculateImpedanceForm";
+			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Calculate impedance";
 			this.ResumeLayout(false);

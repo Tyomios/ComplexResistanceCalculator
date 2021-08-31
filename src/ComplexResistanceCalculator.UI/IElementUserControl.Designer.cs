@@ -30,18 +30,10 @@ namespace ComplexResistanceCalculator.UI
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IElementUserControl));
-			this.eventLabel = new System.Windows.Forms.Label();
 			this.editButton = new System.Windows.Forms.Button();
+			this.eventPictureBox = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.eventPictureBox)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// eventLabel
-			// 
-			this.eventLabel.AutoSize = true;
-			this.eventLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.eventLabel.Location = new System.Drawing.Point(9, 66);
-			this.eventLabel.Name = "eventLabel";
-			this.eventLabel.Size = new System.Drawing.Size(0, 20);
-			this.eventLabel.TabIndex = 1;
 			// 
 			// editButton
 			// 
@@ -58,25 +50,34 @@ namespace ComplexResistanceCalculator.UI
 			this.editButton.Click += new System.EventHandler(this.editButton_Click);
 			this.editButton.MouseEnter += new System.EventHandler(this.editButton_MouseEnter);
 			// 
+			// eventPictureBox
+			// 
+			this.eventPictureBox.Location = new System.Drawing.Point(10, 65);
+			this.eventPictureBox.Margin = new System.Windows.Forms.Padding(0);
+			this.eventPictureBox.Name = "eventPictureBox";
+			this.eventPictureBox.Size = new System.Drawing.Size(25, 25);
+			this.eventPictureBox.TabIndex = 3;
+			this.eventPictureBox.TabStop = false;
+			// 
 			// IElementUserControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.Controls.Add(this.eventPictureBox);
 			this.Controls.Add(this.editButton);
-			this.Controls.Add(this.eventLabel);
 			this.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
 			this.Name = "IElementUserControl";
 			this.Size = new System.Drawing.Size(80, 100);
+			((System.ComponentModel.ISupportInitialize)(this.eventPictureBox)).EndInit();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.Label eventLabel;
 		private System.Windows.Forms.Button editButton;
+		private System.Windows.Forms.PictureBox eventPictureBox;
 	}
 }

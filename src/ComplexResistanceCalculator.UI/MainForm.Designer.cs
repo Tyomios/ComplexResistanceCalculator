@@ -149,7 +149,7 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.RemoveElementButton.FlatAppearance.BorderSize = 0;
 			this.RemoveElementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RemoveElementButton.Location = new System.Drawing.Point(27, 27);
+			this.RemoveElementButton.Location = new System.Drawing.Point(27, 23);
 			this.RemoveElementButton.Name = "RemoveElementButton";
 			this.RemoveElementButton.Size = new System.Drawing.Size(35, 36);
 			this.RemoveElementButton.TabIndex = 10;
@@ -196,6 +196,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.AddCapacitorButton);
 			this.Controls.Add(this.AddInductorButton);
 			this.Controls.Add(this.AddResistorButton);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(820, 500);
 			this.Name = "mainForm";
 			this.Text = "ComplexResistance Calculator";

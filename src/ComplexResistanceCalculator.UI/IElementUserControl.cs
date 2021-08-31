@@ -18,6 +18,8 @@ namespace ComplexResistanceCalculator.UI
 
 		public Point Position { get; set; }
 
+		private ToolTip _eventPictureBoxToolTip = new ToolTip();
+
 		/// <summary>
 		/// Элемент цепи.
 		/// </summary>
@@ -50,6 +52,7 @@ namespace ComplexResistanceCalculator.UI
 		private void editButton_Click(object sender, EventArgs e)
 		{
 			AddEditForm editForm = new AddEditForm(ContainElement);
+			editForm.Icon = Icon.ExtractAssociatedIcon($"{_iconPath}/editElement.ico");
 			var dialogresult = editForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
 			{
@@ -65,8 +68,11 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ChangeEventLabelColor()
 		{
-			eventLabel.Text = "⨀";
-			eventLabel.ForeColor = Color.Brown;
+			eventPictureBox.Image = Image.FromFile($"{_iconPath}/valueChanged.png");
+			eventPictureBox.Visible = true;
+
+			_eventPictureBoxToolTip.SetToolTip(eventPictureBox, "Value was changed");
+			_eventPictureBoxToolTip.Active = true;
 		}
 
 		private void editButton_MouseEnter(object sender, EventArgs e)
@@ -80,7 +86,8 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public void clearEventLabel()
 		{
-			eventLabel.Text = string.Empty;
+			eventPictureBox.Visible = false;
+			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ChangeEventLabelColor;
 		}
 	}
