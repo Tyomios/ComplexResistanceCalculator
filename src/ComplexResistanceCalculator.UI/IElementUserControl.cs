@@ -58,7 +58,7 @@ namespace ComplexResistanceCalculator.UI
 			{
 				return;
 			}
-			ContainElement.ValueChanged += ChangeEventLabelColor;
+			ContainElement.ValueChanged += ActivateEventPictureBox;
 			ContainElement = editForm.Element;
 			ContainElement.InvokeEvent();
 		}
@@ -66,7 +66,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Метод для события изменение номинала элемента.
 		/// </summary>
-		private void ChangeEventLabelColor()
+		private void ActivateEventPictureBox()
 		{
 			eventPictureBox.Image = Image.FromFile($"{_iconPath}/valueChanged.png");
 			eventPictureBox.Visible = true;
@@ -82,13 +82,13 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		/// <summary>
-		/// Скрытие лейбла, отвечающего за сообщение об изменении элемента внутри контрола.
+		/// Скрытие элемента контрола, отвечающего за сообщение об изменении элемента внутри контрола.
 		/// </summary>
-		public void clearEventLabel()
+		public void HideEventPictureBox()
 		{
 			eventPictureBox.Visible = false;
 			_eventPictureBoxToolTip.Active = false;
-			ContainElement.ValueChanged -= ChangeEventLabelColor;
+			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
 	}
 }

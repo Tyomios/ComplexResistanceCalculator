@@ -11,6 +11,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
+	public delegate void EditButton(string data, string name);
 	public partial class mainForm : Form
 	{
 		/// <summary>
@@ -22,6 +23,13 @@ namespace ComplexResistanceCalculator.UI
 		/// Выбранный пользователем элемент цепи.
 		/// </summary>
 		private IElement _currentElement;
+
+		private event EditButton changeElementLabelData;
+
+		private void ChangeElementLabelData(string data, string name)
+		{
+			changeElementLabelData?.Invoke(data, name);
+		}
 
 		/// <summary>
 		/// Координаты расположения элементов цепи для стартового размера окна.
@@ -84,6 +92,7 @@ namespace ComplexResistanceCalculator.UI
 			IElementUserControl newElementUserControl = new IElementUserControl(element);
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
+			newElementUserControl.MouseEnter += UserControl_MouseEnter;
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
 			_circuit.Elements.Add(element);
@@ -92,37 +101,38 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
+		private void UserControl_MouseEnter(object sender, EventArgs e)
+		{
+			CheckCircuitChanged();
+			_circuit.InvokeEvent();
+		}
+
 		private void UserControl_Click(object sender, EventArgs e)
 		{
 			_currentElement = (sender as IElementUserControl).ContainElement;
 			ShowCurrentElementInfo();
 			CheckCircuitChanged();
-			//_circuit.InvokeEvent();
 		}
 
 		/// <summary>
 		/// Вызов события изменение цепи
 		/// </summary>
-		/// TODO: перенести в бизнес-логику
 		private void CheckCircuitChanged()
 		{
-			foreach (IElementUserControl control in circuitElementsPanel.Controls)
+			if (_circuit.isCircuitChanged())
 			{
-				if (control.ContainElement.HasEventValueChanged())
-				{
-					_circuit.circuitChanged += ChangeEventCircuitLabel;
-					return;
-				}
+				_circuit.circuitChanged += ChangeEventCircuitControl;
+				return;
 			}
 
-			_circuit.circuitChanged -= ChangeEventCircuitLabel;
-			_circuit.circuitChanged += OffEventCircuitLabel;
+			_circuit.circuitChanged -= ChangeEventCircuitControl;
+			_circuit.circuitChanged += OffEventCircuitControl;
 		}
 
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
-		private void ChangeEventCircuitLabel()
+		private void ChangeEventCircuitControl()
 		{
 			eventCircuitChangedLabel.Text = "Circuit changed";
 			eventCircuitChangedLabel.ForeColor = Color.Brown;
@@ -135,7 +145,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
-		private void OffEventCircuitLabel()
+		private void OffEventCircuitControl()
 		{
 			eventCircuitChangedLabel.Text = string.Empty;
 			//circuitChangedPictureBox.Visible = false;
@@ -152,7 +162,7 @@ namespace ComplexResistanceCalculator.UI
 			var addedControl = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
 			_currentElement = addedControl.ContainElement;
 			ShowCurrentElementInfo();
-			// событие изменения цепи
+			// TODO:событие изменения цепи
 		}
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
@@ -169,7 +179,8 @@ namespace ComplexResistanceCalculator.UI
 		{
 			if (_currentElement != null)
 			{
-				var result = MessageBox.Show($"Delete element {_currentElement.Name} ?", "?", MessageBoxButtons.YesNo);
+				var result = MessageBox.Show($"Delete element {_currentElement.Name} ?",
+													"", MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes)
 				{
 					foreach (IElementUserControl control in circuitElementsPanel.Controls)
@@ -185,7 +196,7 @@ namespace ComplexResistanceCalculator.UI
 					_currentElement = null;
 					ShowCurrentElementInfo();
 					ControlLocation();
-					// событие изменения цепи
+					// TODO: событие изменения цепи
 				}
 			}
 			else
@@ -266,14 +277,8 @@ namespace ComplexResistanceCalculator.UI
 			calculateImpedanceForm.ShowDialog();
 			foreach (IElementUserControl control in circuitElementsPanel.Controls)
 			{
-				control.clearEventLabel();
+				control.HideEventPictureBox();
 			}
-			CheckCircuitChanged();
-			_circuit.InvokeEvent();
-		}
-
-		private void circuitElementsPanel_MouseEnter(object sender, EventArgs e)
-		{
 			CheckCircuitChanged();
 			_circuit.InvokeEvent();
 		}

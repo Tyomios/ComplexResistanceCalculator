@@ -54,7 +54,7 @@ namespace ComplexResistanceCalculator.UI
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(68, 50);
 			this.saveButton.TabIndex = 1;
-			this.saveButton.Text = "save";
+			this.saveButton.Text = "Save";
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
 			// 

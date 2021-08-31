@@ -54,16 +54,25 @@ namespace ComplexResistanceCalculator.UI
 		{
 			resultTextBox.Text = string.Empty;
 			Frequency = GetFrequencyList();
-			var impedances = Circuit.CalculateZ(Frequency);
-			var frequencyIndex = 0;
-			foreach (var result in impedances)
+			try
 			{
-				var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
-				var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-				resultTextBox.Text += $"For {showedFrequency} {prefixValueComboBox1.SelectedItem}," +
-				                     $" \t Z = {showedResult} \n";
-				++frequencyIndex;
+				var impedances = Circuit.CalculateZ(Frequency);
+				var frequencyIndex = 0;
+				foreach (var result in impedances)
+				{
+					var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
+					var showedResult = Math.Round(result.Real + result.Imaginary, 3);
+					resultTextBox.Text += $"For {showedFrequency} {prefixValueComboBox1.SelectedItem}," +
+					                      $" \t Z = {showedResult} \n";
+					++frequencyIndex;
+				}
 			}
+			catch (Exception exception)
+			{
+				MessageBox.Show(exception.Message);
+				throw;
+			}
+			
 		}
 
 		/// <summary>

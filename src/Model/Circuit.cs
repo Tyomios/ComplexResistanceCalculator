@@ -52,6 +52,19 @@ namespace Model
 		{
 			circuitChanged?.Invoke();
 		}
+
+		public bool isCircuitChanged()
+		{
+			foreach (var element in Elements)
+			{
+				if (element.HasEventValueChanged())
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
 
