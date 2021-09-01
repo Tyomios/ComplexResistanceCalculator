@@ -139,12 +139,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ChangeEventCircuitControl()
 		{
-			eventCircuitChangedLabel.Text = "Circuit changed";
-			eventCircuitChangedLabel.ForeColor = Color.Brown;
-
-			//TODO: изменить кнопку подсчета импеданса для события изменения цепи
-			//circuitChangedPictureBox.Image = Image.FromFile("../../../../icons/circuitChanged.png");
-			//circuitChangedPictureBox.Visible = true;
+			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start_Ch.png");
 		}
 
 		/// <summary>
@@ -152,8 +147,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void OffEventCircuitControl()
 		{
-			eventCircuitChangedLabel.Text = string.Empty;
-			//circuitChangedPictureBox.Visible = false;
+			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start.png");
 		}
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
