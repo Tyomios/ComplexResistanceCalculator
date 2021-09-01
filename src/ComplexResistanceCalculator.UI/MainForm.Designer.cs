@@ -170,14 +170,6 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.TabIndex = 11;
 			this.circuitElementsPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.circuitElementsPanel_ControlAdded);
 			// 
-			// eventCircuitChangedLabel
-			// 
-			this.eventCircuitChangedLabel.AutoSize = true;
-			this.eventCircuitChangedLabel.Location = new System.Drawing.Point(633, 35);
-			this.eventCircuitChangedLabel.Name = "eventCircuitChangedLabel";
-			this.eventCircuitChangedLabel.Size = new System.Drawing.Size(0, 20);
-			this.eventCircuitChangedLabel.TabIndex = 12;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
