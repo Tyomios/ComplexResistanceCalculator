@@ -16,7 +16,29 @@ namespace Model
 		/// </summary>
 		private string _name;
 
+		/// <summary>
+		/// Номинал.
+		/// </summary>
 		private double _value;
+
+		/// <summary>
+		/// Создает экземпляр <see cref="Resistor"/>.
+		/// </summary>
+		/// <param name="name"> Название </param>
+		/// <param name="value"> Номинал </param>
+		public Resistor(string name, double value)
+		{
+			Name = name;
+			Value = value;
+		}
+
+		/// <summary>
+		/// Создает экземпляр <see cref="Resistor"/>.
+		/// </summary>
+		public Resistor()
+		{
+		}
+
 		public string Name
 		{
 			get => _name;
@@ -54,24 +76,6 @@ namespace Model
 			}
 
 			return res;
-		}
-
-		/// <summary>
-		/// Создает экземпляр <see cref="Resistor"/>.
-		/// </summary>
-		/// <param name="name"> Название </param>
-		/// <param name="value"> Номинал </param>
-		public Resistor(string name, double value)
-		{
-			Name = name;
-			Value = value;
-		}
-
-		/// <summary>
-		/// Создает экземпляр <see cref="Resistor"/>.
-		/// </summary>
-		public Resistor()
-		{
 		}
 
 		public event ValueChanged ValueChanged;

@@ -1,7 +1,7 @@
 ﻿
 namespace ComplexResistanceCalculator.UI
 {
-	partial class mainForm
+	partial class MainForm
 	{
 		/// <summary>
 		///  Required designer variable.
@@ -29,7 +29,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.AddResistorButton = new System.Windows.Forms.Button();
 			this.AddInductorButton = new System.Windows.Forms.Button();
 			this.AddCapacitorButton = new System.Windows.Forms.Button();
@@ -178,7 +178,7 @@ namespace ComplexResistanceCalculator.UI
 			this.eventCircuitChangedLabel.Size = new System.Drawing.Size(0, 20);
 			this.eventCircuitChangedLabel.TabIndex = 12;
 			// 
-			// mainForm
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,7 +197,7 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.AddResistorButton);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(820, 500);
-			this.Name = "mainForm";
+			this.Name = "MainForm";
 			this.Text = "ComplexResistance Calculator";
 			this.SizeChanged += new System.EventHandler(this.mainForm_SizeChanged);
 			this.ResumeLayout(false);

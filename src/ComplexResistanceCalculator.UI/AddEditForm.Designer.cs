@@ -30,23 +30,23 @@ namespace ComplexResistanceCalculator.UI
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditForm));
-			this.label1 = new System.Windows.Forms.Label();
+			this.elementNameLabel = new System.Windows.Forms.Label();
 			this.saveButton = new System.Windows.Forms.Button();
-			this.label2 = new System.Windows.Forms.Label();
+			this.elementValueLabel = new System.Windows.Forms.Label();
 			this.elementNameTextBox = new System.Windows.Forms.TextBox();
 			this.elementValueTextBox = new System.Windows.Forms.TextBox();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.dimensionLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// label1
+			// elementNameLabel
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 44);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(49, 20);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Name";
+			this.elementNameLabel.AutoSize = true;
+			this.elementNameLabel.Location = new System.Drawing.Point(12, 44);
+			this.elementNameLabel.Name = "elementNameLabel";
+			this.elementNameLabel.Size = new System.Drawing.Size(49, 20);
+			this.elementNameLabel.TabIndex = 0;
+			this.elementNameLabel.Text = "Name";
 			// 
 			// saveButton
 			// 
@@ -58,14 +58,14 @@ namespace ComplexResistanceCalculator.UI
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
 			// 
-			// label2
+			// elementValueLabel
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 119);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(45, 20);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Value";
+			this.elementValueLabel.AutoSize = true;
+			this.elementValueLabel.Location = new System.Drawing.Point(12, 119);
+			this.elementValueLabel.Name = "elementValueLabel";
+			this.elementValueLabel.Size = new System.Drawing.Size(45, 20);
+			this.elementValueLabel.TabIndex = 2;
+			this.elementValueLabel.Text = "Value";
 			// 
 			// elementNameTextBox
 			// 
@@ -109,9 +109,9 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.elementValueTextBox);
 			this.Controls.Add(this.elementNameTextBox);
-			this.Controls.Add(this.label2);
+			this.Controls.Add(this.elementValueLabel);
 			this.Controls.Add(this.saveButton);
-			this.Controls.Add(this.label1);
+			this.Controls.Add(this.elementNameLabel);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximumSize = new System.Drawing.Size(230, 275);
 			this.MinimumSize = new System.Drawing.Size(230, 275);
@@ -124,7 +124,7 @@ namespace ComplexResistanceCalculator.UI
 
 		#endregion
 
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label elementNameLabel;
 		private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox elementNameTextBox;
@@ -133,5 +133,6 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.TextBox elementValueTextBox;
 		private System.Windows.Forms.Label dimensionLabel;
 		private System.Windows.Forms.Label dimentionLabel;
+		private System.Windows.Forms.Label elementValueLabel;
 	}
 }

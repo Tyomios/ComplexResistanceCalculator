@@ -12,7 +12,7 @@ using Model;
 namespace ComplexResistanceCalculator.UI
 {
 	public delegate void EditButton(string data, string name);
-	public partial class mainForm : Form
+	public partial class MainForm : Form
 	{
 		/// <summary>
 		/// Количество элементов в цепи.
@@ -24,7 +24,9 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private IElement _currentElement;
 
-		private event EditButton changeElementLabelData;
+		private event EditButton changeElementLabelData; // Попытка использовать событие для передачи данных 
+		// в текстбоксы с данными элемента при редактировании данных, сейчас для этого нужно кликнуть на элемент
+		// чтобы увидеть свежие данные.
 
 		private void ChangeElementLabelData(string data, string name)
 		{
@@ -49,7 +51,10 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
-		public mainForm()
+		/// <summary>
+		/// Создает экземпляр класса <see cref="MainForm"/>.
+		/// </summary>
+		public MainForm()
 		{
 			InitializeComponent();
 		}
@@ -115,7 +120,7 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		/// <summary>
-		/// Вызов события изменение цепи
+		/// Управление событием circuitChanged.
 		/// </summary>
 		private void CheckCircuitChanged()
 		{
@@ -239,6 +244,7 @@ namespace ComplexResistanceCalculator.UI
 			var toolTip = new ToolTip();
 			toolTip.SetToolTip(control, toolTipText);
 		}
+
 		private void RemoveElementButton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(RemoveElementButton, "Delete element");

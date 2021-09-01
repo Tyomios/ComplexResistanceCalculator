@@ -12,11 +12,6 @@ namespace ComplexResistanceCalculator.UI
 	public partial class AddEditForm : Form
 	{
 		/// <summary>
-		/// Добавляемый элемент.
-		/// </summary>
-		public IElement Element { get; set; }
-
-		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		/// <param name="newElement"> Элемент для внесения данных </param>
@@ -28,6 +23,11 @@ namespace ComplexResistanceCalculator.UI
 			elementNameTextBox.Text = Element.Name;
 			elementValueTextBox.Text = Element.Value.ToString();
 		}
+
+		/// <summary>
+		/// Добавляемый или редактируемый элемент.
+		/// </summary>
+		public IElement Element { get; set; }
 
 		/// <summary>
 		/// Устанавливает величину номинала элемента.

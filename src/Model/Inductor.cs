@@ -12,12 +12,35 @@ namespace Model
 	/// </summary>
 	public class Inductor : IElement
 	{
+		/// <summary>
+		/// Номинал.
+		/// </summary>
 		private double _value;
 
 		/// <summary>
 		/// Название.
 		/// </summary>
 		private string _name;
+
+		/// <summary>
+		/// Создает экземпляр <see cref="Inductor"/>.
+		/// </summary>
+		/// <param name="name"> Название </param>
+		/// <param name="value"> Номинал </param>
+		public Inductor(string name, double value)
+		{
+			Name = name;
+			Value = value;
+		}
+
+		/// <summary>
+		/// Создает экземпляр <see cref="Inductor"/>.
+		/// </summary>
+		public Inductor()
+		{
+
+		}
+
 		public string Name 
 		{
 			get => _name;
@@ -55,25 +78,6 @@ namespace Model
 			}
 
 			return impedances;
-		}
-
-		/// <summary>
-		/// Создает экземпляр <see cref="Inductor"/>.
-		/// </summary>
-		/// <param name="name"> Название </param>
-		/// <param name="value"> Номинал </param>
-		public Inductor(string name, double value)
-		{
-			Name = name;
-			Value = value;
-		}
-
-		/// <summary>
-		/// Создает экземпляр <see cref="Inductor"/>.
-		/// </summary>
-		public Inductor()
-		{
-			
 		}
 
 		public event ValueChanged ValueChanged;

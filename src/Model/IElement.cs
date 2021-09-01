@@ -7,31 +7,44 @@ namespace Model
 {
 	public delegate void ValueChanged();
 	/// <summary>
-	/// Интерфейс элементов
+	/// Интерфейс элементов.
 	/// </summary>
 	public interface IElement
 	{
 		/// <summary>
-		/// Возвращает или задает название элемента
+		/// Возвращает или задает название элемента.
 		/// </summary>
 		string Name { get; set; }
 
 		/// <summary>
-		/// Возвращает или задает значение элемента
+		/// Возвращает или задает значение элемента.
 		/// </summary>
 		double Value { get; set; }
 
 		/// <summary>
-		/// Рассчет реактивного сопротивления
+		/// Рассчет реактивного сопротивления.
 		/// </summary>
 		/// <param name="frequency"> Диапазон частот </param>
 		/// <returns> Возвращает сопротивление для каждой частоты из диапазона </returns>
 		abstract List<Complex> CalculateZ(List<double> frequency);
 
+		/// <summary>
+		/// Событие изменения данных элемента.
+		/// </summary>
 		public event ValueChanged ValueChanged;
 
+		/// <summary>
+		/// Проверяет содержимое события <see cref="ValueChanged"/>.
+		/// </summary>
+		/// <returns>
+		///	true - событие не пустое.
+		/// false - событие пустое.
+		/// </returns>
 		public bool HasEventValueChanged();
 
+		/// <summary>
+		/// Метод вызова события <see cref="ValueChanged"/>.
+		/// </summary>
 		public void InvokeEvent();
 	}
 }

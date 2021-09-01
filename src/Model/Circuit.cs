@@ -7,7 +7,11 @@ using Model;
 
 namespace Model
 {
+	/// <summary>
+	/// Делегат для события circuitChanged.
+	/// </summary>
 	public delegate void CircuitChanged();
+
 	/// <summary>
 	/// Электрическая цепь.
 	/// </summary>
@@ -46,13 +50,26 @@ namespace Model
 			
 		}
 
+		/// <summary>
+		/// Событие изменения одного и более элемента цепи.
+		/// </summary>
 		public event CircuitChanged circuitChanged;
 
+		/// <summary>
+		/// Метод вызова события <see cref="circuitChanged"/>.
+		/// </summary>
 		public void InvokeEvent()
 		{
 			circuitChanged?.Invoke();
 		}
 
+		/// <summary>
+		/// Проверяет состояние каждого элемента в цепи.
+		/// </summary>
+		/// <returns>
+		/// true - найден элемент с изменением данных.
+		/// false - элементы в цепи не изменялись.
+		/// </returns>
 		public bool isCircuitChanged()
 		{
 			foreach (var element in Elements)

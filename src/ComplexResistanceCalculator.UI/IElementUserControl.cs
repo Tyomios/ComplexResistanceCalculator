@@ -16,19 +16,15 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private const string _iconPath = "../../../../icons";
 
-		public Point Position { get; set; }
-
-		private ToolTip _eventPictureBoxToolTip = new ToolTip();
-
 		/// <summary>
-		/// Элемент цепи.
+		/// Подсказка для активного элемента <see cref="eventPictureBox"/>.
 		/// </summary>
-		public IElement ContainElement { get; set; }
+		private ToolTip _eventPictureBoxToolTip = new ToolTip();
 
 		/// <summary>
 		/// Создает экземпляр класса <see cref="Control"/>.
 		/// </summary>
-		/// <param name="element"> элемент цепи, который будет отображаться контролом </param>
+		/// <param name="element"> Элемент цепи, который будет отображаться контролом </param>
 		public IElementUserControl(IElement element)
 		{
 			InitializeComponent();
@@ -47,6 +43,23 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			ContainElement = element;
+		}
+
+		/// <summary>
+		/// Элемент цепи.
+		/// </summary>
+		public IElement ContainElement { get; set; }
+
+		public Point Position { get; set; }
+
+		/// <summary>
+		/// Скрытие элемента контрола, отвечающего за сообщение об изменении элемента внутри контрола.
+		/// </summary>
+		public void HideEventPictureBox()
+		{
+			eventPictureBox.Visible = false;
+			_eventPictureBoxToolTip.Active = false;
+			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
 
 		private void editButton_Click(object sender, EventArgs e)
@@ -79,16 +92,6 @@ namespace ComplexResistanceCalculator.UI
 		{
 			var toolTip = new ToolTip();
 			toolTip.SetToolTip(editButton, "Edit");
-		}
-
-		/// <summary>
-		/// Скрытие элемента контрола, отвечающего за сообщение об изменении элемента внутри контрола.
-		/// </summary>
-		public void HideEventPictureBox()
-		{
-			eventPictureBox.Visible = false;
-			_eventPictureBoxToolTip.Active = false;
-			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
 	}
 }

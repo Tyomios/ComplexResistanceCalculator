@@ -23,11 +23,6 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		/// <summary>
-		/// Диапазон частот для рассчета сопротивлений.
-		/// </summary>
-		private List<double> Frequency { get; set; }
-
-		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		public CalculateImpedanceForm()
@@ -35,15 +30,20 @@ namespace ComplexResistanceCalculator.UI
 			InitializeComponent();
 			foreach (var prefix in Enum.GetValues(typeof(ValuePrefix)))
 			{
-				prefixValueComboBox1.Items.Add(prefix);
-				prefixValueComboBox2.Items.Add(prefix);
-				prefixStepComboBox3.Items.Add(prefix);
+				prefixValueComboBoxFirstVal.Items.Add(prefix);
+				prefixValueComboBoxLastVal.Items.Add(prefix);
+				prefixStepComboBoxStep.Items.Add(prefix);
 			}
 
-			prefixValueComboBox1.SelectedItem = ValuePrefix.Hz;
-			prefixValueComboBox2.SelectedItem = ValuePrefix.Hz;
-			prefixStepComboBox3.SelectedItem = ValuePrefix.Hz;
+			prefixValueComboBoxFirstVal.SelectedItem = ValuePrefix.Hz;
+			prefixValueComboBoxLastVal.SelectedItem = ValuePrefix.Hz;
+			prefixStepComboBoxStep.SelectedItem = ValuePrefix.Hz;
 		}
+
+		/// <summary>
+		/// Диапазон частот для рассчета сопротивлений.
+		/// </summary>
+		private List<double> Frequency { get; set; }
 
 		/// <summary>
 		/// Цепь.
@@ -62,7 +62,7 @@ namespace ComplexResistanceCalculator.UI
 				{
 					var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
 					var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-					resultTextBox.Text += $"For {showedFrequency} {prefixValueComboBox1.SelectedItem}," +
+					resultTextBox.Text += $"For {showedFrequency} {prefixValueComboBoxFirstVal.SelectedItem}," +
 					                      $" \t Z = {showedResult} \n";
 					++frequencyIndex;
 				}
@@ -73,6 +73,38 @@ namespace ComplexResistanceCalculator.UI
 				throw;
 			}
 			
+		}
+
+		/// <summary>
+		/// Создание диапазона частот по 2 значениям, введенные пользователем.
+		/// </summary>
+		/// <returns> Список с частотами для рассчета сопротивлений </returns>
+		private List<double> GetFrequencyList()
+		{
+			List<double> frequency = new List<double>();
+			try
+			{
+				var firstValue = ConvertPrefixValue(firstValueTextBox.Text, prefixValueComboBoxFirstVal);
+				var lastValue = ConvertPrefixValue(lastValueTextBox.Text, prefixValueComboBox2);
+				var step = ConvertPrefixValue(stepTextBox.Text, prefixStepComboBox3);
+
+				if (firstValue > lastValue)
+				{
+					MessageBox.Show("Last value from range can't be less, than first one.", "Warning",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+				while (firstValue <= lastValue)
+				{
+					frequency.Add(firstValue);
+					firstValue += step;
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
+			}
+
+			return frequency;
 		}
 
 		/// <summary>
@@ -100,6 +132,11 @@ namespace ComplexResistanceCalculator.UI
 			return value;
 		}
 
+		/// <summary>
+		/// Преобразование результата в величину, выбранную пользователем.
+		/// </summary>
+		/// <param name="value"> Рассчитанное значение </param>
+		/// <returns> Результат в величине, выбранной пользователем </returns>
 		private double ConvertUndoPrefix(double value)
 		{
 			if ((ValuePrefix)prefixValueComboBox2.SelectedItem == ValuePrefix.MHz)
@@ -112,38 +149,6 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			return value;
-		}
-
-		/// <summary>
-		/// Создание диапазона частот по 2 значениям, введенные пользователем.
-		/// </summary>
-		/// <returns> Список с частотами для рассчета сопротивлений </returns>
-		private List<double> GetFrequencyList()
-		{
-			List<double> frequency = new List<double>();
-			try
-			{
-				var firstValue = ConvertPrefixValue(firstValueTextBox.Text, prefixValueComboBox1);
-				var lastValue = ConvertPrefixValue(lastValueTextBox.Text, prefixValueComboBox2);
-				var step = ConvertPrefixValue(stepTextBox.Text, prefixStepComboBox3);
-
-				if (firstValue > lastValue)
-				{
-					MessageBox.Show("Last value from range can't be less, than first one.", "Warning",
-						MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				}
-				while (firstValue <= lastValue)
-				{
-					frequency.Add(firstValue);
-					firstValue += step;
-				}
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(e.Message);
-			}
-
-			return frequency;
 		}
 	}
 }
