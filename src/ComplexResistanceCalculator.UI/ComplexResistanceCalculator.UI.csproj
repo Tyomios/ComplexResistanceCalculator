@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ComplexResistanceCalculator\ComplexResistanceCalculator.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 
