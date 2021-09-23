@@ -38,12 +38,17 @@ namespace ComplexResistanceCalculator.UI
 			prefixValueComboBoxFirstVal.SelectedItem = ValuePrefix.Hz;
 			prefixValueComboBoxLastVal.SelectedItem = ValuePrefix.Hz;
 			prefixStepComboBoxStep.SelectedItem = ValuePrefix.Hz;
+
+			resultData.Columns.Add("Frequency ");
+			resultData.Columns.Add("Impedance");
 		}
 
 		/// <summary>
 		/// Диапазон частот для рассчета сопротивлений.
 		/// </summary>
 		private List<double> Frequency { get; set; }
+
+		private DataTable resultData = new DataTable();
 
 		/// <summary>
 		/// Цепь.
@@ -52,23 +57,24 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
-			resultTextBox.Text = string.Empty;
+			resultData.Clear();
+			resultData.Columns[0].ColumnName = $"Frequency {prefixValueComboBoxFirstVal.SelectedItem}";
 			Frequency = GetFrequencyList();
 			try
 			{
+				
 				var impedances = Circuit.CalculateZ(Frequency);
 				var frequencyIndex = 0;
-				StringBuilder resultString = new StringBuilder();
 				foreach (var result in impedances)
 				{
 					var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
 					var showedResult = $"{result.Real}   {Math.Round(result.Imaginary, 3)} i";
-					resultString.Append($"{showedFrequency} {prefixValueComboBoxFirstVal.SelectedItem}," +
-					                    $" \t Z = {showedResult} \n"); 
 					++frequencyIndex;
+
+					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}"});
 				}
 
-				resultTextBox.Text = resultString.ToString();
+				resultDataGridView.DataSource = resultData;
 			}
 			catch (Exception exception)
 			{

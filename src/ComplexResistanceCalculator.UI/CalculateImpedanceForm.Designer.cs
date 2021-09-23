@@ -29,7 +29,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.resultTextBox = new System.Windows.Forms.RichTextBox();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.firstValueTextBox = new System.Windows.Forms.TextBox();
 			this.fromLabel = new System.Windows.Forms.Label();
 			this.toLabel = new System.Windows.Forms.Label();
@@ -42,66 +42,60 @@ namespace ComplexResistanceCalculator.UI
 			this.prefixValueComboBoxFirstVal = new System.Windows.Forms.ComboBox();
 			this.prefixValueComboBoxLastVal = new System.Windows.Forms.ComboBox();
 			this.prefixStepComboBoxStep = new System.Windows.Forms.ComboBox();
+			this.resultDataGridView = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.resultDataGridView)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// resultTextBox
-			// 
-			this.resultTextBox.Location = new System.Drawing.Point(370, 12);
-			this.resultTextBox.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-			this.resultTextBox.Name = "resultTextBox";
-			this.resultTextBox.ReadOnly = true;
-			this.resultTextBox.Size = new System.Drawing.Size(425, 285);
-			this.resultTextBox.TabIndex = 0;
-			this.resultTextBox.Text = "";
 			// 
 			// firstValueTextBox
 			// 
-			this.firstValueTextBox.Location = new System.Drawing.Point(70, 80);
+			this.firstValueTextBox.Location = new System.Drawing.Point(61, 60);
+			this.firstValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.firstValueTextBox.Name = "firstValueTextBox";
-			this.firstValueTextBox.Size = new System.Drawing.Size(193, 27);
+			this.firstValueTextBox.Size = new System.Drawing.Size(169, 23);
 			this.firstValueTextBox.TabIndex = 1;
 			// 
 			// fromLabel
 			// 
 			this.fromLabel.AutoSize = true;
-			this.fromLabel.Location = new System.Drawing.Point(12, 80);
+			this.fromLabel.Location = new System.Drawing.Point(10, 60);
 			this.fromLabel.Name = "fromLabel";
-			this.fromLabel.Size = new System.Drawing.Size(46, 20);
+			this.fromLabel.Size = new System.Drawing.Size(38, 15);
 			this.fromLabel.TabIndex = 4;
 			this.fromLabel.Text = "From:";
 			// 
 			// toLabel
 			// 
 			this.toLabel.AutoSize = true;
-			this.toLabel.Location = new System.Drawing.Point(12, 119);
+			this.toLabel.Location = new System.Drawing.Point(10, 89);
 			this.toLabel.Name = "toLabel";
-			this.toLabel.Size = new System.Drawing.Size(28, 20);
+			this.toLabel.Size = new System.Drawing.Size(22, 15);
 			this.toLabel.TabIndex = 5;
 			this.toLabel.Text = "To:";
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(-324, -75);
+			this.label1.Location = new System.Drawing.Point(-284, -56);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(154, 20);
+			this.label1.Size = new System.Drawing.Size(123, 15);
 			this.label1.TabIndex = 6;
 			this.label1.Text = "Enter frequency range";
 			// 
 			// stepLabel
 			// 
 			this.stepLabel.AutoSize = true;
-			this.stepLabel.Location = new System.Drawing.Point(12, 159);
+			this.stepLabel.Location = new System.Drawing.Point(10, 119);
 			this.stepLabel.Name = "stepLabel";
-			this.stepLabel.Size = new System.Drawing.Size(42, 20);
+			this.stepLabel.Size = new System.Drawing.Size(33, 15);
 			this.stepLabel.TabIndex = 7;
 			this.stepLabel.Text = "Step:";
 			// 
 			// calculateButton
 			// 
-			this.calculateButton.Location = new System.Drawing.Point(134, 262);
+			this.calculateButton.Location = new System.Drawing.Point(117, 196);
+			this.calculateButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.calculateButton.Name = "calculateButton";
-			this.calculateButton.Size = new System.Drawing.Size(95, 30);
+			this.calculateButton.Size = new System.Drawing.Size(83, 22);
 			this.calculateButton.TabIndex = 8;
 			this.calculateButton.Text = "Calculate";
 			this.calculateButton.UseVisualStyleBackColor = true;
@@ -109,24 +103,26 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// lastValueTextBox
 			// 
-			this.lastValueTextBox.Location = new System.Drawing.Point(70, 119);
+			this.lastValueTextBox.Location = new System.Drawing.Point(61, 89);
+			this.lastValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.lastValueTextBox.Name = "lastValueTextBox";
-			this.lastValueTextBox.Size = new System.Drawing.Size(193, 27);
+			this.lastValueTextBox.Size = new System.Drawing.Size(169, 23);
 			this.lastValueTextBox.TabIndex = 9;
 			// 
 			// stepTextBox
 			// 
-			this.stepTextBox.Location = new System.Drawing.Point(70, 156);
+			this.stepTextBox.Location = new System.Drawing.Point(61, 117);
+			this.stepTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.stepTextBox.Name = "stepTextBox";
-			this.stepTextBox.Size = new System.Drawing.Size(127, 27);
+			this.stepTextBox.Size = new System.Drawing.Size(112, 23);
 			this.stepTextBox.TabIndex = 10;
 			// 
 			// welcomingLabel
 			// 
 			this.welcomingLabel.AutoSize = true;
-			this.welcomingLabel.Location = new System.Drawing.Point(109, 42);
+			this.welcomingLabel.Location = new System.Drawing.Point(95, 32);
 			this.welcomingLabel.Name = "welcomingLabel";
-			this.welcomingLabel.Size = new System.Drawing.Size(154, 20);
+			this.welcomingLabel.Size = new System.Drawing.Size(123, 15);
 			this.welcomingLabel.TabIndex = 11;
 			this.welcomingLabel.Text = "Enter frequency range";
 			// 
@@ -134,34 +130,58 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			this.prefixValueComboBoxFirstVal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.prefixValueComboBoxFirstVal.FormattingEnabled = true;
-			this.prefixValueComboBoxFirstVal.Location = new System.Drawing.Point(266, 80);
+			this.prefixValueComboBoxFirstVal.Location = new System.Drawing.Point(233, 60);
+			this.prefixValueComboBoxFirstVal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.prefixValueComboBoxFirstVal.Name = "prefixValueComboBoxFirstVal";
-			this.prefixValueComboBoxFirstVal.Size = new System.Drawing.Size(60, 28);
+			this.prefixValueComboBoxFirstVal.Size = new System.Drawing.Size(53, 23);
 			this.prefixValueComboBoxFirstVal.TabIndex = 12;
 			// 
 			// prefixValueComboBoxLastVal
 			// 
 			this.prefixValueComboBoxLastVal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.prefixValueComboBoxLastVal.FormattingEnabled = true;
-			this.prefixValueComboBoxLastVal.Location = new System.Drawing.Point(266, 119);
+			this.prefixValueComboBoxLastVal.Location = new System.Drawing.Point(233, 89);
+			this.prefixValueComboBoxLastVal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.prefixValueComboBoxLastVal.Name = "prefixValueComboBoxLastVal";
-			this.prefixValueComboBoxLastVal.Size = new System.Drawing.Size(60, 28);
+			this.prefixValueComboBoxLastVal.Size = new System.Drawing.Size(53, 23);
 			this.prefixValueComboBoxLastVal.TabIndex = 13;
 			// 
 			// prefixStepComboBoxStep
 			// 
 			this.prefixStepComboBoxStep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.prefixStepComboBoxStep.FormattingEnabled = true;
-			this.prefixStepComboBoxStep.Location = new System.Drawing.Point(203, 155);
+			this.prefixStepComboBoxStep.Location = new System.Drawing.Point(178, 116);
+			this.prefixStepComboBoxStep.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.prefixStepComboBoxStep.Name = "prefixStepComboBoxStep";
-			this.prefixStepComboBoxStep.Size = new System.Drawing.Size(60, 28);
+			this.prefixStepComboBoxStep.Size = new System.Drawing.Size(53, 23);
 			this.prefixStepComboBoxStep.TabIndex = 14;
+			// 
+			// resultDataGridView
+			// 
+			this.resultDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.resultDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.resultDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Desktop;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.resultDataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+			this.resultDataGridView.Location = new System.Drawing.Point(292, 12);
+			this.resultDataGridView.Name = "resultDataGridView";
+			this.resultDataGridView.ReadOnly = true;
+			this.resultDataGridView.RowTemplate.Height = 25;
+			this.resultDataGridView.Size = new System.Drawing.Size(400, 209);
+			this.resultDataGridView.TabIndex = 15;
 			// 
 			// CalculateImpedanceForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(802, 303);
+			this.ClientSize = new System.Drawing.Size(704, 233);
+			this.Controls.Add(this.resultDataGridView);
 			this.Controls.Add(this.prefixStepComboBoxStep);
 			this.Controls.Add(this.prefixValueComboBoxLastVal);
 			this.Controls.Add(this.prefixValueComboBoxFirstVal);
@@ -174,21 +194,20 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.toLabel);
 			this.Controls.Add(this.fromLabel);
 			this.Controls.Add(this.firstValueTextBox);
-			this.Controls.Add(this.resultTextBox);
-			this.MaximumSize = new System.Drawing.Size(820, 350);
-			this.MinimumSize = new System.Drawing.Size(820, 350);
+			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.MaximumSize = new System.Drawing.Size(720, 272);
+			this.MinimumSize = new System.Drawing.Size(720, 272);
 			this.Name = "CalculateImpedanceForm";
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Calculate impedance";
+			((System.ComponentModel.ISupportInitialize)(this.resultDataGridView)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.RichTextBox resultTextBox;
 		private System.Windows.Forms.Label enterFrequencyRangeLabel;
 		private System.Windows.Forms.Label enterLabel;
 		private System.Windows.Forms.TextBox firstValueTextBox;
@@ -207,5 +226,6 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.ComboBox prefixStepComboBox3;
 		private System.Windows.Forms.ComboBox prefixValueComboBoxLastVal;
 		private System.Windows.Forms.ComboBox prefixStepComboBoxStep;
+		private System.Windows.Forms.DataGridView resultDataGridView;
 	}
 }
