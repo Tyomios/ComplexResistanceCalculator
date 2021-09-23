@@ -62,8 +62,8 @@ namespace ComplexResistanceCalculator.UI
 				foreach (var result in impedances)
 				{
 					var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
-					var showedResult = Math.Round(result.Real + result.Imaginary, 3);
-					resultString.Append($"For {showedFrequency} {prefixValueComboBoxFirstVal.SelectedItem}," +
+					var showedResult = $"{result.Real}   {Math.Round(result.Imaginary, 3)} i";
+					resultString.Append($"{showedFrequency} {prefixValueComboBoxFirstVal.SelectedItem}," +
 					                    $" \t Z = {showedResult} \n"); 
 					++frequencyIndex;
 				}
