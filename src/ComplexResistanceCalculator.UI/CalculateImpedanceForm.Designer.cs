@@ -172,6 +172,7 @@ namespace ComplexResistanceCalculator.UI
 			this.resultDataGridView.Location = new System.Drawing.Point(292, 12);
 			this.resultDataGridView.Name = "resultDataGridView";
 			this.resultDataGridView.ReadOnly = true;
+			this.resultDataGridView.RowHeadersVisible = false;
 			this.resultDataGridView.RowTemplate.Height = 25;
 			this.resultDataGridView.Size = new System.Drawing.Size(400, 209);
 			this.resultDataGridView.TabIndex = 15;

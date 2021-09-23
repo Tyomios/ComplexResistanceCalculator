@@ -58,7 +58,7 @@ namespace ComplexResistanceCalculator.UI
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
 			resultData.Clear();
-			resultData.Columns[0].ColumnName = $"Frequency {prefixValueComboBoxFirstVal.SelectedItem}";
+			resultData.Columns[0].ColumnName = $"Frequency ({prefixValueComboBoxFirstVal.SelectedItem})";
 			Frequency = GetFrequencyList();
 			try
 			{
