@@ -6,6 +6,7 @@ using System.Reflection.Emit;
 namespace Model
 {
 	public delegate void ValueChanged();
+
 	/// <summary>
 	/// Интерфейс элементов.
 	/// </summary>
@@ -32,19 +33,5 @@ namespace Model
 		/// Событие изменения данных элемента.
 		/// </summary>
 		public event ValueChanged ValueChanged;
-
-		/// <summary>
-		/// Проверяет содержимое события <see cref="ValueChanged"/>.
-		/// </summary>
-		/// <returns>
-		///	true - событие не пустое.
-		/// false - событие пустое.
-		/// </returns>
-		public bool HasEventValueChanged();
-
-		/// <summary>
-		/// Метод вызова события <see cref="ValueChanged"/>.
-		/// </summary>
-		public void InvokeEvent();
 	}
 }

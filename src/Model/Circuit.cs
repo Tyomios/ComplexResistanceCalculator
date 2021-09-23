@@ -22,6 +22,28 @@ namespace Model
 		/// </summary>
 		public List<IElement> Elements { get; set; } = new List<IElement>();
 
+		public void AddElement(IElement element)
+		{
+			Elements.Add(element);
+			element.ValueChanged += ElementOnValueChanged;
+			circuitChanged?.Invoke();
+		}
+
+		public void RemoveElement(IElement element)
+		{
+			element.ValueChanged -= ElementOnValueChanged;
+			Elements.Remove(element);
+			if (Elements.Count > 0)
+			{
+				circuitChanged?.Invoke();
+			}
+		}
+
+		private void ElementOnValueChanged()
+		{
+			circuitChanged?.Invoke();
+		}
+
 		/// <summary>
 		/// Расчет импеданса в цепи для каждого значения частоты.
 		/// </summary>
@@ -54,35 +76,5 @@ namespace Model
 		/// Событие изменения одного и более элемента цепи.
 		/// </summary>
 		public event CircuitChanged circuitChanged;
-
-		/// <summary>
-		/// Метод вызова события <see cref="circuitChanged"/>.
-		/// </summary>
-		public void InvokeEvent()
-		{
-			circuitChanged?.Invoke();
-		}
-
-		/// <summary>
-		/// Проверяет состояние каждого элемента в цепи.
-		/// </summary>
-		/// <returns>
-		/// true - найден элемент с изменением данных.
-		/// false - элементы в цепи не изменялись.
-		/// </returns>
-		public bool isCircuitChanged()
-		{
-			foreach (var element in Elements)
-			{
-				if (element.HasEventValueChanged())
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
 	}
 }
-
-

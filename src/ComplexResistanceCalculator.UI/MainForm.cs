@@ -47,9 +47,12 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
-			// событие пикчибокс чендж проверяет состояние каждого контрола в панели, если тру - 
-			// изменить контрол и текстбоксы
+			_circuit.circuitChanged += CircuitOncircuitChanged;
+		}
 
+		private void CircuitOncircuitChanged()
+		{
+			ChangeEventCircuitControl();
 		}
 
 		/// <summary>
@@ -57,14 +60,11 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ShowCurrentElementInfo()
 		{
-			if (_currentElement == null)
+			if (_currentElement != null)
 			{
-				elementNameTextBox.Text = "";
-				elementsValueTextBox.Text = "";
-				return;
+				elementNameTextBox.Text = _currentElement.Name;
+				elementsValueTextBox.Text = _currentElement.Value.ToString();
 			}
-			elementNameTextBox.Text = _currentElement.Name;
-			elementsValueTextBox.Text = _currentElement.Value.ToString();
 		}
 
 		/// <summary>
@@ -90,43 +90,18 @@ namespace ComplexResistanceCalculator.UI
 			var newElementUserControl = new IElementUserControl(element);
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
-			newElementUserControl.MouseEnter += UserControl_MouseEnter;
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
-			_circuit.Elements.Add(element);
+			_circuit.AddElement(element);
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
-		}
-
-		private void UserControl_MouseEnter(object sender, EventArgs e)
-		{
-			CheckCircuitChanged();
-			_circuit.InvokeEvent();
 		}
 
 		private void UserControl_Click(object sender, EventArgs e)
 		{
 			_currentElement = (sender as IElementUserControl).ContainElement;
 			ShowCurrentElementInfo();
-			//CheckCircuitChanged(); bad practice
-		}
-
-		/// <summary>
-		/// Управление событием circuitChanged.
-		/// </summary>
-		private void CheckCircuitChanged()
-		{
-			if (_circuit.isCircuitChanged())
-			{
-				_circuit.circuitChanged += ChangeEventCircuitControl;
-				return;
-			}
-
-			_circuit.circuitChanged -= ChangeEventCircuitControl;
-			_circuit.circuitChanged += OffEventCircuitControl;
-
-			_circuit.InvokeEvent();
 		}
 
 		/// <summary>
@@ -156,9 +131,6 @@ namespace ComplexResistanceCalculator.UI
 			var addedControl = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
 			_currentElement = addedControl.ContainElement;
 			ShowCurrentElementInfo();
-			// TODO:событие изменения цепи
-			_circuit.circuitChanged += ChangeEventCircuitControl;
-			_circuit.InvokeEvent();
 		}
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
@@ -187,14 +159,12 @@ namespace ComplexResistanceCalculator.UI
 						}
 					}
 
-					_circuit.Elements.Remove(_currentElement);
+					_circuit.RemoveElement(_currentElement);
 					--_elementsCount;
 					_currentElement = null;
+					
 					ShowCurrentElementInfo();
 					ControlLocation();
-					// TODO: событие изменения цепи
-					_circuit.circuitChanged += ChangeEventCircuitControl;
-					_circuit.InvokeEvent();
 				}
 			}
 			else
@@ -278,8 +248,7 @@ namespace ComplexResistanceCalculator.UI
 			{
 				control.HideEventPictureBox();
 			}
-			CheckCircuitChanged();
-			//_circuit.InvokeEvent();
+			OffEventCircuitControl();
 		}
 	}
 }

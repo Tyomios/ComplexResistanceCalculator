@@ -80,20 +80,5 @@ namespace Model
 
 
 		public event ValueChanged ValueChanged;
-
-		public bool HasEventValueChanged()
-		{
-			if (ValueChanged == null)
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		public void InvokeEvent()
-		{
-			ValueChanged?.Invoke();
-		}
 	}
 }

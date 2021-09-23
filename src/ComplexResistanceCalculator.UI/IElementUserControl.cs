@@ -43,6 +43,12 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			ContainElement = element;
+			ContainElement.ValueChanged += ContainElementOnValueChanged;
+		}
+
+		private void ContainElementOnValueChanged()
+		{
+			ActivateEventPictureBox();
 		}
 
 		/// <summary>
@@ -67,13 +73,11 @@ namespace ComplexResistanceCalculator.UI
 			AddEditForm editForm = new AddEditForm(ContainElement);
 			editForm.Icon = Icon.ExtractAssociatedIcon($"{_iconPath}/editElement.ico");
 			var dialogresult = editForm.ShowDialog();
-			if (dialogresult != DialogResult.OK)
+			if (dialogresult == DialogResult.OK)
 			{
-				return;
+				ContainElement.Value = editForm.Element.Value;
+				ContainElement.Name = editForm.Element.Name;
 			}
-			ContainElement.ValueChanged += ActivateEventPictureBox;
-			ContainElement = editForm.Element;
-			ContainElement.InvokeEvent();
 		}
 
 		/// <summary>

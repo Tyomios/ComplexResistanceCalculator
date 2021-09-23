@@ -58,13 +58,12 @@ namespace Model
 			get => _value;
 			set
 			{
-				if ( _value != value)
+				if (_value != value)
 				{
 					ValueChanged?.Invoke();
 				}
 				_value = value;
 			}
-
 		}
 
 		public List<Complex> CalculateZ(List<double> frequency)
@@ -79,20 +78,5 @@ namespace Model
 		}
 
 		public event ValueChanged ValueChanged;
-
-		public bool HasEventValueChanged()
-		{
-			if (ValueChanged == null)
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		public void InvokeEvent()
-		{
-			ValueChanged?.Invoke();
-		}
 	}
 }
