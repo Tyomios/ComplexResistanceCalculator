@@ -13,16 +13,6 @@ namespace ComplexResistanceCalculator.UI
 	public partial class CalculateImpedanceForm : Form
 	{
 		/// <summary>
-		/// Величина частоты.
-		/// </summary>
-		private enum ValuePrefix
-		{
-			Hz,
-			MHz,
-			GHz
-		}
-
-		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		public CalculateImpedanceForm()
@@ -30,6 +20,11 @@ namespace ComplexResistanceCalculator.UI
 			InitializeComponent();
 			foreach (var prefix in Enum.GetValues(typeof(ValuePrefix)))
 			{
+				if (prefix.ToString() == ValuePrefix.Ohm.ToString())
+				{
+					break;
+				}
+
 				prefixValueComboBoxFirstVal.Items.Add(prefix);
 				prefixValueComboBoxLastVal.Items.Add(prefix);
 				prefixStepComboBoxStep.Items.Add(prefix);
@@ -58,9 +53,11 @@ namespace ComplexResistanceCalculator.UI
 
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
+			var prefixValue = prefixValueComboBoxFirstVal.SelectedItem;
 			resultData.Clear();
-			resultData.Columns[0].ColumnName = $"Frequency ({prefixValueComboBoxFirstVal.SelectedItem})";
+			resultData.Columns[0].ColumnName = $"Frequency ({prefixValue})";
 			Frequency = GetFrequencyList();
+
 			try
 			{
 				
@@ -68,7 +65,7 @@ namespace ComplexResistanceCalculator.UI
 				var frequencyIndex = 0;
 				foreach (var result in impedances)
 				{
-					var showedFrequency = ConvertUndoPrefix(Frequency[frequencyIndex]);
+					var showedFrequency = ValueConverter.ConvertUndoPrefix(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
 					var showedResult = $"{result.Real}   {Math.Round(result.Imaginary, 3)} i";
 					++frequencyIndex;
 
@@ -92,9 +89,14 @@ namespace ComplexResistanceCalculator.UI
 			List<double> frequency = new List<double>();
 			try
 			{
-				var firstValue = ConvertPrefixValue(firstValueTextBox.Text, prefixValueComboBoxFirstVal);
-				var lastValue = ConvertPrefixValue(lastValueTextBox.Text, prefixValueComboBoxLastVal);
-				var step = ConvertPrefixValue(stepTextBox.Text, prefixStepComboBoxStep);
+				var firstValue = ValueConverter.ConvertPrefixValue(firstValueTextBox.Text, 
+										(ValuePrefix)prefixValueComboBoxFirstVal.SelectedItem);
+
+				var lastValue = ValueConverter.ConvertPrefixValue(lastValueTextBox.Text, 
+										(ValuePrefix)prefixValueComboBoxLastVal.SelectedItem);
+
+				var step = ValueConverter.ConvertPrefixValue(stepTextBox.Text, 
+											(ValuePrefix)prefixStepComboBoxStep.SelectedItem);
 
 				if (firstValue > lastValue)
 				{
@@ -113,51 +115,6 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			return frequency;
-		}
-
-		/// <summary>
-		/// Получение значения в герцах.
-		/// </summary>
-		/// <param name="textFormatValue"> Введенное пользователем значение </param>
-		/// <param name="prefixKeeper"> Контрол, отвечающий за величину </param>
-		/// <returns></returns>
-		private double ConvertPrefixValue(string textFormatValue, ComboBox prefixKeeper)
-		{
-			var value = Convert.ToDouble(textFormatValue);
-			var selectedPrefix = (ValuePrefix)prefixKeeper.SelectedItem;
-			var prefixM = 1000000;
-			var prefixG = 1000000000;
-
-			if (selectedPrefix == ValuePrefix.MHz)
-			{
-				  return (value * prefixM);
-			}
-			if (selectedPrefix == ValuePrefix.GHz)
-			{
-				return (value * prefixG);
-			}
-
-			return value;
-		}
-
-		/// <summary>
-		/// Преобразование результата в величину, выбранную пользователем.
-		/// </summary>
-		/// <param name="value"> Рассчитанное значение </param>
-		/// <returns> Результат в величине, выбранной пользователем </returns>
-		private double ConvertUndoPrefix(double value)
-		{
-			var selectedPrefix = (ValuePrefix)prefixValueComboBoxLastVal.SelectedItem;
-			if (selectedPrefix == ValuePrefix.MHz)
-			{
-				return value / 1000000;
-			}
-			if (selectedPrefix == ValuePrefix.GHz)
-			{
-				return value / 1000000000;
-			}
-
-			return value;
 		}
 	}
 }
