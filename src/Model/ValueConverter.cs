@@ -41,11 +41,11 @@ namespace Model
 			}
 			if (elementType is Inductor)
 			{
-				return (value / 1000000);
+				return (value / 1000000); // 10^6
 			}
 			if (elementType is Capacitor)
 			{
-				return (value / 1000000000000);
+				return (value / 1000000000000); // 10^-12
 			}
 
 			return value;
@@ -65,11 +65,11 @@ namespace Model
 			}
 			if (elementType is Inductor)
 			{
-				return (value * 1000000);
+				return (value * 1000000); // 10^6
 			}
 			if (elementType is Capacitor)
 			{
-				return (value * 1000000000000);
+				return (value * 1000000000000); // 10^-12
 			}
 
 			return value;

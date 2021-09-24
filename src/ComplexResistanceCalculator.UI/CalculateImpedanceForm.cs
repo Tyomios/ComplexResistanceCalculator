@@ -66,7 +66,7 @@ namespace ComplexResistanceCalculator.UI
 				foreach (var result in impedances)
 				{
 					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
-					var showedResult = $"{result.Real}   {Math.Round(result.Imaginary, 3)} i";
+					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
 					++frequencyIndex;
 
 					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}"});
@@ -78,6 +78,27 @@ namespace ComplexResistanceCalculator.UI
 				throw;
 			}
 			
+		}
+
+		private string CompressResult(double result)
+		{
+			var symbol = "";
+			if (result > 0)
+			{
+				symbol = "+";
+			}
+
+			if (result < 0)
+			{
+				symbol = "-";
+			}
+			var textResult = result.ToString();
+			if (textResult.Length > 7)
+			{
+				return $"{textResult.Substring(0, 4)} e+ {textResult.Length - 4}";
+			}
+
+			return symbol + textResult;
 		}
 
 		/// <summary>
