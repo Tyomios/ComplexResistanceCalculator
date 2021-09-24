@@ -65,7 +65,7 @@ namespace ComplexResistanceCalculator.UI
 				var frequencyIndex = 0;
 				foreach (var result in impedances)
 				{
-					var showedFrequency = ValueConverter.ConvertUndoPrefix(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
+					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
 					var showedResult = $"{result.Real}   {Math.Round(result.Imaginary, 3)} i";
 					++frequencyIndex;
 
@@ -89,13 +89,13 @@ namespace ComplexResistanceCalculator.UI
 			List<double> frequency = new List<double>();
 			try
 			{
-				var firstValue = ValueConverter.ConvertPrefixValue(firstValueTextBox.Text, 
+				var firstValue = ValueConverter.ConvertPrefixFrequency(firstValueTextBox.Text, 
 										(ValuePrefix)prefixValueComboBoxFirstVal.SelectedItem);
 
-				var lastValue = ValueConverter.ConvertPrefixValue(lastValueTextBox.Text, 
+				var lastValue = ValueConverter.ConvertPrefixFrequency(lastValueTextBox.Text, 
 										(ValuePrefix)prefixValueComboBoxLastVal.SelectedItem);
 
-				var step = ValueConverter.ConvertPrefixValue(stepTextBox.Text, 
+				var step = ValueConverter.ConvertPrefixFrequency(stepTextBox.Text, 
 											(ValuePrefix)prefixStepComboBoxStep.SelectedItem);
 
 				if (firstValue > lastValue)

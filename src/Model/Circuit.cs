@@ -22,6 +22,10 @@ namespace Model
 		/// </summary>
 		public List<IElement> Elements { get; set; } = new List<IElement>();
 
+		/// <summary>
+		/// Добавление элемента в цепь.
+		/// </summary>
+		/// <param name="element"> Добавляемый элемент </param>
 		public void AddElement(IElement element)
 		{
 			Elements.Add(element);
@@ -29,6 +33,10 @@ namespace Model
 			circuitChanged?.Invoke();
 		}
 
+		/// <summary>
+		/// Удаление элемента из цепи.
+		/// </summary>
+		/// <param name="element"> Удаляемый элемент </param>
 		public void RemoveElement(IElement element)
 		{
 			element.ValueChanged -= ElementOnValueChanged;
@@ -39,6 +47,9 @@ namespace Model
 			}
 		}
 
+		/// <summary>
+		/// Подписка на событие ValueChanged.
+		/// </summary>
 		private void ElementOnValueChanged()
 		{
 			circuitChanged?.Invoke();

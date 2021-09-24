@@ -63,7 +63,7 @@ namespace ComplexResistanceCalculator.UI
 			if (_currentElement != null)
 			{
 				elementNameTextBox.Text = _currentElement.Name;
-				elementsValueTextBox.Text = _currentElement.Value.ToString();
+				elementsValueTextBox.Text = ValueConverter.ConvertUndoPrefix(_currentElement.Value, _currentElement).ToString();
 			}
 		}
 

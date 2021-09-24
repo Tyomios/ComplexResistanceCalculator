@@ -21,7 +21,7 @@ namespace ComplexResistanceCalculator.UI
 			Element = newElement;
 			SetDimension(Element);
 			elementNameTextBox.Text = Element.Name;
-			elementValueTextBox.Text = Element.Value.ToString();
+			elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(Element.Value, Element).ToString();
 		}
 
 		/// <summary>
@@ -37,15 +37,15 @@ namespace ComplexResistanceCalculator.UI
 		{
 			if (element is Resistor)
 			{
-				dimensionLabel.Text = "Ω";
+				dimensionLabel.Text = "mΩ";
 			}
 			if (element is Capacitor)
 			{
-				dimensionLabel.Text = "F";
+				dimensionLabel.Text = "pF";
 			}
 			if (element is Inductor)
 			{
-				dimensionLabel.Text = "H";
+				dimensionLabel.Text = "mcH";
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace ComplexResistanceCalculator.UI
 			try
 			{
 				Element.Name = elementNameTextBox.Text;
-				Element.Value = Convert.ToDouble(elementValueTextBox.Text);
+				Element.Value = ValueConverter.ConvertPrefixValue(elementValueTextBox.Text, Element) ;
 				DialogResult = DialogResult.OK;
 				Close();
 			}
