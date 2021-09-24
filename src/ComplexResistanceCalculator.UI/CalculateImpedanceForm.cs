@@ -41,6 +41,7 @@ namespace ComplexResistanceCalculator.UI
 
 			resultData.Columns.Add("Frequency ");
 			resultData.Columns.Add("Impedance");
+			resultDataGridView.DataSource = resultData;
 		}
 
 		/// <summary>
@@ -73,8 +74,6 @@ namespace ComplexResistanceCalculator.UI
 
 					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}"});
 				}
-
-				resultDataGridView.DataSource = resultData;
 			}
 			catch (Exception exception)
 			{

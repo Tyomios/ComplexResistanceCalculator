@@ -158,6 +158,8 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// resultDataGridView
 			// 
+			this.resultDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.resultDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
 			this.resultDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
 			this.resultDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.resultDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -169,12 +171,12 @@ namespace ComplexResistanceCalculator.UI
 			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.resultDataGridView.DefaultCellStyle = dataGridViewCellStyle1;
-			this.resultDataGridView.Location = new System.Drawing.Point(292, 12);
+			this.resultDataGridView.Location = new System.Drawing.Point(295, 10);
 			this.resultDataGridView.Name = "resultDataGridView";
 			this.resultDataGridView.ReadOnly = true;
 			this.resultDataGridView.RowHeadersVisible = false;
 			this.resultDataGridView.RowTemplate.Height = 25;
-			this.resultDataGridView.Size = new System.Drawing.Size(400, 209);
+			this.resultDataGridView.Size = new System.Drawing.Size(400, 210);
 			this.resultDataGridView.TabIndex = 15;
 			// 
 			// CalculateImpedanceForm
