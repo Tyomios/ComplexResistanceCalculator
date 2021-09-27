@@ -41,6 +41,7 @@ namespace Model
 
 		}
 
+        // TODO: xml
 		public string Name 
 		{
 			get => _name;
@@ -55,6 +56,7 @@ namespace Model
 			}
 		}
 
+        // TODO: xml
 		public double Value
 		{
 			get => _value;
@@ -69,6 +71,7 @@ namespace Model
 
 		}
 
+        // TODO: xml
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
@@ -80,6 +83,7 @@ namespace Model
 			return impedances;
 		}
 
+        // TODO: xml
 		public event ValueChanged ValueChanged;
 	}
 }

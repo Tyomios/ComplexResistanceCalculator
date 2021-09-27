@@ -39,6 +39,7 @@ namespace Model
 		{
 		}
 
+        // TODO: xml
 		public string Name
 		{
 			get => _name;
@@ -53,6 +54,7 @@ namespace Model
 			}
 		}
 
+        // TODO: xml
 		public double Value
 		{
 			get => _value;
@@ -66,8 +68,10 @@ namespace Model
 			}
 		}
 
+        // TODO: xml - с наследованием
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
+            // TODO: что за сокращения в именованиях?
 			var res = new List<Complex>();
 			foreach (var f in frequency)
 			{
@@ -77,6 +81,7 @@ namespace Model
 			return res;
 		}
 
+        // TODO: xml - с наследованием
 		public event ValueChanged ValueChanged;
 	}
 }

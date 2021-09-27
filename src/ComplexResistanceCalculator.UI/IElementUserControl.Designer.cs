@@ -1,6 +1,7 @@
 ﻿
 namespace ComplexResistanceCalculator.UI
 {
+    // TODO: здесь в названии буква I лишняя - создаёт ложное понимание, что это не контрол, а интерфейс для контролов
 	partial class IElementUserControl
 	{
 		/// <summary> 

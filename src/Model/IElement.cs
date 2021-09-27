@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Reflection.Emit;
-
+// TODO: почему проекты .NET Core 3.1? Ты делаешь веб-приложение?
+// TODO: поставить Spell Checker как расширение для VS, исправить грамматические ошибки в коде и комментариях
 namespace Model
 {
 	public delegate void ValueChanged();

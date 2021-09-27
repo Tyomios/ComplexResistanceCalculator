@@ -13,16 +13,19 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class MainForm : Form
 	{
+		// TODO: количество элементов нельзя узнать через Circuit?
 		/// <summary>
 		/// Количество элементов в цепи.
 		/// </summary>
 		private int _elementsCount;
-		
+
 		/// <summary>
 		/// Выбранный пользователем элемент цепи.
 		/// </summary>
 		private IElement _currentElement;
 
+		// TODO: Что за куча рассчитанных вручную точек? Почему их нельзя сверстать так, чтобы все координаты были в дизайнере?
+        // TODO: Или это расположение элементов цепи на отрисовщике? Тогда они должны вычисляться программно (разве нельзя сделать X + 120 в цикле?)
 		/// <summary>
 		/// Координаты расположения элементов цепи для стартового размера окна.
 		/// </summary>
@@ -49,7 +52,8 @@ namespace ComplexResistanceCalculator.UI
 			InitializeComponent();
 			_circuit.circuitChanged += CircuitOncircuitChanged;
 		}
-
+		// TODO: xml
+        // TODO: странное название
 		private void CircuitOncircuitChanged()
 		{
 			ChangeEventCircuitControl();
@@ -73,6 +77,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="element"> Добавляемый элемент </param>
 		private void AddElement(IElement element)
 		{
+            // TODO: это что за ограничение такое? Не помню такого в ТЗ
 			if (_elementsCount == 5)
 			{
 				MessageBox.Show("Circuit may include just 5 or less elements" +
@@ -80,6 +85,7 @@ namespace ComplexResistanceCalculator.UI
 								"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
+            // TODO: не забывай про var
 			AddEditForm addForm = new AddEditForm(element);
 			var dialogresult = addForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
@@ -104,6 +110,7 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
+        // TODO: странное название. "Изменить событие контрола цепи"? О_О
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
@@ -112,6 +119,7 @@ namespace ComplexResistanceCalculator.UI
 			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start_Ch.png");
 		}
 
+        // TODO: странное название
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
@@ -160,6 +168,7 @@ namespace ComplexResistanceCalculator.UI
 					}
 
 					_circuit.RemoveElement(_currentElement);
+                    // TODO: чтобы не забывать отнимать эти индексаторы, всегда проще обращаться к количеству элементов через Circuit. Если надо, это свойство можно сделать открытым в самом Circuit, если коллекцию элементов не хочется открывать на изменение.
 					--_elementsCount;
 					_currentElement = null;
 					
@@ -179,6 +188,7 @@ namespace ComplexResistanceCalculator.UI
 			ControlLocation();
 		}
 
+        // TODO: могу сразу сказать, что отрисовку цепи правильнее вынести в отдельный контрол. У него сделать метод Draw(Circuit) - отдельная самостоятельная задача должна решаться отдельной самостоятельной сущностью
 		/// <summary>
 		/// Размещает элементы цепи пропорционально размеру окна.
 		/// </summary>
@@ -197,6 +207,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		/// <summary>
 		/// Создает подсказку при наведении на элемент управления.
 		/// </summary>
@@ -208,26 +219,31 @@ namespace ComplexResistanceCalculator.UI
 			toolTip.SetToolTip(control, toolTipText);
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		private void RemoveElementButton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(RemoveElementButton, "Delete element");
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		private void AddCapacitorButton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(AddCapacitorButton, "Add capacitor");
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		private void AddResistorButton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(AddResistorButton, "Add resistor");
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		private void AddInductorButton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(AddInductorButton, "Add inductor");
 		}
 
+        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
 		private void calculateZbutton_MouseEnter(object sender, EventArgs e)
 		{
 			CreateButtonToolTip(calculateZbutton, "Calculate Z");

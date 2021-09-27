@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace ComplexResistanceCalculator.UI
 {
+    // TODO: в папке src физически лежит еще одна папка с каким-то левым csproj. Наведи порядок в файлах
 	static class Program
 	{
 		/// <summary>

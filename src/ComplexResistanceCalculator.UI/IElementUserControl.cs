@@ -28,9 +28,12 @@ namespace ComplexResistanceCalculator.UI
 		public IElementUserControl(IElement element)
 		{
 			InitializeComponent();
-			
-			if (element is Resistor)
+			// TODO: а если элемент null?
+			// TODO: вообще, входные аргументы в конструкторы контролов нежелательны, так как мешают размещать контролы через дизайнер форм и могут быть созданы только программно.
+			// TODO: вынести в словарь связь типа элемента с именем файла, а здесь обращаться к словарю и сократить вызов до одной строчки.
+            if (element is Resistor)
 			{
+                // TODO: почему резистор jpg, а остальные png. Качество картинок не должно отличаться.
 				BackgroundImage = Image.FromFile($"{_iconPath}/resistor.jpg");
 			}
 			if (element is Inductor)
@@ -51,11 +54,13 @@ namespace ComplexResistanceCalculator.UI
 			ActivateEventPictureBox();
 		}
 
+        // TODO: ты кладешь элемент в свойство, но если кто-то его изменит снаружи? Не должны ли здесь меняться подписки на элемент?
 		/// <summary>
 		/// Элемент цепи.
 		/// </summary>
 		public IElement ContainElement { get; set; }
 
+        // TODO: xml
 		public Point Position { get; set; }
 
 		/// <summary>

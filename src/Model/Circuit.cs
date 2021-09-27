@@ -28,6 +28,7 @@ namespace Model
 		/// <param name="element"> Добавляемый элемент </param>
 		public void AddElement(IElement element)
 		{
+            // TODO: не стоит ли проверять, что элемент уже добавлен в коллекцию?
 			Elements.Add(element);
 			element.ValueChanged += ElementOnValueChanged;
 			circuitChanged?.Invoke();
@@ -43,8 +44,10 @@ namespace Model
 			Elements.Remove(element);
 			if (Elements.Count > 0)
 			{
+                // TODO: а если элементов стало 0, разве это не изменение цепи?
 				circuitChanged?.Invoke();
 			}
+            // TODO: не стоит ли проверять наличие элемента в списке элементов?
 		}
 
 		/// <summary>
@@ -78,11 +81,14 @@ namespace Model
 			}
 			catch (Exception e)
 			{
+				// TODO: если ты тут же кидаешь исключение, то зачем его вообще ловить?
+                // TODO: в итоге, ты наверх выкидываешь более обобщенное исключение типа Exception, теряя полезную информацию о конкретном типе исключения для того, кто будет обрабатывать исключение.
 				throw new Exception(e.Message);
 			}
 			
 		}
 
+        // TODO: неправильное именование
 		/// <summary>
 		/// Событие изменения одного и более элемента цепи.
 		/// </summary>

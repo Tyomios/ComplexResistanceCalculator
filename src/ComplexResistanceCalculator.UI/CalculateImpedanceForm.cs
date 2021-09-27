@@ -10,6 +10,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
+    // TODO: проверить на грамошибки
 	public partial class CalculateImpedanceForm : Form
 	{
 		/// <summary>
@@ -34,6 +35,8 @@ namespace ComplexResistanceCalculator.UI
 			prefixValueComboBoxLastVal.SelectedItem = ValuePrefix.Hz;
 			prefixStepComboBoxStep.SelectedItem = ValuePrefix.Hz;
 
+			// TODO: почему пробел в строке?
+            // TODO: в название строки стоит добавлять единицы измерений. Почему их не добавить сразу?
 			resultData.Columns.Add("Frequency ");
 			resultData.Columns.Add("Impedance");
 			resultDataGridView.DataSource = resultData;
@@ -65,7 +68,9 @@ namespace ComplexResistanceCalculator.UI
 				var frequencyIndex = 0;
 				foreach (var result in impedances)
 				{
+                    // TODO: если тебе нужен индекс, то правильнее использовать for, а не foreach
 					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
+                    // TODO: а у комплексного числа нет готового метода ToString() с настройками форматирования?
 					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
 					++frequencyIndex;
 
@@ -79,7 +84,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 			
 		}
-
+        // TODO: xml
 		private string CompressResult(double result)
 		{
 			var symbol = "";

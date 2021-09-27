@@ -9,6 +9,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
+    // TODO: неправильное именование таких форм уже объяснял. Исправить
 	public partial class AddEditForm : Form
 	{
 		/// <summary>
@@ -24,6 +25,7 @@ namespace ComplexResistanceCalculator.UI
 			elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(Element.Value, Element).ToString();
 		}
 
+        // TODO: ты оставляешь снаружи возможность присвоения другого элемента. Оно нужно? А если нужно, не должно ли что-то пересчитаться в интерфейсе?
 		/// <summary>
 		/// Добавляемый или редактируемый элемент.
 		/// </summary>
@@ -35,8 +37,10 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="element"> Элемент </param>
 		private void SetDimension(IElement element)
 		{
+            // TODO: вынести в словарь связь типа элемента и текста, сократить кучу ифов в одну строку
 			if (element is Resistor)
 			{
+                // TODO: омега - это более специфичное обозначение. Просто Ohm
 				dimensionLabel.Text = "mΩ";
 			}
 			if (element is Capacitor)
@@ -45,6 +49,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 			if (element is Inductor)
 			{
+                // TODO: mcH - это что-такое? милисантиГенри? должны быть наноГенри - нГн (1e-9)
 				dimensionLabel.Text = "mcH";
 			}
 		}

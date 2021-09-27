@@ -4,9 +4,10 @@ using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
 using Model;
-
+// TODO: неправильное пространство имён
 namespace ComplexResistanceCalculator.UI
 {
+    // TODO: тесты надо делать в проекте юнит-тестов, должна быть подпапка Testing, именование проекта тоже неправильное
 	public class ComplexFormatter : IFormatProvider, ICustomFormatter
 	{
 		public object GetFormat(Type formatType)
