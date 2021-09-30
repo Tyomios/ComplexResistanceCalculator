@@ -85,7 +85,8 @@ namespace ComplexResistanceCalculator.UI
 				return;
 			}
             // TODO: не забывай про var +
-			var addForm = new ElementForm(element);
+			var addForm = new ElementForm();
+			addForm.Element = element;
 			var dialogresult = addForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
 			{
@@ -115,6 +116,10 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ChangeEventCircuitControl()
 		{
+			if (_elementsCount == 0)
+			{
+				return;
+			}
 			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start_Ch.png");
 		}
 

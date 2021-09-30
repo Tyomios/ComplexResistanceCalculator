@@ -40,6 +40,9 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private List<double> Frequency { get; set; }
 
+		/// <summary>
+		/// Таблица результатов рассчетра импеданса для каждой частоты
+		/// </summary>
 		private DataTable resultData = new DataTable();
 
 		/// <summary>

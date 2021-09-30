@@ -12,18 +12,18 @@ namespace Model
         // TODO: каждый тип данных должен быть в своём файле
 		// TODO: в префиксах дикая смесь префиксов и единиц измерений. Не надо их смешивать. Либо чисто префиксы kilo, Mega, Giga и т.д., либо для каждой единицы измерения своё перечисление. Правильнее - первый вариант
 		// TODO: элементам перечисления можно присвоить целое значение. Присвой каждому элементу значение его степени и используй в коде как Pow(value, (int)ValuePrefix)
-		Mega = 6,
-		Giga = 9,
-		mili = -3,
-		nano = -9,
-		piko = -12
+		Mega = (int)1E6,
+		Giga = (int)1E9,
+		mili = (int)1E-3,
+		nano = (int)1E-9,
+		piko = (int)1E-12
 	}
 
 	public enum FreqPrefixValue
 	{
-		Hz = 0, // проверить результаты привожу к double 
-		MGz = 6,
-		GHz = 9
+		Hz = 1, // проверить результаты привожу к double 
+		MGz = (int)1E6,
+		GHz = (int)1E9
 	}
 
 	/// <summary>
@@ -46,7 +46,8 @@ namespace Model
             if (elementType is Resistor)
             {
 	            var pow = Math.Exp((double)ValuePrefix.mili);
-	            return Math.Pow(value, pow);
+				var res = Math.Pow(value, pow);
+				return Math.Round(res, MidpointRounding.ToEven);
             }
 			if (elementType is Inductor)
 			{
@@ -55,8 +56,8 @@ namespace Model
 			}
 			if (elementType is Capacitor)
 			{
-				var pow = Math.Exp((double)ValuePrefix.piko);
-				return Math.Pow(value, pow);
+				//var pow = Math.Exp((double)ValuePrefix.piko);
+				return Math.Pow(value, (int)ValuePrefix.piko);
 			}
 
 			return value;
@@ -71,18 +72,19 @@ namespace Model
 		public static double ConvertUndoPrefix(double value, IElement elementType)
 		{
             if (elementType is Resistor)
-			{
-                // TODO: чтобы не запутаться в куче нулей, надо записывать в экспоненциальной форме 1e3. Тогда и комментарии не понадобятся+
-				return (value * Math.Exp(3));
+            {
+	            // TODO: чтобы не запутаться в куче нулей, надо записывать в экспоненциальной форме 1e3. Тогда и комментарии не понадобятся+
+	            var pow = Math.Exp(-(double)ValuePrefix.mili);
+				return (value * 1e3);
 			}
 			if (elementType is Inductor)
 			{
-				return (value * Math.Exp(9));
+				return (value * 1e9);
 			}
 			if (elementType is Capacitor)
 			{
                 // TODO: по комментарию должна быть -12-ая степень, а по факту просто 12-ая. Где правда?+
-				return (value * Math.Exp(12)); 
+				return (value * (int)ValuePrefix.piko); 
 			}
 
 			return value;

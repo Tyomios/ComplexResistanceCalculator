@@ -13,61 +13,54 @@ namespace ComplexResistanceCalculator.UI
 	public partial class ElementForm : Form
 	{
 		/// <summary>
+		/// Добавляемый или редактируемый элемент.
+		/// </summary>
+		private IElement _element;
+
+		/// <summary>
+		/// Содержит название величин для каждого типа элеметов
+		/// </summary>
+		private Dictionary<Type, string> _dimensions = new Dictionary<Type, string>()
+		{
+			[typeof(Resistor)] = "mOhm",
+			[typeof(Capacitor)] ="pF",
+			[typeof(Inductor)] ="nH"
+		};
+
+		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		/// <param name="newElement"> Элемент для внесения данных </param>
-		public ElementForm(IElement newElement)
+		public ElementForm()
 		{
 			InitializeComponent();
-			Element = newElement;
-			SetDimension(Element);
-			elementNameTextBox.Text = Element.Name;
-			elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(Element.Value, Element).ToString();
 		}
 
-        // TODO: ты оставляешь снаружи возможность присвоения другого элемента. Оно нужно? А если нужно, не должно ли что-то пересчитаться в интерфейсе?
 		/// <summary>
-		/// Добавляемый или редактируемый элемент.
+		/// Возвращает или задает элемент.
 		/// </summary>
-		public IElement Element { get; set; }
+        public IElement Element
+        {
+	        get
+	        {
+		        return _element;
+	        }
+	        set
+	        {
+		        _element = value;
+		        dimensionLabel.Text = _dimensions[_element.GetType()];
+				elementNameTextBox.Text = _element.Name;
+		        elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(_element.Value, _element).ToString();
+			}
+        }
 
-		/// <summary>
-		/// Устанавливает величину номинала элемента.
-		/// </summary>
-		/// <param name="element"> Элемент </param>
-		private void SetDimension(IElement element)
-		{
-			Dictionary<Type, string> dict = new Dictionary<Type, string>();
-			dict.Add(typeof(Resistor), "mOhm");
-			dict.Add(typeof(Capacitor), "pF");
-			dict.Add(typeof(Inductor), "nH");
-			var type = element.GetType();
-			dimensionLabel.Text = dict[type];
-			// TODO: вынести в словарь связь типа элемента и текста, сократить кучу ифов в одну строку
-			//if (element is Resistor)
-			//{
-			//             // TODO: омега - это более специфичное обозначение. Просто Ohm
-			//	dimensionLabel.Text = "mΩ";
-
-			//}
-			//if (element is Capacitor)
-			//{
-			//	dimensionLabel.Text = "pF";
-			//}
-			//if (element is Inductor)
-			//{
-			//             // TODO: mcH - это что-такое? милисантиГенри? должны быть наноГенри - нГн (1e-9)
-			//	dimensionLabel.Text = "nH";
-			//}
-		}
-
-		private void saveButton_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
 				var value = Convert.ToDouble(elementValueTextBox.Text);
 				Element.Name = elementNameTextBox.Text;
-				Element.Value = ValueConverter.ConvertPrefixValue(value, Element) ;
+				Element.Value = ValueConverter.ConvertPrefixValue(value, _element) ;
 				DialogResult = DialogResult.OK;
 				Close();
 			}

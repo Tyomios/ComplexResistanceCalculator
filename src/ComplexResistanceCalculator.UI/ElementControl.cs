@@ -75,7 +75,8 @@ namespace ComplexResistanceCalculator.UI
 
 		private void editButton_Click(object sender, EventArgs e)
 		{
-			ElementForm editForm = new ElementForm(ContainElement);
+			ElementForm editForm = new ElementForm();
+			editForm.Element = ContainElement;
 			editForm.Icon = Icon.ExtractAssociatedIcon($"{_iconPath}/editElement.ico");
 			var dialogresult = editForm.ShowDialog();
 			if (dialogresult == DialogResult.OK)
