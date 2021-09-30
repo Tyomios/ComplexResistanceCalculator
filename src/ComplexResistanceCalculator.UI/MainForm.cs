@@ -13,7 +13,6 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class MainForm : Form
 	{
-		// TODO: количество элементов нельзя узнать через Circuit?
 		/// <summary>
 		/// Количество элементов в цепи.
 		/// </summary>
@@ -50,7 +49,7 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
-			_circuit.circuitChanged += CircuitOncircuitChanged;
+			_circuit.CircuitChanged += CircuitOncircuitChanged;
 		}
 		// TODO: xml
         // TODO: странное название
@@ -85,15 +84,15 @@ namespace ComplexResistanceCalculator.UI
 								"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-            // TODO: не забывай про var
-			AddEditForm addForm = new AddEditForm(element);
+            // TODO: не забывай про var +
+			var addForm = new ElementForm(element);
 			var dialogresult = addForm.ShowDialog();
 			if (dialogresult != DialogResult.OK)
 			{
 				return;
 			}
 
-			var newElementUserControl = new IElementUserControl(element);
+			var newElementUserControl = new ElementControl(element);
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
@@ -106,7 +105,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void UserControl_Click(object sender, EventArgs e)
 		{
-			_currentElement = (sender as IElementUserControl).ContainElement;
+			_currentElement = (sender as ElementControl).ContainElement;
 			ShowCurrentElementInfo();
 		}
 
@@ -136,7 +135,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void circuitElementsPanel_ControlAdded(object sender, ControlEventArgs e)
 		{
-			var addedControl = (IElementUserControl)circuitElementsPanel.Controls[_elementsCount];
+			var addedControl = (ElementControl)circuitElementsPanel.Controls[_elementsCount];
 			_currentElement = addedControl.ContainElement;
 			ShowCurrentElementInfo();
 		}
@@ -159,7 +158,7 @@ namespace ComplexResistanceCalculator.UI
 													"", MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes)
 				{
-					foreach (IElementUserControl control in circuitElementsPanel.Controls)
+					foreach (ElementControl control in circuitElementsPanel.Controls)
 					{
 						if (control.ContainElement == _currentElement)
 						{
@@ -260,7 +259,7 @@ namespace ComplexResistanceCalculator.UI
 			CalculateImpedanceForm calculateImpedanceForm = new CalculateImpedanceForm();
 			calculateImpedanceForm.Circuit = _circuit;
 			calculateImpedanceForm.ShowDialog();
-			foreach (IElementUserControl control in circuitElementsPanel.Controls)
+			foreach (ElementControl control in circuitElementsPanel.Controls)
 			{
 				control.HideEventPictureBox();
 			}

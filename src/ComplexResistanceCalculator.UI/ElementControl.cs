@@ -9,7 +9,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-	public partial class IElementUserControl : UserControl
+	public partial class ElementControl : UserControl
 	{
 		/// <summary>
 		/// Расположение папки с изображением элемента.
@@ -25,7 +25,7 @@ namespace ComplexResistanceCalculator.UI
 		/// Создает экземпляр класса <see cref="Control"/>.
 		/// </summary>
 		/// <param name="element"> Элемент цепи, который будет отображаться контролом </param>
-		public IElementUserControl(IElement element)
+		public ElementControl(IElement element)
 		{
 			InitializeComponent();
 			// TODO: а если элемент null?
@@ -75,7 +75,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void editButton_Click(object sender, EventArgs e)
 		{
-			AddEditForm editForm = new AddEditForm(ContainElement);
+			ElementForm editForm = new ElementForm(ContainElement);
 			editForm.Icon = Icon.ExtractAssociatedIcon($"{_iconPath}/editElement.ico");
 			var dialogresult = editForm.ShowDialog();
 			if (dialogresult == DialogResult.OK)

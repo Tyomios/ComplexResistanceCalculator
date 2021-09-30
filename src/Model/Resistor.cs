@@ -39,7 +39,10 @@ namespace Model
 		{
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <summary>
+		/// <inheritdoc cref="IElement.Name"/>
+		/// </summary>
 		public string Name
 		{
 			get => _name;
@@ -54,7 +57,10 @@ namespace Model
 			}
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <summary>
+		/// <inheritdoc cref="IElement.Value"/>
+		/// </summary>
 		public double Value
 		{
 			get => _value;
@@ -68,7 +74,10 @@ namespace Model
 			}
 		}
 
-        // TODO: xml - с наследованием
+		// TODO: xml - с наследованием
+		/// <summary>
+		/// <inheritdoc cref="IElement.CalculateZ"/>
+		/// </summary>
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
             // TODO: что за сокращения в именованиях?
@@ -81,7 +90,10 @@ namespace Model
 			return res;
 		}
 
-        // TODO: xml - с наследованием
+		// TODO: xml - с наследованием
+		/// <summary>
+		/// <inheritdoc cref="IElement.ValueChanged"/>
+		/// </summary>
 		public event ValueChanged ValueChanged;
 	}
 }

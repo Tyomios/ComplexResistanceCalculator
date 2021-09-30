@@ -19,25 +19,18 @@ namespace ComplexResistanceCalculator.UI
 		public CalculateImpedanceForm()
 		{
 			InitializeComponent();
-			foreach (var prefix in Enum.GetValues(typeof(ValuePrefix)))
+			foreach (var prefix in Enum.GetValues(typeof(FreqPrefixValue)))
 			{
-				if (prefix.ToString() == ValuePrefix.Ohm.ToString())
-				{
-					break;
-				}
-
 				prefixValueComboBoxFirstVal.Items.Add(prefix);
 				prefixValueComboBoxLastVal.Items.Add(prefix);
 				prefixStepComboBoxStep.Items.Add(prefix);
 			}
 
-			prefixValueComboBoxFirstVal.SelectedItem = ValuePrefix.Hz;
-			prefixValueComboBoxLastVal.SelectedItem = ValuePrefix.Hz;
-			prefixStepComboBoxStep.SelectedItem = ValuePrefix.Hz;
-
-			// TODO: почему пробел в строке?
-            // TODO: в название строки стоит добавлять единицы измерений. Почему их не добавить сразу?
-			resultData.Columns.Add("Frequency ");
+			prefixValueComboBoxFirstVal.SelectedItem = FreqPrefixValue.Hz;
+			prefixValueComboBoxLastVal.SelectedItem = FreqPrefixValue.Hz;
+			prefixStepComboBoxStep.SelectedItem = FreqPrefixValue.Hz;
+			// TODO: в название строки стоит добавлять единицы измерений. Почему их не добавить сразу?+
+			resultData.Columns.Add("Frequency Hz");
 			resultData.Columns.Add("Impedance");
 			resultDataGridView.DataSource = resultData;
 		}
@@ -65,16 +58,15 @@ namespace ComplexResistanceCalculator.UI
 			{
 				
 				var impedances = Circuit.CalculateZ(Frequency);
-				var frequencyIndex = 0;
-				foreach (var result in impedances)
-				{
-                    // TODO: если тебе нужен индекс, то правильнее использовать for, а не foreach
-					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[frequencyIndex], (ValuePrefix)prefixValue);
-                    // TODO: а у комплексного числа нет готового метода ToString() с настройками форматирования?
-					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
-					++frequencyIndex;
 
-					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}"});
+				for (int index = 0; index < impedances.Count; index++)
+				{
+					var result = impedances[index];
+					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[index], (FreqPrefixValue)prefixValue);
+					// TODO: а у комплексного числа нет готового метода ToString() с настройками форматирования?
+					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
+					var test = result.ToString();
+					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}" });
 				}
 			}
 			catch (Exception exception)
@@ -84,7 +76,12 @@ namespace ComplexResistanceCalculator.UI
 			}
 			
 		}
-        // TODO: xml
+        // TODO: xml +
+		/// <summary>
+		/// Приводит мнимое значение результата к более удобному для восприятия виду.
+		/// </summary>
+		/// <param name="result"> Мнимая часть </param>
+		/// <returns> Удобный для восприятия результат </returns>
 		private string CompressResult(double result)
 		{
 			var symbol = "";
@@ -115,14 +112,18 @@ namespace ComplexResistanceCalculator.UI
 			List<double> frequency = new List<double>();
 			try
 			{
-				var firstValue = ValueConverter.ConvertPrefixFrequency(firstValueTextBox.Text, 
-										(ValuePrefix)prefixValueComboBoxFirstVal.SelectedItem);
+				var firstTextBoxValue = Convert.ToDouble(firstValueTextBox.Text);
+				var lastTextBoxValue = Convert.ToDouble(lastValueTextBox.Text);
+				var stepTextBoxValue = Convert.ToDouble(stepTextBox.Text);
 
-				var lastValue = ValueConverter.ConvertPrefixFrequency(lastValueTextBox.Text, 
-										(ValuePrefix)prefixValueComboBoxLastVal.SelectedItem);
+				var firstValue = ValueConverter.ConvertPrefixFrequency(firstTextBoxValue, 
+										(FreqPrefixValue)prefixValueComboBoxFirstVal.SelectedItem);
 
-				var step = ValueConverter.ConvertPrefixFrequency(stepTextBox.Text, 
-											(ValuePrefix)prefixStepComboBoxStep.SelectedItem);
+				var lastValue = ValueConverter.ConvertPrefixFrequency(lastTextBoxValue, 
+										(FreqPrefixValue)prefixValueComboBoxLastVal.SelectedItem);
+
+				var step = ValueConverter.ConvertPrefixFrequency(stepTextBoxValue, 
+											(FreqPrefixValue)prefixStepComboBoxStep.SelectedItem);
 
 				if (firstValue > lastValue)
 				{

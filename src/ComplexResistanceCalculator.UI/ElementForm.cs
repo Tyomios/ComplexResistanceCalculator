@@ -9,14 +9,14 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-    // TODO: неправильное именование таких форм уже объяснял. Исправить
-	public partial class AddEditForm : Form
+    // TODO: неправильное именование таких форм уже объяснял. Исправить+
+	public partial class ElementForm : Form
 	{
 		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
 		/// <param name="newElement"> Элемент для внесения данных </param>
-		public AddEditForm(IElement newElement)
+		public ElementForm(IElement newElement)
 		{
 			InitializeComponent();
 			Element = newElement;
@@ -37,29 +37,37 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="element"> Элемент </param>
 		private void SetDimension(IElement element)
 		{
-            // TODO: вынести в словарь связь типа элемента и текста, сократить кучу ифов в одну строку
-			if (element is Resistor)
-			{
-                // TODO: омега - это более специфичное обозначение. Просто Ohm
-				dimensionLabel.Text = "mΩ";
-			}
-			if (element is Capacitor)
-			{
-				dimensionLabel.Text = "pF";
-			}
-			if (element is Inductor)
-			{
-                // TODO: mcH - это что-такое? милисантиГенри? должны быть наноГенри - нГн (1e-9)
-				dimensionLabel.Text = "mcH";
-			}
+			Dictionary<Type, string> dict = new Dictionary<Type, string>();
+			dict.Add(typeof(Resistor), "mOhm");
+			dict.Add(typeof(Capacitor), "pF");
+			dict.Add(typeof(Inductor), "nH");
+			var type = element.GetType();
+			dimensionLabel.Text = dict[type];
+			// TODO: вынести в словарь связь типа элемента и текста, сократить кучу ифов в одну строку
+			//if (element is Resistor)
+			//{
+			//             // TODO: омега - это более специфичное обозначение. Просто Ohm
+			//	dimensionLabel.Text = "mΩ";
+
+			//}
+			//if (element is Capacitor)
+			//{
+			//	dimensionLabel.Text = "pF";
+			//}
+			//if (element is Inductor)
+			//{
+			//             // TODO: mcH - это что-такое? милисантиГенри? должны быть наноГенри - нГн (1e-9)
+			//	dimensionLabel.Text = "nH";
+			//}
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
+				var value = Convert.ToDouble(elementValueTextBox.Text);
 				Element.Name = elementNameTextBox.Text;
-				Element.Value = ValueConverter.ConvertPrefixValue(elementValueTextBox.Text, Element) ;
+				Element.Value = ValueConverter.ConvertPrefixValue(value, Element) ;
 				DialogResult = DialogResult.OK;
 				Close();
 			}

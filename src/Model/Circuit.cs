@@ -8,7 +8,7 @@ using Model;
 namespace Model
 {
 	/// <summary>
-	/// Делегат для события circuitChanged.
+	/// Делегат для события CircuitChanged.
 	/// </summary>
 	public delegate void CircuitChanged();
 
@@ -31,7 +31,7 @@ namespace Model
             // TODO: не стоит ли проверять, что элемент уже добавлен в коллекцию?
 			Elements.Add(element);
 			element.ValueChanged += ElementOnValueChanged;
-			circuitChanged?.Invoke();
+			CircuitChanged?.Invoke();
 		}
 
 		/// <summary>
@@ -40,14 +40,12 @@ namespace Model
 		/// <param name="element"> Удаляемый элемент </param>
 		public void RemoveElement(IElement element)
 		{
-			element.ValueChanged -= ElementOnValueChanged;
-			Elements.Remove(element);
-			if (Elements.Count > 0)
+			if (Elements.Contains(element))
 			{
-                // TODO: а если элементов стало 0, разве это не изменение цепи?
-				circuitChanged?.Invoke();
+				element.ValueChanged -= ElementOnValueChanged;
+				Elements.Remove(element);
+				CircuitChanged?.Invoke();
 			}
-            // TODO: не стоит ли проверять наличие элемента в списке элементов?
 		}
 
 		/// <summary>
@@ -55,7 +53,7 @@ namespace Model
 		/// </summary>
 		private void ElementOnValueChanged()
 		{
-			circuitChanged?.Invoke();
+			CircuitChanged?.Invoke();
 		}
 
 		/// <summary>
@@ -65,33 +63,24 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			try
+			var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
+			for (int i = 1; i < Elements.Count; i++)
 			{
-				var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
-				for (int i = 1; i < Elements.Count; i++)
+				var elementZs = Elements[i].CalculateZ(frequencies);
+				for (int j = 0; j < elementZs.Count; j++)
 				{
-					var elementZs = Elements[i].CalculateZ(frequencies);
-					for (int j = 0; j < elementZs.Count; j++)
-					{
-						allFrequenciesImpedance[j] += elementZs[j];
-					}
+					allFrequenciesImpedance[j] += elementZs[j];
 				}
+			}
 
-				return allFrequenciesImpedance;
-			}
-			catch (Exception e)
-			{
-				// TODO: если ты тут же кидаешь исключение, то зачем его вообще ловить?
-                // TODO: в итоге, ты наверх выкидываешь более обобщенное исключение типа Exception, теряя полезную информацию о конкретном типе исключения для того, кто будет обрабатывать исключение.
-				throw new Exception(e.Message);
-			}
-			
+			return allFrequenciesImpedance;
+
 		}
 
         // TODO: неправильное именование
 		/// <summary>
 		/// Событие изменения одного и более элемента цепи.
 		/// </summary>
-		public event CircuitChanged circuitChanged;
+		public event CircuitChanged CircuitChanged;
 	}
 }

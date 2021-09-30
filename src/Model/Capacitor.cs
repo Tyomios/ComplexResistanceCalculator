@@ -39,7 +39,10 @@ namespace Model
 		{
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <summary>
+		/// <inheritdoc cref="IElement.Name"/>
+		/// </summary>
 		public string Name
 		{
 			get => _name;
@@ -54,7 +57,10 @@ namespace Model
 			}
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <summary>
+		/// <inheritdoc cref="IElement.Value"/>
+		/// </summary>
 		public double Value
 		{
 			get => _value;
@@ -69,7 +75,9 @@ namespace Model
 
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <inheritdoc cref="IElement.CalculateZ"/>
+
 		public List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
@@ -81,7 +89,8 @@ namespace Model
 			return impedances;
 		}
 
-        // TODO: xml
+		// TODO: xml+
+		/// <inheritdoc cref="IElement.CalculateZ"/>
 		public event ValueChanged ValueChanged;
 	}
     // TODO: реализации классов дублируются больше чем на половину. Подумай, как можно избавиться от дублирования

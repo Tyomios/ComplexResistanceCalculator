@@ -12,15 +12,18 @@ namespace Model
         // TODO: каждый тип данных должен быть в своём файле
 		// TODO: в префиксах дикая смесь префиксов и единиц измерений. Не надо их смешивать. Либо чисто префиксы kilo, Mega, Giga и т.д., либо для каждой единицы измерения своё перечисление. Правильнее - первый вариант
 		// TODO: элементам перечисления можно присвоить целое значение. Присвой каждому элементу значение его степени и используй в коде как Pow(value, (int)ValuePrefix)
-		Hz,
-		MHz,
-		GHz,
-		Ohm,
-		mOhm,
-		H,
-		mcH,
-		F,
-		pF
+		Mega = 6,
+		Giga = 9,
+		mili = -3,
+		nano = -9,
+		piko = -12
+	}
+
+	public enum FreqPrefixValue
+	{
+		Hz = 0, // проверить результаты привожу к double 
+		MGz = 6,
+		GHz = 9
 	}
 
 	/// <summary>
@@ -34,22 +37,26 @@ namespace Model
 		/// <param name="textFormatValue"> значение </param>
 		/// <param name="elementType"> тип элемента </param>
 		/// <returns> Возвращает значение в единицах СИ </returns>
-		public static double ConvertPrefixValue(string textFormatValue, IElement elementType)
+		public static double ConvertPrefixValue(double value, IElement elementType)
 		{
-            // TODO: почему на вход приходит строка? Метод должен заниматься конвертированием значений с префиксами, а не парсингом текста из контролов. Во-вторых, методы типа ConvertPrefix() и ConvertUndoPrefix() должны быть зеркальны по входным параметрам, так как выполняют противоположные задачи.
-			var value = Convert.ToDouble(textFormatValue);
-			
-			if (elementType is Resistor)
-			{
-				return (value / 1000);
-			}
+            // TODO: почему на вход приходит строка? Метод должен заниматься конвертированием значений с префиксами, а не парсингом текста из контролов.
+            // Во-вторых, методы типа ConvertPrefix() и ConvertUndoPrefix()
+            // должны быть зеркальны по входным параметрам, так как выполняют противоположные задачи.+
+
+            if (elementType is Resistor)
+            {
+	            var pow = Math.Exp((double)ValuePrefix.mili);
+	            return Math.Pow(value, pow);
+            }
 			if (elementType is Inductor)
 			{
-				return (value / 1000000); // 10^6
+				var pow = Math.Exp((double)ValuePrefix.nano);
+				return Math.Pow(value, pow);
 			}
 			if (elementType is Capacitor)
 			{
-				return (value / 1000000000000); // 10^-12
+				var pow = Math.Exp((double)ValuePrefix.piko);
+				return Math.Pow(value, pow);
 			}
 
 			return value;
@@ -65,17 +72,17 @@ namespace Model
 		{
             if (elementType is Resistor)
 			{
-                // TODO: чтобы не запутаться в куче нулей, надо записывать в экспоненциальной форме 1e3. Тогда и комментарии не понадобятся
-				return (value * 1000);
+                // TODO: чтобы не запутаться в куче нулей, надо записывать в экспоненциальной форме 1e3. Тогда и комментарии не понадобятся+
+				return (value * Math.Exp(3));
 			}
 			if (elementType is Inductor)
 			{
-				return (value * 1000000); // 10^6
+				return (value * Math.Exp(9));
 			}
 			if (elementType is Capacitor)
 			{
-                // TODO: по комментарию должна быть -12-ая степень, а по факту просто 12-ая. Где правда?
-				return (value * 1000000000000); // 10^-12
+                // TODO: по комментарию должна быть -12-ая степень, а по факту просто 12-ая. Где правда?+
+				return (value * Math.Exp(12)); 
 			}
 
 			return value;
@@ -87,24 +94,10 @@ namespace Model
 		/// <param name="valueText"> Значение </param>
 		/// <param name="prefixValue"> Выбранная пользователем величина </param>
 		/// <returns> Значение частоты в герцах </returns>
-		public static double ConvertPrefixFrequency(string valueText, ValuePrefix prefixValue)
+		public static double ConvertPrefixFrequency(double value, FreqPrefixValue prefixValue)
 		{
-            // TODO: опять конвертирование строки. Неправильно!
-			var value = Convert.ToDouble(valueText);
-			var prefixM = 1000000;
-			var prefixG = 1000000000;
-
-            // TODO: должно упроститься после переделки перечисления
-			if (prefixValue == ValuePrefix.MHz)
-			{
-				return (value * prefixM);
-			}
-			if (prefixValue == ValuePrefix.GHz)
-			{
-				return (value * prefixG);
-			}
-
-			return value;
+			// TODO: должно упроститься после переделки перечисления
+			return (value * Math.Exp((double)prefixValue));
 		}
 
 		/// <summary>
@@ -113,19 +106,10 @@ namespace Model
 		/// <param name="value"> Значение </param>
 		/// <param name="selectedPrefix"> Величина </param>
 		/// <returns> Значение в пользовательской велечине </returns>
-		public static double ConvertUndoPrefixFrequency(double value, ValuePrefix selectedPrefix)
+		public static double ConvertUndoPrefixFrequency(double value, FreqPrefixValue selectedPrefix)
 		{
-            // TODO: должно упроститься после переделки перечисления
-			if (selectedPrefix == ValuePrefix.MHz)
-			{
-				return value / 1000000;
-			}
-			if (selectedPrefix == ValuePrefix.GHz)
-			{
-				return value / 1000000000;
-			}
-
-			return value;
+			// TODO: должно упроститься после переделки перечисления
+			return (value * Math.Exp(-(double)selectedPrefix));
 		}
 	}
 }

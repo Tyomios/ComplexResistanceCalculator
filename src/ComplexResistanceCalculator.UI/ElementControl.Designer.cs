@@ -2,7 +2,7 @@
 namespace ComplexResistanceCalculator.UI
 {
     // TODO: здесь в названии буква I лишняя - создаёт ложное понимание, что это не контрол, а интерфейс для контролов
-	partial class IElementUserControl
+	partial class ElementControl
 	{
 		/// <summary> 
 		/// Обязательная переменная конструктора.
@@ -30,7 +30,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IElementUserControl));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElementControl));
 			this.editButton = new System.Windows.Forms.Button();
 			this.eventPictureBox = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.eventPictureBox)).BeginInit();
