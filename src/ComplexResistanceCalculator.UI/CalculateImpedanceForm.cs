@@ -10,7 +10,7 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-    // TODO: проверить на грамошибки
+    // TODO: проверить на грамошибки+
 	public partial class CalculateImpedanceForm : Form
 	{
 		/// <summary>
@@ -36,12 +36,12 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		/// <summary>
-		/// Диапазон частот для рассчета сопротивлений.
+		/// Диапазон частот для расчета сопротивлений.
 		/// </summary>
 		private List<double> Frequency { get; set; }
 
 		/// <summary>
-		/// Таблица результатов рассчетра импеданса для каждой частоты
+		/// Таблица результатов расчета импеданса для каждой частоты.
 		/// </summary>
 		private DataTable resultData = new DataTable();
 
@@ -66,7 +66,6 @@ namespace ComplexResistanceCalculator.UI
 				{
 					var result = impedances[index];
 					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[index], (FreqPrefixValue)prefixValue);
-					// TODO: а у комплексного числа нет готового метода ToString() с настройками форматирования?
 					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
 					var test = result.ToString();
 					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}" });
@@ -107,7 +106,7 @@ namespace ComplexResistanceCalculator.UI
 		}
 
 		/// <summary>
-		/// Создание диапазона частот по 2 значениям, введенные пользователем.
+		/// Создание диапазона частот по 2 значениям, введенных пользователем.
 		/// </summary>
 		/// <returns> Список с частотами для рассчета сопротивлений </returns>
 		private List<double> GetFrequencyList()

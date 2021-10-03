@@ -39,7 +39,7 @@ namespace Model
 		/// <returns> Возвращает значение в единицах СИ </returns>
 		public static double ConvertPrefixValue(double value, IElement elementType)
 		{
-            // TODO: почему на вход приходит строка? Метод должен заниматься конвертированием значений с префиксами, а не парсингом текста из контролов.
+            // TODO: почему на вход приходит строка? Метод должен заниматься конвертированием значений с префиксами, а не парсингом текста из контролов.+
             // Во-вторых, методы типа ConvertPrefix() и ConvertUndoPrefix()
             // должны быть зеркальны по входным параметрам, так как выполняют противоположные задачи.+
 
@@ -98,7 +98,7 @@ namespace Model
 		/// <returns> Значение частоты в герцах </returns>
 		public static double ConvertPrefixFrequency(double value, FreqPrefixValue prefixValue)
 		{
-			// TODO: должно упроститься после переделки перечисления
+			// TODO: должно упроститься после переделки перечисления+
 			return (value * Math.Exp((double)prefixValue));
 		}
 
@@ -110,7 +110,7 @@ namespace Model
 		/// <returns> Значение в пользовательской велечине </returns>
 		public static double ConvertUndoPrefixFrequency(double value, FreqPrefixValue selectedPrefix)
 		{
-			// TODO: должно упроститься после переделки перечисления
+			// TODO: должно упроститься после переделки перечисления+
 			return (value * Math.Exp(-(double)selectedPrefix));
 		}
 	}

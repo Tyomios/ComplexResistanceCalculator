@@ -49,13 +49,13 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
-			_circuit.CircuitChanged += CircuitOncircuitChanged;
+			_circuit.CircuitChanged += OnСircuitChanged;
 		}
 		// TODO: xml
         // TODO: странное название
-		private void CircuitOncircuitChanged()
+		private void OnСircuitChanged()
 		{
-			ChangeEventCircuitControl();
+			ShowEventCircuitChanged();
 		}
 
 		/// <summary>
@@ -93,7 +93,8 @@ namespace ComplexResistanceCalculator.UI
 				return;
 			}
 
-			var newElementUserControl = new ElementControl(element);
+			var newElementUserControl = new ElementControl();
+			newElementUserControl.ContainElement = element;
 			circuitElementsPanel.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
@@ -110,11 +111,11 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
-        // TODO: странное название. "Изменить событие контрола цепи"? О_О
+        // TODO: странное название. "Изменить событие контрола цепи"? О_О+
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
-		private void ChangeEventCircuitControl()
+		private void ShowEventCircuitChanged()
 		{
 			if (_elementsCount == 0)
 			{
@@ -123,11 +124,11 @@ namespace ComplexResistanceCalculator.UI
 			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start_Ch.png");
 		}
 
-        // TODO: странное название
+        // TODO: странное название+
 		/// <summary>
 		/// Метод для события изменение цепи.
 		/// </summary>
-		private void OffEventCircuitControl()
+		private void HideEventCircuitChanged()
 		{
 			calculateZbutton.BackgroundImage = Image.FromFile("../../../../icons/Start.png");
 		}
@@ -268,7 +269,7 @@ namespace ComplexResistanceCalculator.UI
 			{
 				control.HideEventPictureBox();
 			}
-			OffEventCircuitControl();
+			HideEventCircuitChanged();
 		}
 	}
 }
