@@ -31,9 +31,16 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Dictionary<Type, Image> elementPictures = new Dictionary<Type, Image>()
 		{
-			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/resistor.jpg"),
-			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/inductor.png"),
-			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/capacitor.png")
+			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newResistor.png"),
+			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newInductor.png"),
+			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newCapacitor.png")
+		};
+
+		private Dictionary<Type, Image> updateElementPictures = new Dictionary<Type, Image>()
+		{
+			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newEventResistorIcon1.png"),
+			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newEventInductorIcon1.png"),
+			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newEventCapacitorIcon1.png")
 		};
 
 		/// <summary>
@@ -75,7 +82,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public void HideEventPictureBox()
 		{
-			eventPictureBox.Visible = false;
+			//eventPictureBox.Visible = false;
 			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
@@ -98,11 +105,13 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ActivateEventPictureBox()
 		{
-			eventPictureBox.Image = Image.FromFile($"{_iconPath}/valueChanged.png");
-			eventPictureBox.Visible = true;
+			//eventPictureBox.Image = Image.FromFile($"{_iconPath}/valueChanged.png");
+			//eventPictureBox.Visible = true;
 
-			_eventPictureBoxToolTip.SetToolTip(eventPictureBox, "Value was changed");
-			_eventPictureBoxToolTip.Active = true;
+			//_eventPictureBoxToolTip.SetToolTip(eventPictureBox, "Value was changed");
+			//_eventPictureBoxToolTip.Active = true;
+
+			BackgroundImage = updateElementPictures[_containElement.GetType()];
 		}
 
 		private void editButton_MouseEnter(object sender, EventArgs e)
