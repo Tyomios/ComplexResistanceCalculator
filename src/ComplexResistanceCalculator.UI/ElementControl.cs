@@ -71,7 +71,6 @@ namespace ComplexResistanceCalculator.UI
 				_containElement.ValueChanged += ContainElementOnValueChanged;
 				BackgroundImage = elementPictures[value.GetType()];
 			}
-
 		}
 
         // TODO: xml

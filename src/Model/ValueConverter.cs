@@ -12,18 +12,18 @@ namespace Model
         // TODO: каждый тип данных должен быть в своём файле
 		// TODO: в префиксах дикая смесь префиксов и единиц измерений. Не надо их смешивать. Либо чисто префиксы kilo, Mega, Giga и т.д., либо для каждой единицы измерения своё перечисление. Правильнее - первый вариант
 		// TODO: элементам перечисления можно присвоить целое значение. Присвой каждому элементу значение его степени и используй в коде как Pow(value, (int)ValuePrefix)
-		Mega = (int)1E6,
-		Giga = (int)1E9,
-		mili = (int)1E-3,
-		nano = (int)1E-9,
-		piko = (int)1E-12
+		Mega = 6,
+		Giga = 9,
+		mili = -3,
+		nano = -9,
+		piko = -12
 	}
 
 	public enum FreqPrefixValue
 	{
 		Hz = 1, // проверить результаты привожу к double 
-		MGz = (int)1E6,
-		GHz = (int)1E9
+		MGz = 6,
+		GHz = 9
 	}
 
 	/// <summary>
@@ -31,6 +31,13 @@ namespace Model
 	/// </summary>
 	public static class ValueConverter
 	{
+		private static Dictionary<Type, int> pows = new Dictionary<Type, int>()
+		{
+			[typeof(Resistor)] = (int)ValuePrefix.mili,
+			[typeof(Inductor)] = (int)ValuePrefix.nano,
+			[typeof(Capacitor)] = (int)ValuePrefix.piko
+		};
+
 		/// <summary>
 		/// Преобразует значение в единицы СИ.
 		/// </summary>
@@ -43,24 +50,9 @@ namespace Model
             // Во-вторых, методы типа ConvertPrefix() и ConvertUndoPrefix()
             // должны быть зеркальны по входным параметрам, так как выполняют противоположные задачи.+
 
-            if (elementType is Resistor)
-            {
-	            var pow = Math.Exp((double)ValuePrefix.mili);
-				var res = Math.Pow(value, pow);
-				return Math.Round(res, MidpointRounding.ToEven);
-            }
-			if (elementType is Inductor)
-			{
-				var pow = Math.Exp((double)ValuePrefix.nano);
-				return Math.Pow(value, pow);
-			}
-			if (elementType is Capacitor)
-			{
-				//var pow = Math.Exp((double)ValuePrefix.piko);
-				return Math.Pow(value, (int)ValuePrefix.piko);
-			}
+            var pow = Math.Pow(10, pows[elementType.GetType()]);
 
-			return value;
+            return value * pow;
 		}
 
 		/// <summary>
@@ -71,23 +63,9 @@ namespace Model
 		/// <returns> Результат в величине, выбранной пользователем </returns>
 		public static double ConvertUndoPrefix(double value, IElement elementType)
 		{
-            if (elementType is Resistor)
-            {
-	            // TODO: чтобы не запутаться в куче нулей, надо записывать в экспоненциальной форме 1e3. Тогда и комментарии не понадобятся+
-	            var pow = Math.Exp(-(double)ValuePrefix.mili);
-				return (value * 1e3);
-			}
-			if (elementType is Inductor)
-			{
-				return (value * 1e9);
-			}
-			if (elementType is Capacitor)
-			{
-                // TODO: по комментарию должна быть -12-ая степень, а по факту просто 12-ая. Где правда?+
-				return (value * (int)ValuePrefix.piko); 
-			}
+			var pow = Math.Pow(10, pows[elementType.GetType()]);
 
-			return value;
+			return value / pow;
 		}
 
 		/// <summary>
@@ -99,7 +77,8 @@ namespace Model
 		public static double ConvertPrefixFrequency(double value, FreqPrefixValue prefixValue)
 		{
 			// TODO: должно упроститься после переделки перечисления+
-			return (value * Math.Exp((double)prefixValue));
+			var pow = Math.Pow(10, (double)prefixValue);
+			return value * pow;
 		}
 
 		/// <summary>
@@ -111,7 +90,8 @@ namespace Model
 		public static double ConvertUndoPrefixFrequency(double value, FreqPrefixValue selectedPrefix)
 		{
 			// TODO: должно упроститься после переделки перечисления+
-			return (value * Math.Exp(-(double)selectedPrefix));
+			var pow = Math.Pow(10, (double)selectedPrefix);
+			return value / pow;
 		}
 	}
 }
