@@ -33,10 +33,11 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// CircuitDrawer
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Name = "CircuitDrawer";
-			this.Size = new System.Drawing.Size(187, 184);
+			this.Size = new System.Drawing.Size(705, 380);
 			this.ResumeLayout(false);
 
 		}

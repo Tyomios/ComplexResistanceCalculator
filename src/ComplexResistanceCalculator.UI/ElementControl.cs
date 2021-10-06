@@ -81,7 +81,6 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public void HideEventPictureBox()
 		{
-			//eventPictureBox.Visible = false;
 			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
@@ -104,12 +103,6 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ActivateEventPictureBox()
 		{
-			//eventPictureBox.Image = Image.FromFile($"{_iconPath}/valueChanged.png");
-			//eventPictureBox.Visible = true;
-
-			//_eventPictureBoxToolTip.SetToolTip(eventPictureBox, "Value was changed");
-			//_eventPictureBoxToolTip.Active = true;
-
 			BackgroundImage = updateElementPictures[_containElement.GetType()];
 		}
 
