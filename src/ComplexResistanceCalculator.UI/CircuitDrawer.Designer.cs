@@ -1,4 +1,7 @@
 ﻿
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace ComplexResistanceCalculator.UI
 {
 	partial class CircuitDrawer
@@ -7,6 +10,9 @@ namespace ComplexResistanceCalculator.UI
 		/// Обязательная переменная конструктора.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+
+		public SizeF AutoScaleDimensions { get; private set; }
+		public AutoScaleMode AutoScaleMode { get; private set; }
 
 		/// <summary> 
 		/// Освободить все используемые ресурсы.
@@ -33,11 +39,12 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// CircuitDrawer
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Name = "CircuitDrawer";
-			this.Size = new System.Drawing.Size(705, 380);
+			this.Size = new System.Drawing.Size(617, 285);
+			this.SizeChanged += new System.EventHandler(this.CircuitDrawer_SizeChanged);
+			this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.CircuitDrawer_ControlAdded); ;
 			this.ResumeLayout(false);
 
 		}

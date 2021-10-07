@@ -41,7 +41,7 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton = new System.Windows.Forms.Button();
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
-			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.mainFormToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -57,9 +57,9 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton.Name = "AddResistorButton";
 			this.AddResistorButton.Size = new System.Drawing.Size(31, 26);
 			this.AddResistorButton.TabIndex = 0;
+			this.mainFormToolTip.SetToolTip(this.AddResistorButton, "Add resistor");
 			this.AddResistorButton.UseVisualStyleBackColor = true;
 			this.AddResistorButton.Click += new System.EventHandler(this.AddResistorButton_Click);
-			this.AddResistorButton.MouseEnter += new System.EventHandler(this.AddResistorButton_MouseEnter);
 			// 
 			// AddInductorButton
 			// 
@@ -74,9 +74,9 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.Name = "AddInductorButton";
 			this.AddInductorButton.Size = new System.Drawing.Size(31, 26);
 			this.AddInductorButton.TabIndex = 1;
+			this.mainFormToolTip.SetToolTip(this.AddInductorButton, "Add inductor");
 			this.AddInductorButton.UseVisualStyleBackColor = true;
 			this.AddInductorButton.Click += new System.EventHandler(this.AddInductorButton_Click);
-			this.AddInductorButton.MouseEnter += new System.EventHandler(this.AddInductorButton_MouseEnter);
 			// 
 			// AddCapacitorButton
 			// 
@@ -92,9 +92,9 @@ namespace ComplexResistanceCalculator.UI
 			this.AddCapacitorButton.Name = "AddCapacitorButton";
 			this.AddCapacitorButton.Size = new System.Drawing.Size(31, 26);
 			this.AddCapacitorButton.TabIndex = 2;
+			this.mainFormToolTip.SetToolTip(this.AddCapacitorButton, "Add capacitor");
 			this.AddCapacitorButton.UseVisualStyleBackColor = true;
 			this.AddCapacitorButton.Click += new System.EventHandler(this.AddCapacitorButton_Click);
-			this.AddCapacitorButton.MouseEnter += new System.EventHandler(this.AddCapacitorButton_MouseEnter);
 			// 
 			// ElementsNameLabel
 			// 
@@ -145,9 +145,9 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton.Name = "calculateZbutton";
 			this.calculateZbutton.Size = new System.Drawing.Size(28, 24);
 			this.calculateZbutton.TabIndex = 9;
+			this.mainFormToolTip.SetToolTip(this.calculateZbutton, "Calculate impedance");
 			this.calculateZbutton.UseVisualStyleBackColor = true;
 			this.calculateZbutton.Click += new System.EventHandler(this.calculateZbutton_Click);
-			this.calculateZbutton.MouseEnter += new System.EventHandler(this.calculateZbutton_MouseEnter);
 			// 
 			// RemoveElementButton
 			// 
@@ -161,9 +161,9 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.Name = "RemoveElementButton";
 			this.RemoveElementButton.Size = new System.Drawing.Size(31, 27);
 			this.RemoveElementButton.TabIndex = 10;
+			this.mainFormToolTip.SetToolTip(this.RemoveElementButton, "Delete element");
 			this.RemoveElementButton.UseVisualStyleBackColor = true;
 			this.RemoveElementButton.Click += new System.EventHandler(this.RemoveElementButton_Click);
-			this.RemoveElementButton.MouseEnter += new System.EventHandler(this.RemoveElementButton_MouseEnter);
 			// 
 			// circuitElementsPanel
 			// 
@@ -219,7 +219,7 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Button RemoveElementButton;
 		private System.Windows.Forms.TextBox elementsValueTextBox;
 		private System.Windows.Forms.Panel circuitElementsPanel;
-		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.ToolTip mainFormToolTip;
 	}
 }
 

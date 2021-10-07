@@ -61,7 +61,7 @@
   <data name="AddResistorButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAIAAACRuyQOAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
-        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAADr8AAA6/ATgFUyQAAAAHdElNRQflCBULLwzKFVdaAAAH
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAADr0AAA69AUf7kK0AAAAHdElNRQflCBULLwzKFVdaAAAH
         +ElEQVRIS5WXh09U2xbG+W+MiSaaqFGjJvYaseG1C4OPOoJSHGwIwpOqIFjwATJInpeIjFIGFUFFMgwy
         FLsPEFFGuiIIyhTK++2z547zXmx3BY/7nL33+lb51tp73CZ/LBMTE46Ry5iB63fE9dU5loMvX75UV1cf
         PHhw3rx5P0P6iQg0RRiPjY0NDw8PDQ3ZbDY5NT4+zhOYioqKoKAgd3f3kydP/hpJqnMVgfAXRm9v7717
@@ -99,6 +99,9 @@
         AT27mWuqV1sAAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="mainFormToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="AddInductorButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/2wBD
@@ -198,9 +201,6 @@
         RU5ErkJggg==
 </value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAPDwAAAEAIABIOgAAFgAAACgAAAA8AAAAeAAAAAEAIAAAAAAAQDgAAHQSAAB0EgAAAAAAAAAA

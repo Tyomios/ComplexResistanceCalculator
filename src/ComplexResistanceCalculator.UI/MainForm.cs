@@ -43,14 +43,25 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
+		private CircuitDrawer elementsContainer = new CircuitDrawer();
+
 		/// <summary>
 		/// Создает экземпляр класса <see cref="MainForm"/>.
 		/// </summary>
 		public MainForm()
 		{
 			InitializeComponent();
+			circuitElementsPanel.Controls.Add(elementsContainer);
+			elementsContainer.ControlAdded += ElementsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
 		}
+
+		private void ElementsContainerOnControlAdded(object sender, ControlEventArgs e)
+		{
+			_currentElement = elementsContainer.SelectedElement;
+			ShowCurrentElementInfo();
+		}
+
 		// TODO: xml
         // TODO: странное название
 		private void OnСircuitChanged()
@@ -95,7 +106,8 @@ namespace ComplexResistanceCalculator.UI
 
 			var newElementUserControl = new ElementControl();
 			newElementUserControl.ContainElement = element;
-			circuitElementsPanel.Controls.Add(newElementUserControl);
+			//circuitElementsPanel.Controls.Add(newElementUserControl);
+			elementsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
@@ -103,6 +115,22 @@ namespace ComplexResistanceCalculator.UI
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
+		}
+
+
+		private void UniteControls(PaintEventArgs e)
+		{
+			var containControls = circuitElementsPanel.Controls;
+			Graphics gr = e.Graphics;
+			Pen p = new Pen(Color.Blue, 5);
+			for (int i = 0; i < circuitElementsPanel.Controls.Count; i++) // возможно нужно проходить до count -1 
+			{
+				if ((ElementControl)containControls[i + 1] != null)
+				{
+					//gr.DrawLine(p, containControls[i].Position, containControls[i + 1].Position);
+				}
+			}
+			gr.Dispose(); // освобождаем все ресурсы, связанные с отрисовкой
 		}
 
 		private void UserControl_Click(object sender, EventArgs e)
@@ -141,10 +169,11 @@ namespace ComplexResistanceCalculator.UI
 
 		private void circuitElementsPanel_ControlAdded(object sender, ControlEventArgs e)
 		{
-			var addedControl = (ElementControl)circuitElementsPanel.Controls[_elementsCount];
-			_currentElement = addedControl.ContainElement;
-			ShowCurrentElementInfo();
+			//var addedControl = (ElementControl)circuitElementsPanel.Controls[_elementsCount];
+			//_currentElement = addedControl.ContainElement;
+			//ShowCurrentElementInfo();
 		}
+
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
 		{
@@ -191,6 +220,7 @@ namespace ComplexResistanceCalculator.UI
 		private void mainForm_SizeChanged(object sender, EventArgs e)
 		{
 			ControlLocation();
+			elementsContainer.Size = circuitElementsPanel.Size;
 		}
 
         // TODO: могу сразу сказать, что отрисовку цепи правильнее вынести в отдельный контрол. У него сделать метод Draw(Circuit) - отдельная самостоятельная задача должна решаться отдельной самостоятельной сущностью
@@ -199,59 +229,17 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ControlLocation()
 		{
-			int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
-			for (int i = 2; i < _userControlLocation.Count; i++)
-			{
-				_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
-					, _userControlLocation[i].Y);
-			}
+			//int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
+			//for (int i = 2; i < _userControlLocation.Count; i++)
+			//{
+			//	_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
+			//		, _userControlLocation[i].Y);
+			//}
 
-			for (int i = 0; i < _elementsCount; i++)
-			{
-				circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
-			}
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		/// <summary>
-		/// Создает подсказку при наведении на элемент управления.
-		/// </summary>
-		/// <param name="control"> Элемент управления </param>
-		/// <param name="toolTipText"> Текст подсказки </param>
-		private void CreateButtonToolTip(Control control, string toolTipText)
-		{
-			var toolTip = new ToolTip();
-			toolTip.SetToolTip(control, toolTipText);
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		private void RemoveElementButton_MouseEnter(object sender, EventArgs e)
-		{
-			CreateButtonToolTip(RemoveElementButton, "Delete element");
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		private void AddCapacitorButton_MouseEnter(object sender, EventArgs e)
-		{
-			CreateButtonToolTip(AddCapacitorButton, "Add capacitor");
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		private void AddResistorButton_MouseEnter(object sender, EventArgs e)
-		{
-			CreateButtonToolTip(AddResistorButton, "Add resistor");
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		private void AddInductorButton_MouseEnter(object sender, EventArgs e)
-		{
-			CreateButtonToolTip(AddInductorButton, "Add inductor");
-		}
-
-        // TODO: все тултипы можно задать через дизайнер, чтобы не гадить в коде логики формы
-		private void calculateZbutton_MouseEnter(object sender, EventArgs e)
-		{
-			CreateButtonToolTip(calculateZbutton, "Calculate Z");
+			//for (int i = 0; i < _elementsCount; i++)
+			//{
+			//	circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
+			//}
 		}
 
 		private void calculateZbutton_Click(object sender, EventArgs e)
