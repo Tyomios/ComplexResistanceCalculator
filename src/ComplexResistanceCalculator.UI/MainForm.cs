@@ -23,27 +23,12 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private IElement _currentElement;
 
-		// TODO: Что за куча рассчитанных вручную точек? Почему их нельзя сверстать так, чтобы все координаты были в дизайнере?
-        // TODO: Или это расположение элементов цепи на отрисовщике? Тогда они должны вычисляться программно (разве нельзя сделать X + 120 в цикле?)
-		/// <summary>
-		/// Координаты расположения элементов цепи для стартового размера окна.
-		/// </summary>
-		private List<Point> _userControlLocation = new List<Point>()
-		{
-			new Point(0, 0),
-			new Point(15, 80), 
-			new Point(135, 80),
-			new Point(255, 80),
-			new Point(375, 80),
-			new Point(495, 80)
-		};
-			
 		/// <summary>
 		/// Цепь.
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
-		private CircuitDrawer elementsContainer = new CircuitDrawer();
+		private CircuitDrawer elementControlsContainer = new CircuitDrawer();
 
 		/// <summary>
 		/// Создает экземпляр класса <see cref="MainForm"/>.
@@ -51,14 +36,14 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
-			circuitElementsPanel.Controls.Add(elementsContainer);
-			elementsContainer.ControlAdded += ElementsContainerOnControlAdded; 
+			circuitElementsPanel.Controls.Add(elementControlsContainer);
+			elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
 		}
 
-		private void ElementsContainerOnControlAdded(object sender, ControlEventArgs e)
+		private void ElementControlsContainerOnControlAdded(object sender, ControlEventArgs e)
 		{
-			_currentElement = elementsContainer.SelectedElement;
+			_currentElement = elementControlsContainer.SelectedElement;
 			ShowCurrentElementInfo();
 		}
 
@@ -106,10 +91,8 @@ namespace ComplexResistanceCalculator.UI
 
 			var newElementUserControl = new ElementControl();
 			newElementUserControl.ContainElement = element;
-			//circuitElementsPanel.Controls.Add(newElementUserControl);
-			elementsContainer.Controls.Add(newElementUserControl);
+			elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
-			newElementUserControl.Location = _userControlLocation[_elementsCount + 1];
 			++_elementsCount;
 			_circuit.AddElement(element);
 
@@ -117,21 +100,6 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
-
-		private void UniteControls(PaintEventArgs e)
-		{
-			var containControls = circuitElementsPanel.Controls;
-			Graphics gr = e.Graphics;
-			Pen p = new Pen(Color.Blue, 5);
-			for (int i = 0; i < circuitElementsPanel.Controls.Count; i++) // возможно нужно проходить до count -1 
-			{
-				if ((ElementControl)containControls[i + 1] != null)
-				{
-					//gr.DrawLine(p, containControls[i].Position, containControls[i + 1].Position);
-				}
-			}
-			gr.Dispose(); // освобождаем все ресурсы, связанные с отрисовкой
-		}
 
 		private void UserControl_Click(object sender, EventArgs e)
 		{
@@ -163,17 +131,8 @@ namespace ComplexResistanceCalculator.UI
 
 		private void AddResistorButton_Click(object sender, EventArgs e)
 		{
-			Resistor resistor = new Resistor();
-			AddElement(resistor);
+			AddElement(new Resistor());
 		}
-
-		private void circuitElementsPanel_ControlAdded(object sender, ControlEventArgs e)
-		{
-			//var addedControl = (ElementControl)circuitElementsPanel.Controls[_elementsCount];
-			//_currentElement = addedControl.ContainElement;
-			//ShowCurrentElementInfo();
-		}
-
 
 		private void AddInductorButton_Click(object sender, EventArgs e)
 		{
@@ -193,11 +152,11 @@ namespace ComplexResistanceCalculator.UI
 													"", MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes)
 				{
-					foreach (ElementControl control in circuitElementsPanel.Controls)
+					foreach (ElementControl control in elementControlsContainer.Controls)
 					{
 						if (control.ContainElement == _currentElement)
 						{
-							circuitElementsPanel.Controls.Remove(control);
+							elementControlsContainer.Controls.Remove(control);
 						}
 					}
 
@@ -207,7 +166,6 @@ namespace ComplexResistanceCalculator.UI
 					_currentElement = null;
 					
 					ShowCurrentElementInfo();
-					ControlLocation();
 				}
 			}
 			else
@@ -219,28 +177,9 @@ namespace ComplexResistanceCalculator.UI
 
 		private void mainForm_SizeChanged(object sender, EventArgs e)
 		{
-			ControlLocation();
-			elementsContainer.Size = circuitElementsPanel.Size;
+			elementControlsContainer.Size = circuitElementsPanel.Size;
 		}
 
-        // TODO: могу сразу сказать, что отрисовку цепи правильнее вынести в отдельный контрол. У него сделать метод Draw(Circuit) - отдельная самостоятельная задача должна решаться отдельной самостоятельной сущностью
-		/// <summary>
-		/// Размещает элементы цепи пропорционально размеру окна.
-		/// </summary>
-		private void ControlLocation()
-		{
-			//int distance = (int)(0.17 * circuitElementsPanel.Size.Width);
-			//for (int i = 2; i < _userControlLocation.Count; i++)
-			//{
-			//	_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
-			//		, _userControlLocation[i].Y);
-			//}
-
-			//for (int i = 0; i < _elementsCount; i++)
-			//{
-			//	circuitElementsPanel.Controls[i].Location = _userControlLocation[i + 1];
-			//}
-		}
 
 		private void calculateZbutton_Click(object sender, EventArgs e)
 		{
@@ -253,7 +192,7 @@ namespace ComplexResistanceCalculator.UI
 			CalculateImpedanceForm calculateImpedanceForm = new CalculateImpedanceForm();
 			calculateImpedanceForm.Circuit = _circuit;
 			calculateImpedanceForm.ShowDialog();
-			foreach (ElementControl control in circuitElementsPanel.Controls)
+			foreach (ElementControl control in elementControlsContainer.Controls)
 			{
 				control.HideEventPictureBox();
 			}

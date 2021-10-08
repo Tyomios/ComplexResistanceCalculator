@@ -42,7 +42,6 @@ namespace ComplexResistanceCalculator.UI
 		public CircuitDrawer()
 		{
 			InitializeComponent();
-			//BackColor = Color.Azure;
 		}
 
 		/// <summary>
@@ -63,18 +62,22 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
-		private void UniteControls(PaintEventArgs e)
+		private void UniteControls()
 		{
-			Graphics gr = e.Graphics;
-			Pen p = new Pen(Color.Blue, 5);
-			for (int i = 0; i < Controls.Count - 1; i++) // возможно нужно проходить до count -1 
+			var graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
+			var pen = new Pen(Color.Black, 4);
+			graphics.Clear(Color.White);
+
+			for (int i = 0; i < Controls.Count - 1; i++)
 			{
 				if (Controls[i + 1] != null)
 				{
-					gr.DrawLine(p, Controls[i].Location, Controls[i + 1].Location);
+					var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
+					var secondPoint = Controls[i + 1].Location + (Controls[i + 1].BackgroundImage.Size / 2);
+					graphics.DrawLine(pen, firstPoint, secondPoint);
 				}
 			}
-			gr.Dispose(); // освобождаем все ресурсы, связанные с отрисовкой
+			graphics.Dispose(); // освобождаем все ресурсы, связанные с отрисовкой
 		}
 
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
@@ -82,11 +85,25 @@ namespace ComplexResistanceCalculator.UI
 			var addedControl = (ElementControl)Controls[Controls.Count - 1];
 			SelectedElement = addedControl.ContainElement;
 			ControlLocation();
+			if (Controls.Count > 1)
+			{
+				UniteControls();
+			}
+		}
+
+		private void CircuitDrawer_ControlRemoved(object sender, ControlEventArgs e)
+		{
+			ControlLocation();
+			if (Controls.Count > 1)
+			{
+				UniteControls();
+			}
 		}
 
 		private void CircuitDrawer_SizeChanged(object sender, EventArgs e)
 		{
 			ControlLocation();
+			UniteControls();
 		}
 	}
 }

@@ -32,15 +32,15 @@ namespace ComplexResistanceCalculator.UI
 		private Dictionary<Type, Image> elementPictures = new Dictionary<Type, Image>()
 		{
 			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newResistor.png"),
-			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newInductor.png"),
-			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newCapacitor.png")
+			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newCapacitor.png"),
+			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newInductor.png")
 		};
 
 		private Dictionary<Type, Image> updateElementPictures = new Dictionary<Type, Image>()
 		{
 			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newEventResistorIcon1.png"),
-			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newEventInductorIcon1.png"),
-			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newEventCapacitorIcon1.png")
+			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newEventCapacitorIcon1.png"),
+			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newEventInductorIcon1.png")
 		};
 
 		/// <summary>

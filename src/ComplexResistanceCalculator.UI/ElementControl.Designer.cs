@@ -40,10 +40,10 @@ namespace ComplexResistanceCalculator.UI
 			this.editButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.editButton.FlatAppearance.BorderSize = 0;
 			this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.editButton.Location = new System.Drawing.Point(39, 49);
+			this.editButton.Location = new System.Drawing.Point(30, 45);
 			this.editButton.Margin = new System.Windows.Forms.Padding(0);
 			this.editButton.Name = "editButton";
-			this.editButton.Size = new System.Drawing.Size(22, 19);
+			this.editButton.Size = new System.Drawing.Size(24, 24);
 			this.editButton.TabIndex = 2;
 			this.editButton.UseVisualStyleBackColor = true;
 			this.editButton.Click += new System.EventHandler(this.editButton_Click);
@@ -51,15 +51,15 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// ElementControl
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.Controls.Add(this.editButton);
 			this.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.Margin = new System.Windows.Forms.Padding(5, 2, 3, 2);
+			this.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
 			this.Name = "ElementControl";
-			this.Size = new System.Drawing.Size(70, 75);
+			this.Size = new System.Drawing.Size(60, 70);
 			this.ResumeLayout(false);
 
 		}

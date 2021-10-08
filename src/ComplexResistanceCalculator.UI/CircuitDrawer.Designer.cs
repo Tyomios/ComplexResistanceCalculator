@@ -44,7 +44,8 @@ namespace ComplexResistanceCalculator.UI
 			this.Name = "CircuitDrawer";
 			this.Size = new System.Drawing.Size(617, 285);
 			this.SizeChanged += new System.EventHandler(this.CircuitDrawer_SizeChanged);
-			this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.CircuitDrawer_ControlAdded); ;
+			this.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.CircuitDrawer_ControlAdded);
+			this.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.CircuitDrawer_ControlRemoved);
 			this.ResumeLayout(false);
 
 		}

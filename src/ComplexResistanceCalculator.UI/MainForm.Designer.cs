@@ -177,7 +177,6 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.Name = "circuitElementsPanel";
 			this.circuitElementsPanel.Size = new System.Drawing.Size(617, 286);
 			this.circuitElementsPanel.TabIndex = 11;
-			this.circuitElementsPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.circuitElementsPanel_ControlAdded);
 			// 
 			// MainForm
 			// 
