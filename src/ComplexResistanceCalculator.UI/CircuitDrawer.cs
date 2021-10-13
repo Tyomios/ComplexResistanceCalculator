@@ -15,26 +15,15 @@ namespace ComplexResistanceCalculator.UI
 
 	public partial class CircuitDrawer : Panel
 	{
-
-		public IElement SelectedElement;
-
 		/// <summary>
-		/// Координаты расположения элементов цепи для стартового размера окна.
+		/// Элемент, содержащийся в выбранном контроле.
 		/// </summary>
-		private List<Point> _userControlLocation = new List<Point>()
-		{
-			new Point(0, 0),
-			new Point(15, 80),
-			new Point(135, 80),
-			new Point(255, 80),
-			new Point(375, 80),
-			new Point(495, 80)
-		};
+		public IElement SelectedElement;
 
 		/// <summary>
 		/// Для параллельных цепей.
 		/// </summary>
-		private List<Point> _circuitLavels = new List<Point>();
+		private List<Point> _circuitLevels = new List<Point>();
 
 		/// <summary>
 		/// Создает экземпляр <see cref="CircuitDrawer"/>.
@@ -50,18 +39,29 @@ namespace ComplexResistanceCalculator.UI
 		private void ControlLocation()
 		{
 			int distance = (int)(0.17 * this.Size.Width);
-			for (int i = 2; i < _userControlLocation.Count; i++)
+			Controls[0].Location = new Point(5, 80);
+			var height = Controls[0].Height + 20;
+			for (int i = 1; i < Controls.Count; i++)
 			{
-				_userControlLocation[i] = new Point(_userControlLocation[i - 1].X + distance
-					, _userControlLocation[i].Y);
-			}
+				var prevLocation = Controls[i - 1].Location;
+				
+				if (i % 5 == 0)
+				{
+					height += 80;
+					Controls[i].Location = new Point(5, height);
 
-			for (int i = 0; i < Controls.Count; i++)
-			{
-				Controls[i].Location = _userControlLocation[i + 1];
+					prevLocation = Controls[i].Location;
+				}
+				else
+				{
+					Controls[i].Location = new Point(prevLocation.X + distance, prevLocation.Y);
+				}
 			}
 		}
 
+		/// <summary>
+		/// Создает линию между контролами.
+		/// </summary>
 		private void UniteControls()
 		{
 			var graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
@@ -74,10 +74,36 @@ namespace ComplexResistanceCalculator.UI
 				{
 					var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 					var secondPoint = Controls[i + 1].Location + (Controls[i + 1].BackgroundImage.Size / 2);
-					graphics.DrawLine(pen, firstPoint, secondPoint);
+					if (Controls[i + 1].Location.Y == Controls[i].Location.Y)
+					{
+						graphics.DrawLine(pen, firstPoint, secondPoint);
+					}
+					if (i % 5 == 0)
+					{
+						if (i + 5 < Controls.Count)
+						{
+							firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
+							secondPoint = Controls[i + 5].Location + (Controls[i + 5].BackgroundImage.Size / 2);
+							graphics.DrawLine(pen, firstPoint, secondPoint);
+						}
+						else
+						{
+							continue;
+						}
+						
+					}
+					if (i % 4 == 0 && i + 5 < Controls.Count)
+					{
+						if (i + 5 < Controls.Count)
+						{
+							firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
+							secondPoint = Controls[i + 5].Location + (Controls[i + 5].BackgroundImage.Size / 2);
+							graphics.DrawLine(pen, firstPoint, secondPoint);
+						}
+					}
 				}
 			}
-			graphics.Dispose(); // освобождаем все ресурсы, связанные с отрисовкой
+			graphics.Dispose(); //освобождаем все ресурсы, связанные с отрисовкой
 		}
 
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
@@ -94,10 +120,7 @@ namespace ComplexResistanceCalculator.UI
 		private void CircuitDrawer_ControlRemoved(object sender, ControlEventArgs e)
 		{
 			ControlLocation();
-			if (Controls.Count > 1)
-			{
-				UniteControls();
-			}
+			UniteControls();
 		}
 
 		private void CircuitDrawer_SizeChanged(object sender, EventArgs e)

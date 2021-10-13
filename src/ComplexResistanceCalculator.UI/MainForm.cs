@@ -72,14 +72,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="element"> Добавляемый элемент </param>
 		private void AddElement(IElement element)
 		{
-            // TODO: это что за ограничение такое? Не помню такого в ТЗ
-			if (_elementsCount == 5)
-			{
-				MessageBox.Show("Circuit may include just 5 or less elements" +
-				                "\n Remove someone element from your circuit",
-								"Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
+            // TODO: это что за ограничение такое? Не помню такого в ТЗ+
             // TODO: не забывай про var +
 			var addForm = new ElementForm();
 			addForm.Element = element;
