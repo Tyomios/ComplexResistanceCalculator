@@ -92,9 +92,9 @@ namespace ComplexResistanceCalculator.UI
 						}
 						
 					}
-					if (i % 4 == 0 && i + 5 < Controls.Count)
+					if (Controls[i + 1].Location.Y != Controls[i].Location.Y && i + 5 < Controls.Count) // работает неправильно
 					{
-						if (i + 5 < Controls.Count)
+						if (i + 5 < Controls.Count && Controls[i].Location.X == Controls[i + 5].Location.X)
 						{
 							firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 							secondPoint = Controls[i + 5].Location + (Controls[i + 5].BackgroundImage.Size / 2);
