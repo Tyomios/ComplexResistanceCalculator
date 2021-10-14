@@ -170,6 +170,7 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.circuitElementsPanel.AutoScroll = true;
 			this.circuitElementsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.circuitElementsPanel.Cursor = System.Windows.Forms.Cursors.Default;
 			this.circuitElementsPanel.Location = new System.Drawing.Point(78, 49);

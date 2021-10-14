@@ -12,13 +12,15 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-
+	public delegate void ParallelEvent();
 	public partial class CircuitDrawer : Panel
 	{
 		/// <summary>
 		/// Элемент, содержащийся в выбранном контроле.
 		/// </summary>
 		public IElement SelectedElement;
+
+		public event ParallelEvent SetParallel;
 
 		/// <summary>
 		/// Для параллельных цепей.
@@ -44,19 +46,25 @@ namespace ComplexResistanceCalculator.UI
 			for (int i = 1; i < Controls.Count; i++)
 			{
 				var prevLocation = Controls[i - 1].Location;
-				
-				if (i % 5 == 0)
+				if (CheckParallel((ElementControl)Controls[i]))
 				{
-					height += 80;
-					Controls[i].Location = new Point(5, height);
-
-					prevLocation = Controls[i].Location;
+					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 100);
 				}
 				else
 				{
-					Controls[i].Location = new Point(prevLocation.X + distance, prevLocation.Y);
+					Controls[i].Location = new Point(prevLocation.X + 100, prevLocation.Y);
 				}
 			}
+		}
+
+		private bool CheckParallel(ElementControl control)
+		{
+			if (control.SetParallel)
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		/// <summary>
@@ -114,6 +122,11 @@ namespace ComplexResistanceCalculator.UI
 			if (Controls.Count > 1)
 			{
 				UniteControls();
+			}
+
+			if (addedControl.Location.X > this.Width)
+			{
+				Width += 90;
 			}
 		}
 

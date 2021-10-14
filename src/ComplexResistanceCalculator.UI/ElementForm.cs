@@ -34,6 +34,7 @@ namespace ComplexResistanceCalculator.UI
 		public ElementForm()
 		{
 			InitializeComponent();
+			
 		}
 
 		/// <summary>
@@ -53,6 +54,8 @@ namespace ComplexResistanceCalculator.UI
 		        elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(_element.Value, _element).ToString();
 			}
         }
+
+		public bool SetParallel { get; private set; }
 
         private void saveButton_Click(object sender, EventArgs e)
 		{
@@ -74,6 +77,11 @@ namespace ComplexResistanceCalculator.UI
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
 			Close();
+		}
+
+		private void parallelCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetParallel = true;
 		}
 	}
 }

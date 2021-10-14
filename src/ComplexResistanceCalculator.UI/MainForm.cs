@@ -47,8 +47,11 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
-		// TODO: xml
-        // TODO: странное название
+		// TODO: xml+
+        // TODO: странное название+
+		/// <summary>
+		/// Сообщает об изменении цепи.
+		/// </summary>
 		private void OnСircuitChanged()
 		{
 			ShowEventCircuitChanged();
@@ -83,6 +86,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			var newElementUserControl = new ElementControl();
+			newElementUserControl.SetParallel = addForm.SetParallel;
 			newElementUserControl.ContainElement = element;
 			elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
@@ -171,6 +175,8 @@ namespace ComplexResistanceCalculator.UI
 		private void mainForm_SizeChanged(object sender, EventArgs e)
 		{
 			elementControlsContainer.Size = circuitElementsPanel.Size;
+			elementControlsContainer.Height += 10;
+			elementControlsContainer.Width += 40;
 		}
 
 

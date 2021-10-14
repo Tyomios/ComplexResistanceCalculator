@@ -74,7 +74,7 @@ namespace ComplexResistanceCalculator.UI
 		}
 
         // TODO: xml
-		public Point Position { get; set; }
+		public bool SetParallel { get; set; }
 
 		/// <summary>
 		/// Скрытие элемента контрола, отвечающего за сообщение об изменении элемента внутри контрола.
