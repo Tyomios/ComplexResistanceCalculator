@@ -92,7 +92,7 @@ namespace ComplexResistanceCalculator.UI
 						}
 						
 					}
-					if (Controls[i + 1].Location.Y != Controls[i].Location.Y && i + 5 < Controls.Count) // работает неправильно
+					if (Controls[i + 1].Location.Y != Controls[i].Location.Y && i + 5 < Controls.Count)
 					{
 						if (i + 5 < Controls.Count && Controls[i].Location.X == Controls[i + 5].Location.X)
 						{
@@ -125,7 +125,6 @@ namespace ComplexResistanceCalculator.UI
 
 		private void CircuitDrawer_SizeChanged(object sender, EventArgs e)
 		{
-			ControlLocation();
 			UniteControls();
 		}
 	}
