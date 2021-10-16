@@ -40,6 +40,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private List<double> Frequency { get; set; }
 
+		// TODO: RSDN
 		/// <summary>
 		/// Таблица результатов расчета импеданса для каждой частоты.
 		/// </summary>

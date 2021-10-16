@@ -83,6 +83,7 @@ namespace Model
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
 			{
+				// TODO: неправильная формула для конденсатора. Правильная формула: -1.0 / (2 * Math.PI * frequency * Value) 
 				impedances.Add(new Complex(0, 2 * Math.PI * f * Value));
 			}
 

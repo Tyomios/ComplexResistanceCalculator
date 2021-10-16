@@ -19,6 +19,8 @@ namespace Model
 		piko = -12
 	}
 
+	// TODO: xml
+	// TODO: каждый тип данных должен быть в своём файле
 	public enum FreqPrefixValue
 	{
 		Hz = 1, // проверить результаты привожу к double 
@@ -31,6 +33,8 @@ namespace Model
 	/// </summary>
 	public static class ValueConverter
 	{
+		// TODO: xml
+		// TODO: RSDN
 		private static Dictionary<Type, int> pows = new Dictionary<Type, int>()
 		{
 			[typeof(Resistor)] = (int)ValuePrefix.mili,

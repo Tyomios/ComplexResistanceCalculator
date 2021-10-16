@@ -11,6 +11,7 @@ namespace ComplexResistanceCalculator.UI
 {
 	public partial class ElementControl : UserControl
 	{
+		// TODO: Лучше использовать относительные пути или вынести все картинки в Resources.resx
 		/// <summary>
 		/// Расположение папки с изображением элемента.
 		/// </summary>
@@ -26,6 +27,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private IElement _containElement;
 
+		// TODO: RSDN
 		/// <summary>
 		/// Содержит изображения элемента.
 		/// </summary>
@@ -36,6 +38,8 @@ namespace ComplexResistanceCalculator.UI
 			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newInductor.png")
 		};
 
+		// TODO: xml
+		// TODO: RSDN
 		private Dictionary<Type, Image> updateElementPictures = new Dictionary<Type, Image>()
 		{
 			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newEventResistorIcon1.png"),
@@ -53,7 +57,7 @@ namespace ComplexResistanceCalculator.UI
 			// TODO: вообще, входные аргументы в конструкторы контролов нежелательны, так как мешают размещать контролы через дизайнер форм и могут быть созданы только программно.+
 			// TODO: вынести в словарь связь типа элемента с именем файла, а здесь обращаться к словарю и сократить вызов до одной строчки.+
 		}
-
+		
 		private void ContainElementOnValueChanged()
 		{
 			ActivateEventPictureBox();
@@ -84,7 +88,7 @@ namespace ComplexResistanceCalculator.UI
 			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ActivateEventPictureBox;
 		}
-
+		
 		private void editButton_Click(object sender, EventArgs e)
 		{
 			ElementForm editForm = new ElementForm();
@@ -105,7 +109,7 @@ namespace ComplexResistanceCalculator.UI
 		{
 			BackgroundImage = updateElementPictures[_containElement.GetType()];
 		}
-
+		
 		private void editButton_MouseEnter(object sender, EventArgs e)
 		{
 			var toolTip = new ToolTip();

@@ -19,7 +19,8 @@ namespace ComplexResistanceCalculator.UI
 		/// Элемент, содержащийся в выбранном контроле.
 		/// </summary>
 		public IElement SelectedElement;
-
+		
+		// TODO: xml
 		public event ParallelEvent SetParallel;
 
 		/// <summary>
@@ -57,6 +58,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+		// TODO: xml
 		private bool CheckParallel(ElementControl control)
 		{
 			if (control.SetParallel)
