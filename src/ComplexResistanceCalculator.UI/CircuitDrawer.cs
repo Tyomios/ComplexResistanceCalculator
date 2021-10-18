@@ -19,7 +19,8 @@ namespace ComplexResistanceCalculator.UI
 		/// Элемент, содержащийся в выбранном контроле.
 		/// </summary>
 		public IElement SelectedElement;
-
+		
+		// TODO: xml
 		public event ParallelEvent SetParallel;
 
 		/// <summary>
