@@ -23,6 +23,11 @@ namespace ComplexResistanceCalculator.UI
 		public event ParallelEvent SetParallel;
 
 		/// <summary>
+		/// Шаблоны отображения элементов.
+		/// </summary>
+		public List<ElementControl> templates = new List<ElementControl>();
+
+		/// <summary>
 		/// Для параллельных цепей.
 		/// </summary>
 		private List<Point> _circuitLevels = new List<Point>();
@@ -48,7 +53,8 @@ namespace ComplexResistanceCalculator.UI
 				var prevLocation = Controls[i - 1].Location;
 				if (CheckParallel((ElementControl)Controls[i]))
 				{
-					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 100);
+					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
+					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
 				}
 				else
 				{
@@ -57,6 +63,14 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+		/// <summary>
+		/// Проверяет нужно ли ставить контрол параллельно.
+		/// </summary>
+		/// <param name="control"> Проверяемый контрол </param>
+		/// <returns>
+		///	@retval true -нужно
+		/// @retval false - не нужно
+		/// </returns>
 		private bool CheckParallel(ElementControl control)
 		{
 			if (control.SetParallel)
@@ -82,32 +96,18 @@ namespace ComplexResistanceCalculator.UI
 				{
 					var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 					var secondPoint = Controls[i + 1].Location + (Controls[i + 1].BackgroundImage.Size / 2);
-					if (Controls[i + 1].Location.Y == Controls[i].Location.Y)
+					if (Controls[i + 1].Location.X != Controls[i].Location.X)
 					{
 						graphics.DrawLine(pen, firstPoint, secondPoint);
 					}
-					if (i % 5 == 0)
+					else // нуждается в правке
 					{
-						if (i + 5 < Controls.Count)
-						{
-							firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
-							secondPoint = Controls[i + 5].Location + (Controls[i + 5].BackgroundImage.Size / 2);
-							graphics.DrawLine(pen, firstPoint, secondPoint);
-						}
-						else
-						{
-							continue;
-						}
-						
-					}
-					if (Controls[i + 1].Location.Y != Controls[i].Location.Y && i + 5 < Controls.Count)
-					{
-						if (i + 5 < Controls.Count && Controls[i].Location.X == Controls[i + 5].Location.X)
-						{
-							firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
-							secondPoint = Controls[i + 5].Location + (Controls[i + 5].BackgroundImage.Size / 2);
-							graphics.DrawLine(pen, firstPoint, secondPoint);
-						}
+						var x = Controls[i].Location.X - 5;
+						var y = Controls[i].Location.Y;
+						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
+						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 5) - Controls[i].Location.X;
+						var rect = new Rectangle(x, y, width, height);
+						graphics.DrawRectangle(pen, rect);
 					}
 				}
 			}
@@ -128,6 +128,34 @@ namespace ComplexResistanceCalculator.UI
 			{
 				Width += 90;
 			}
+		}
+
+		public List<ElementControl> GetLineParts()
+		{
+			var lineParts = new List<ElementControl>();
+			foreach (ElementControl control in Controls)
+			{
+				if (!control.SetParallel)
+				{
+					lineParts.Add(control);
+				}
+			}
+
+			return lineParts;
+		}
+
+		public List<ElementControl> GetParallelParts()
+		{
+			var lineParts = new List<ElementControl>();
+			foreach (ElementControl control in Controls)
+			{
+				if (control.SetParallel)
+				{
+					lineParts.Add(control);
+				}
+			}
+
+			return lineParts;
 		}
 
 		private void CircuitDrawer_ControlRemoved(object sender, ControlEventArgs e)

@@ -197,5 +197,10 @@ namespace ComplexResistanceCalculator.UI
 			}
 			HideEventCircuitChanged();
 		}
+
+		private void templatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

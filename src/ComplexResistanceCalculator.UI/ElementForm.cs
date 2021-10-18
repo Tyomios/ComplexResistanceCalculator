@@ -52,7 +52,7 @@ namespace ComplexResistanceCalculator.UI
 		        dimensionLabel.Text = _dimensions[_element.GetType()];
 				elementNameTextBox.Text = _element.Name;
 		        elementValueTextBox.Text = ValueConverter.ConvertUndoPrefix(_element.Value, _element).ToString();
-			}
+	        }
         }
 
 		public bool SetParallel { get; private set; }

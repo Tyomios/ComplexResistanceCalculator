@@ -42,6 +42,7 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
 			this.mainFormToolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.templatesComboBox = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -179,12 +180,24 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.Size = new System.Drawing.Size(617, 286);
 			this.circuitElementsPanel.TabIndex = 11;
 			// 
+			// templatesComboBox
+			// 
+			this.templatesComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.templatesComboBox.FormattingEnabled = true;
+			this.templatesComboBox.ImeMode = System.Windows.Forms.ImeMode.On;
+			this.templatesComboBox.Location = new System.Drawing.Point(558, 20);
+			this.templatesComboBox.Name = "templatesComboBox";
+			this.templatesComboBox.Size = new System.Drawing.Size(121, 23);
+			this.templatesComboBox.TabIndex = 12;
+			this.templatesComboBox.SelectedIndexChanged += new System.EventHandler(this.templatesComboBox_SelectedIndexChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.ClientSize = new System.Drawing.Size(704, 346);
+			this.Controls.Add(this.templatesComboBox);
 			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
 			this.Controls.Add(this.calculateZbutton);
@@ -220,6 +233,7 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.TextBox elementsValueTextBox;
 		private System.Windows.Forms.Panel circuitElementsPanel;
 		private System.Windows.Forms.ToolTip mainFormToolTip;
+		private System.Windows.Forms.ComboBox templatesComboBox;
 	}
 }
 
