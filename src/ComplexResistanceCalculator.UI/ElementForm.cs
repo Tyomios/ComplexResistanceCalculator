@@ -55,6 +55,7 @@ namespace ComplexResistanceCalculator.UI
 	        }
         }
 
+		// TODO: xml
 		public bool SetParallel { get; private set; }
 
         private void saveButton_Click(object sender, EventArgs e)
