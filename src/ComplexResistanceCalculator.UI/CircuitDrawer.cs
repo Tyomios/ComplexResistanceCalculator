@@ -100,27 +100,24 @@ namespace ComplexResistanceCalculator.UI
 			var pen = new Pen(Color.Black, 4);
 			graphics.Clear(Color.White);
 
-			for (int i = 0; i < Controls.Count - 1; i++)
+			for (int i = Controls.Count - 1; i > 0; i--)
 			{
-				if (Controls[i + 1] != null)
-				{
-					var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
-					var secondPoint = Controls[i + 1].Location + (Controls[i + 1].BackgroundImage.Size / 2);
-					if (Controls[i + 1].Location.X != Controls[i].Location.X)
+				var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
+					var secondPoint = Controls[i - 1].Location + (Controls[i - 1].BackgroundImage.Size / 2);
+					if (Controls[i - 1].Location.X != Controls[i].Location.X)
 					{
 						graphics.DrawLine(pen, firstPoint, secondPoint);
 					}
 					else // нуждается в правке
 					{
 						
-						var x = Controls[i].Location.X - 5;
-						var y = Controls[i].Location.Y;
-						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 5) - Controls[i].Location.X;
+						var x = Controls[i - 1].Location.X - 5;
+						var y = Controls[i - 1].Location.Y;
+						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y + 70;
+						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 10) - Controls[i].Location.X;
 						var rect = new Rectangle(x, y, width, height);
 						graphics.DrawRectangle(pen, rect);
 					}
-				}
 			}
 			graphics.Dispose();
 		}
