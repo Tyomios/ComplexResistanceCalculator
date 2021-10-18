@@ -56,6 +56,10 @@ namespace ComplexResistanceCalculator.UI
 			// TODO: а если элемент null?+
 			// TODO: вообще, входные аргументы в конструкторы контролов нежелательны, так как мешают размещать контролы через дизайнер форм и могут быть созданы только программно.+
 			// TODO: вынести в словарь связь типа элемента с именем файла, а здесь обращаться к словарю и сократить вызов до одной строчки.+
+			if (_containElement == null)
+			{
+				ContainElement = new Resistor(); // для отрисовки шаблонов.
+			}
 		}
 		
 		private void ContainElementOnValueChanged()

@@ -36,9 +36,35 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
+			elementControlsContainer.templates = BuildTemplates();
+			foreach (var template in elementControlsContainer.templates)
+			{
+				templatesComboBox.Items.Add(template);
+			}
 			circuitElementsPanel.Controls.Add(elementControlsContainer);
 			elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
+		}
+
+		private List<List<Control>> BuildTemplates()
+		{
+			var templates = new List<List<Control>>();
+			for (int i = 0; i <= 4; i++)
+			{
+				templates.Add(new List<Control>()
+				{
+					new ElementControl(),
+					new ElementControl(),
+					new ElementControl(),
+				});
+			}
+
+			var twoParallelTemplate = templates[0];
+			twoParallelTemplate.RemoveAt(2);
+			var parallelControl = (ElementControl)twoParallelTemplate[1];
+			parallelControl.SetParallel = true;
+
+			return templates;
 		}
 
 		private void ElementControlsContainerOnControlAdded(object sender, ControlEventArgs e)
@@ -200,7 +226,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void templatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-
+			elementControlsContainer.DrawTemplate((List<Control>)templatesComboBox.SelectedItem);
 		}
 	}
 }

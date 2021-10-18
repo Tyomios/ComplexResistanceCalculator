@@ -26,7 +26,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Шаблоны отображения элементов.
 		/// </summary>
-		public List<ElementControl> templates = new List<ElementControl>();
+		public List<List<Control>> templates = new List<List<Control>>();
 
 		/// <summary>
 		/// Для параллельных цепей.
@@ -39,6 +39,15 @@ namespace ComplexResistanceCalculator.UI
 		public CircuitDrawer()
 		{
 			InitializeComponent();
+		}
+
+		public void DrawTemplate(List<Control> template)
+		{
+			foreach (var control in template)
+			{
+				Controls.Add(control);
+			}
+			ControlLocation();
 		}
 
 		/// <summary>
@@ -103,6 +112,7 @@ namespace ComplexResistanceCalculator.UI
 					}
 					else // нуждается в правке
 					{
+						
 						var x = Controls[i].Location.X - 5;
 						var y = Controls[i].Location.Y;
 						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
@@ -112,7 +122,7 @@ namespace ComplexResistanceCalculator.UI
 					}
 				}
 			}
-			graphics.Dispose(); //освобождаем все ресурсы, связанные с отрисовкой
+			graphics.Dispose();
 		}
 
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)

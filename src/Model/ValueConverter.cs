@@ -23,7 +23,7 @@ namespace Model
 	// TODO: каждый тип данных должен быть в своём файле
 	public enum FreqPrefixValue
 	{
-		Hz = 1, // проверить результаты привожу к double 
+		Hz = 1,
 		MGz = 6,
 		GHz = 9
 	}
