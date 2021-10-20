@@ -55,9 +55,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ControlLocation()
 		{
-			int distance = (int)(0.17 * this.Size.Width);
 			Controls[0].Location = new Point(5, 80);
-			var height = Controls[0].Height + 20;
 			for (int i = 1; i < Controls.Count; i++)
 			{
 				var prevLocation = Controls[i - 1].Location;
@@ -65,10 +63,18 @@ namespace ComplexResistanceCalculator.UI
 				{
 					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
 					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
+					// перебирает всю цепь в параллельное.
+					//var prevControl = (ElementControl)Controls[i - 1];
+					//prevControl.SetParallel = true;
 				}
 				else
 				{
 					Controls[i].Location = new Point(prevLocation.X + 100, prevLocation.Y);
+				}
+				var prevControl = (ElementControl)Controls[i - 1];
+				if (prevControl.SetParallel && i - 3 >= 0)
+				{
+					Controls[i].Location = new Point(prevLocation.X + 100, Controls[i - 3].Location.Y);
 				}
 			}
 		}
@@ -104,16 +110,28 @@ namespace ComplexResistanceCalculator.UI
 			{
 				var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 				var secondPoint = Controls[i - 1].Location + (Controls[i - 1].BackgroundImage.Size / 2);
-				if (Controls[i - 1].Location.X != Controls[i].Location.X && Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) != 60)
+
+				// соединение двух последовательных
+				if (Controls[i - 1].Location.X != Controls[i].Location.X &&
+				    (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) != 60 && Controls[i].Location.Y == Controls[i - 1].Location.Y))
 				{
 					graphics.DrawLine(pen, firstPoint, secondPoint);
 				}
+				// соединение последовательного с параллельным слева
 				if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60)
 				{
 					var startPoint = new Point(Controls[i].Location.X, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
-				else // нуждается в правке
+				// соединение последовательного с параллельным справа
+				if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
+				    && Controls[i -1].Location.X == Controls[i - 2].Location.X)
+				{
+					var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
+					graphics.DrawLine(pen, startPoint, firstPoint);
+				}
+				// соединение параллельных
+				else
 				{
 					var x = Controls[i - 1].Location.X - 10;
 					var y = Controls[i - 1].Location.Y + 30;

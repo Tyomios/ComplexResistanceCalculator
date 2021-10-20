@@ -59,16 +59,21 @@ namespace ComplexResistanceCalculator.UI
 				});
 			}
 
+			// Первый шаблон - два параллельных резистора
 			var twoParallelTemplate = templates[0];
 			twoParallelTemplate.RemoveAt(2);
 			var parallelControl = (ElementControl)twoParallelTemplate[1];
 			parallelControl.SetParallel = true;
 
+			// Второй шаблон - два последовательных и два параллельных.
 			var parallelOnLeft = templates[1];
 			parallelOnLeft.Add(new ElementControl());
 			var parallelC = (ElementControl)parallelOnLeft[3];
 			parallelC.SetParallel = true;
 
+			var parallelInCenter = templates[2];
+			parallelInCenter.Add(new ElementControl());
+			//var parallel
 
 			return templates;
 		}
