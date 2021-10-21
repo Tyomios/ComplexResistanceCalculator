@@ -71,9 +71,11 @@ namespace ComplexResistanceCalculator.UI
 			var parallelC = (ElementControl)parallelOnLeft[3];
 			parallelC.SetParallel = true;
 
+			// Третий шаблон - два параллельных в центре
 			var parallelInCenter = templates[2];
 			parallelInCenter.Add(new ElementControl());
-			//var parallel
+			var parallel = (ElementControl)parallelInCenter[2];
+			parallel.SetParallel = true;
 
 			return templates;
 		}
