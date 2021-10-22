@@ -59,7 +59,7 @@ namespace ComplexResistanceCalculator.UI
 			for (int i = 1; i < Controls.Count; i++)
 			{
 				var prevLocation = Controls[i - 1].Location;
-				if (CheckParallel((ElementControl)Controls[i]))
+				if (CheckParallel((ElementControl)Controls[i])) // срабатывает на каждую итерацию
 				{
 					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
 					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
@@ -72,10 +72,71 @@ namespace ComplexResistanceCalculator.UI
 					Controls[i].Location = new Point(prevLocation.X + 100, prevLocation.Y);
 				}
 				var prevControl = (ElementControl)Controls[i - 1];
-				if (prevControl.SetParallel && i - 3 >= 0)
+				if (prevControl.SetParallel)
 				{
-					Controls[i].Location = new Point(prevLocation.X + 100, Controls[i - 3].Location.Y);
+					SetPrevious(prevControl);
 				}
+				
+				
+			}
+			//SetThreeParallel();
+		}
+
+		private void SetPrevious(ElementControl parallelControl)
+		{
+			var i = Controls.IndexOf(parallelControl);
+			var currentControl = (ElementControl)Controls[i];
+			var prevLocation = Controls[0].Location;
+			ElementControl lastNoTparallel = new ElementControl();
+
+			// ищем последний параллельный
+			while (currentControl.SetParallel)
+			{
+				++i;
+				if (i == Controls.Count)
+				{
+					return;
+				}
+				currentControl = (ElementControl)Controls[i];
+			}
+
+			// ищем последний непараллельный
+			var j = 0;
+			var nextControl = (ElementControl)Controls[j + 1];
+			while (!nextControl.SetParallel)
+			{
+				++j;
+				nextControl = (ElementControl)Controls[j + 1];
+			}
+
+			lastNoTparallel = (ElementControl)Controls[j];
+			var checkPrev = (ElementControl)Controls[j - 1];
+			if (lastNoTparallel.Location.Y != checkPrev.Location.Y && !checkPrev.SetParallel)
+			{
+				lastNoTparallel = checkPrev;
+			}
+			if (i - 1 >= 0)
+			{
+				prevLocation = Controls[i - 1].Location;
+			}
+
+			currentControl.Location = new Point(prevLocation.X + 100, lastNoTparallel.Location.Y);
+			
+		}
+
+		private void SetThreeParallel()
+		{
+			var i = 1;
+			while (i < Controls.Count)
+			{
+				var prevLocation = Controls[i - 1].Location;
+				if (i - 2 >= 0 && CheckParallel((ElementControl)Controls[i - 1]) && CheckParallel((ElementControl)(Controls[i]))
+				    && Controls[i - 2].Location.Y != Controls[i - 3].Location.Y)
+				{
+					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 35);
+				}
+
+				++i;
 			}
 		}
 
