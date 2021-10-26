@@ -60,16 +60,20 @@ namespace ComplexResistanceCalculator.UI
 			{
 				var currentControl = (ElementControl)Controls[i]; 
 				var prevLocation = Controls[i - 1].Location;
-
+				var startLocation = Controls[0].Location;
 				
 				if (CheckParallel((ElementControl)Controls[i])) // срабатывает на каждую итерацию
 				{
 					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
 					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
 				}
-				if (!CheckParallel((ElementControl)Controls[i]) || currentControl.SetNextParallel)
+				if (!CheckParallel((ElementControl)Controls[i])/* || currentControl.SetNextParallel*/)
 				{
-					Controls[i].Location = new Point(prevLocation.X + 100, prevLocation.Y);
+					Controls[i].Location = new Point(prevLocation.X + 100, startLocation.Y);
+				}
+				if (currentControl.SetNextParallel)
+				{
+					currentControl.Location = new Point(prevLocation.X + 100, prevLocation.Y);
 				}
 				var prevControl = (ElementControl)Controls[i - 1];
 				if (prevControl.SetParallel)
@@ -80,7 +84,7 @@ namespace ComplexResistanceCalculator.UI
 				
 			}
 			SetThreeParallel();
-			
+
 		}
 
 		private void SetPrevious(ElementControl parallelControl)
@@ -190,30 +194,67 @@ namespace ComplexResistanceCalculator.UI
 					graphics.DrawLine(pen, firstPoint, secondPoint);
 				}
 				// соединение последовательного с параллельным слева
-				if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60)
+				else if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60)
 				{
 					var startPoint = new Point(Controls[i].Location.X, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
 				// соединение последовательного с параллельным справа
-				if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
+				else if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
 				    && Controls[i -1].Location.X == Controls[i - 2].Location.X)
 				{
 					var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
 					graphics.DrawLine(pen, startPoint, firstPoint);
 				}
-				// соединение параллельных
+				// соединение параллельных (здесь улучшить для нескольких)
 				else
+				{
+					UniteInRectangle(graphics, pen);
+				}
+			}
+			//UniteInRectangle(graphics, pen);
+			graphics.Dispose();
+		}
+
+		private void UniteInRectangle(Graphics graphics, Pen pen)
+		{
+			for (int i = 0; i < Controls.Count - 1; i++)
+			{
+				var currentControl = (ElementControl)Controls[i];
+				ElementControl nextControl = (ElementControl)Controls[i + 1];
+				
+				if (currentControl.SetParallel && nextControl.SetNextParallel)
+				{
+					int j = i + 1;
+					var currentNextParallel = (ElementControl)Controls[j];
+					while (currentNextParallel.SetNextParallel)
+					{
+						++j;
+						if (j >= Controls.Count)
+						{
+							--j;
+							break;
+						}
+						currentNextParallel = (ElementControl)Controls[j];
+					}
+					var x = Controls[i - 1].Location.X - 10;
+					var y = Controls[i - 1].Location.Y + 30;
+					var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
+					var width = Controls[j].Location.X - Controls[i - 1].Location.X + 5;
+					var rect = new Rectangle(x, y, width, height);
+					graphics.DrawRectangle(pen, rect);
+				}
+				else if (i - 1 >= 0)
 				{
 					var x = Controls[i - 1].Location.X - 10;
 					var y = Controls[i - 1].Location.Y + 30;
 					var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-					var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 12) - Controls[i].Location.X;
+					var width = (/*Controls[i - 1].Location.X*/ +Controls[i - 1].Width + 12) /*- Controls[i].Location.X*/;
 					var rect = new Rectangle(x, y, width, height);
 					graphics.DrawRectangle(pen, rect);
 				}
 			}
-			graphics.Dispose();
+			//graphics.Dispose(); //если включить будет странная ошибка с параметром в основном цикле UniteControls
 		}
 
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
@@ -232,32 +273,53 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
-		public List<ElementControl> GetLineParts()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="line"></param>
+		/// <param name="listIndex"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public List<List<IElement>> GetLineParts(List<IElement> line, int listIndex = 0, int y = 80)
 		{
-			var lineParts = new List<ElementControl>();
-			foreach (ElementControl control in Controls)
+			var result = new List<List<IElement>>();
+			result.Add(line);
+			for (int i = 0; i < Controls.Count; i++)
 			{
-				if (!control.SetParallel)
+				var currentControl = (ElementControl)Controls[i];
+				if (currentControl.Location.Y == y)
 				{
-					lineParts.Add(control);
+					result[listIndex].Add(currentControl.ContainElement);
+				}
+				else
+				{
+					++listIndex;
+					result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
 				}
 			}
 
-			return lineParts;
+			return result;
 		}
 
-		public List<ElementControl> GetParallelParts()
+		public List<List<IElement>> GetParallelParts(List<IElement> line, int x, int listIndex = 0)
 		{
-			var lineParts = new List<ElementControl>();
-			foreach (ElementControl control in Controls)
+			var result = new List<List<IElement>>();
+			result.Add(line);
+			for (int i = 0; i < Controls.Count; i++)
 			{
-				if (control.SetParallel)
+				var currentControl = (ElementControl)Controls[i];
+				if (currentControl.Location.Y == x)
 				{
-					lineParts.Add(control);
+					result[listIndex].Add(currentControl.ContainElement);
+				}
+				else
+				{
+					++listIndex;
+					result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
 				}
 			}
 
-			return lineParts;
+			return result;
 		}
 
 		private void CircuitDrawer_ControlRemoved(object sender, ControlEventArgs e)
