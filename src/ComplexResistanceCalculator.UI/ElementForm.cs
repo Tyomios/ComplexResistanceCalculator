@@ -58,7 +58,9 @@ namespace ComplexResistanceCalculator.UI
 		// TODO: xml
 		public bool SetParallel { get; private set; }
 
-        private void saveButton_Click(object sender, EventArgs e)
+		public bool SetNextParallel { get; private set; }
+
+		private void saveButton_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -83,6 +85,11 @@ namespace ComplexResistanceCalculator.UI
 		private void parallelCheckBox_CheckedChanged(object sender, EventArgs e)
 		{
 			SetParallel = true;
+		}
+
+		private void setNextParallelcheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetNextParallel = true;
 		}
 	}
 }

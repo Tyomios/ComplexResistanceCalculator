@@ -84,6 +84,8 @@ namespace ComplexResistanceCalculator.UI
         // TODO: xml
 		public bool SetParallel { get; set; }
 
+		public bool SetNextParallel { get; set; }
+
 		/// <summary>
 		/// Скрытие элемента контрола, отвечающего за сообщение об изменении элемента внутри контрола.
 		/// </summary>

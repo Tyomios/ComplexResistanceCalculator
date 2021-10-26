@@ -58,16 +58,16 @@ namespace ComplexResistanceCalculator.UI
 			Controls[0].Location = new Point(5, 80);
 			for (int i = 1; i < Controls.Count; i++)
 			{
+				var currentControl = (ElementControl)Controls[i]; 
 				var prevLocation = Controls[i - 1].Location;
+
+				
 				if (CheckParallel((ElementControl)Controls[i])) // срабатывает на каждую итерацию
 				{
 					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
 					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
-					// перебирает всю цепь в параллельное.
-					//var prevControl = (ElementControl)Controls[i - 1];
-					//prevControl.SetParallel = true;
 				}
-				else
+				if (!CheckParallel((ElementControl)Controls[i]) || currentControl.SetNextParallel)
 				{
 					Controls[i].Location = new Point(prevLocation.X + 100, prevLocation.Y);
 				}
@@ -76,10 +76,11 @@ namespace ComplexResistanceCalculator.UI
 				{
 					SetPrevious(prevControl);
 				}
-				
+
 				
 			}
-			//SetThreeParallel();
+			SetThreeParallel();
+			
 		}
 
 		private void SetPrevious(ElementControl parallelControl)
@@ -90,7 +91,7 @@ namespace ComplexResistanceCalculator.UI
 			ElementControl lastNoTparallel = new ElementControl();
 
 			// ищем последний параллельный
-			while (currentControl.SetParallel)
+			while (currentControl.SetParallel || currentControl.SetNextParallel)
 			{
 				++i;
 				if (i == Controls.Count)
@@ -103,15 +104,25 @@ namespace ComplexResistanceCalculator.UI
 			// ищем последний непараллельный
 			var j = 0;
 			var nextControl = (ElementControl)Controls[j + 1];
-			while (!nextControl.SetParallel)
+			while (!nextControl.SetParallel || !nextControl.SetNextParallel)
 			{
 				++j;
+				if (j + 1 >= Controls.Count)
+				{
+					j = 0;
+					break;
+				}
 				nextControl = (ElementControl)Controls[j + 1];
 			}
 
 			lastNoTparallel = (ElementControl)Controls[j];
-			var checkPrev = (ElementControl)Controls[j - 1];
-			if (lastNoTparallel.Location.Y != checkPrev.Location.Y && !checkPrev.SetParallel)
+			var checkPrev = (ElementControl)Controls[0];
+			if (j != 0)
+			{
+				checkPrev = (ElementControl)Controls[j - 1];
+			}
+			
+			if (lastNoTparallel.Location.Y != checkPrev.Location.Y && !checkPrev.SetParallel && !checkPrev.SetNextParallel)
 			{
 				lastNoTparallel = checkPrev;
 			}
@@ -126,17 +137,17 @@ namespace ComplexResistanceCalculator.UI
 
 		private void SetThreeParallel()
 		{
-			var i = 1;
-			while (i < Controls.Count)
+			for (int i = 1; i < Controls.Count; i++)
 			{
 				var prevLocation = Controls[i - 1].Location;
-				if (i - 2 >= 0 && CheckParallel((ElementControl)Controls[i - 1]) && CheckParallel((ElementControl)(Controls[i]))
-				    && Controls[i - 2].Location.Y != Controls[i - 3].Location.Y)
+				if (i + 1 < Controls.Count && (CheckParallel((ElementControl)Controls[i]) &&
+				                               CheckParallel((ElementControl)Controls[i + 1])))
 				{
-					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 35);
-				}
+					var nextControl = (ElementControl)Controls[i + 1];
 
-				++i;
+					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 130);
+					Controls[i + 1].Location = new Point(prevLocation.X, prevLocation.Y + 60);
+				}
 			}
 		}
 

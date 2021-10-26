@@ -134,6 +134,7 @@ namespace ComplexResistanceCalculator.UI
 
 			var newElementUserControl = new ElementControl();
 			newElementUserControl.SetParallel = addForm.SetParallel;
+			newElementUserControl.SetNextParallel = addForm.SetNextParallel;
 			newElementUserControl.ContainElement = element;
 			elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
