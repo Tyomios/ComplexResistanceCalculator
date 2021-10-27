@@ -186,7 +186,8 @@ namespace ComplexResistanceCalculator.UI
 			{
 				var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 				var secondPoint = Controls[i - 1].Location + (Controls[i - 1].BackgroundImage.Size / 2);
-				
+				var currentCont = (ElementControl)Controls[i];
+				var parallelCont = (ElementControl)Controls[i - 1];
 
 				// соединение двух последовательных
 				if (Controls[i - 1].Location.X != Controls[i].Location.X &&
@@ -206,14 +207,24 @@ namespace ComplexResistanceCalculator.UI
 				{
 					var currentControl = (ElementControl)Controls[i];
 					var parallelControl = (ElementControl)Controls[i - 1];
+					
 					if (currentControl.SetParallel && parallelControl.SetParallel)
 					{
 						var x = Controls[i - 2].Location.X - 10;
 						var y = Controls[i - 2].Location.Y + 30;
 						var height = Controls[i - 1].Location.Y - Controls[i - 2].Location.Y;
-						var width = (Controls[i - 2].Location.X + Controls[i - 2].Width + 12) - Controls[i - 1].Location.X;
+						var width = (Controls[i - 2].Location.X + Controls[i - 2].Width + 20) - Controls[i - 1].Location.X;
 						var rect = new Rectangle(x, y, width, height);
 						graphics.DrawRectangle(pen, rect);
+						if (i + 1 <= Controls.Count - 1)
+						{
+							var nextControl = (ElementControl)Controls[i + 1];
+							if (!nextControl.SetParallel || !nextControl.SetNextParallel)
+							{
+								var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
+								graphics.DrawLine(pen, startPoint, firstPoint);
+							}
+						}
 					}
 					else
 					{
@@ -265,13 +276,22 @@ namespace ComplexResistanceCalculator.UI
 						
 
 						}
+						else if (!parallelControl.SetNextParallel && !parallelControl.SetParallel)
+						{
+							var x = Controls[i - 1].Location.X - 10;
+							var y = Controls[i - 1].Location.Y + 30;
+							var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
+							var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 20) - Controls[i].Location.X;
+							var rect = new Rectangle(x, y, width, height);
+							graphics.DrawRectangle(pen, rect);
+						}
 					}
 					else
 					{
 						var x = Controls[i - 1].Location.X - 10;
 						var y = Controls[i - 1].Location.Y + 30;
 						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 12) - Controls[i].Location.X; 
+						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 20) - Controls[i].Location.X; 
 						var rect = new Rectangle(x, y, width, height);
 						graphics.DrawRectangle(pen, rect);
 					}
