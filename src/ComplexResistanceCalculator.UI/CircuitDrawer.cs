@@ -186,6 +186,7 @@ namespace ComplexResistanceCalculator.UI
 			{
 				var firstPoint = Controls[i].Location + (Controls[i].BackgroundImage.Size / 2);
 				var secondPoint = Controls[i - 1].Location + (Controls[i - 1].BackgroundImage.Size / 2);
+				
 
 				// соединение двух последовательных
 				if (Controls[i - 1].Location.X != Controls[i].Location.X &&
@@ -209,10 +210,60 @@ namespace ComplexResistanceCalculator.UI
 				// соединение параллельных (здесь улучшить для нескольких)
 				else
 				{
-					UniteInRectangle(graphics, pen);
+					var currentControl = (ElementControl)Controls[i];
+					if (currentControl.SetParallel && i + 1 < Controls.Count)
+					{
+						var parallelControl = (ElementControl)Controls[i + 1];
+						if (parallelControl.SetNextParallel)
+						{
+							for (int k = i; k < Controls.Count - 1; k++)
+							{
+
+								if (currentControl.SetParallel && parallelControl.SetNextParallel)
+								{
+									int j = k + 1;
+									var currentNextParallel = (ElementControl)Controls[j];
+									while (currentNextParallel.SetNextParallel)
+									{
+										j++;
+										if (j >= Controls.Count)
+										{
+											--j;
+											break;
+										}
+
+										currentNextParallel = (ElementControl)Controls[j];
+										if (!currentNextParallel.SetNextParallel)
+										{
+											--j;
+											break;
+										}
+									}
+
+									var x = Controls[k - 1].Location.X - 10;// элемент перед параллельным
+									var y = Controls[k - 1].Location.Y + 30;
+									var height = Controls[k].Location.Y - Controls[k - 1].Location.Y;
+									var width = (Controls[j].Location.X + Controls[j].Width + 20) - Controls[k - 1].Location.X;
+									var rect = new Rectangle(x, y, width, height);
+									graphics.DrawRectangle(pen, rect);
+								}
+							}
+						
+
+						}
+					}
+					else
+					{
+						var x = Controls[i - 1].Location.X - 10;
+						var y = Controls[i - 1].Location.Y + 30;
+						var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
+						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 12) - Controls[i].Location.X; 
+						var rect = new Rectangle(x, y, width, height);
+						graphics.DrawRectangle(pen, rect);
+					}
+						
 				}
 			}
-			//UniteInRectangle(graphics, pen);
 			graphics.Dispose();
 		}
 
@@ -237,22 +288,14 @@ namespace ComplexResistanceCalculator.UI
 						}
 						currentNextParallel = (ElementControl)Controls[j];
 					}
-					var x = Controls[i - 1].Location.X - 10;
+					var x = Controls[i - 1].Location.X - 10; // элемент перед параллельным
 					var y = Controls[i - 1].Location.Y + 30;
 					var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-					var width = Controls[j].Location.X - Controls[i - 1].Location.X + 5;
+					var width = Controls[j].Location.X - Controls[i - 1].Location.X + 5; //крайний справа - элемент перед параллельным + разница
 					var rect = new Rectangle(x, y, width, height);
 					graphics.DrawRectangle(pen, rect);
 				}
-				else if (i - 1 >= 0)
-				{
-					var x = Controls[i - 1].Location.X - 10;
-					var y = Controls[i - 1].Location.Y + 30;
-					var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-					var width = (/*Controls[i - 1].Location.X*/ +Controls[i - 1].Width + 12) /*- Controls[i].Location.X*/;
-					var rect = new Rectangle(x, y, width, height);
-					graphics.DrawRectangle(pen, rect);
-				}
+				
 			}
 			//graphics.Dispose(); //если включить будет странная ошибка с параметром в основном цикле UniteControls
 		}
