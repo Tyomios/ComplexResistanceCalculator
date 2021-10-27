@@ -195,17 +195,31 @@ namespace ComplexResistanceCalculator.UI
 					graphics.DrawLine(pen, firstPoint, secondPoint);
 				}
 				// соединение последовательного с параллельным слева
-				else if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60)
+				else if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60 && Controls[i].Location.X != Controls[i - 1].Location.X)
 				{
 					var startPoint = new Point(Controls[i].Location.X, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
-				// соединение последовательного с параллельным справа
+				// соединение последовательного с параллельным справа и соединение 3х парраллельных
 				else if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
 				    && Controls[i -1].Location.X == Controls[i - 2].Location.X)
 				{
-					var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
-					graphics.DrawLine(pen, startPoint, firstPoint);
+					var currentControl = (ElementControl)Controls[i];
+					var parallelControl = (ElementControl)Controls[i - 1];
+					if (currentControl.SetParallel && parallelControl.SetParallel)
+					{
+						var x = Controls[i - 2].Location.X - 10;
+						var y = Controls[i - 2].Location.Y + 30;
+						var height = Controls[i - 1].Location.Y - Controls[i - 2].Location.Y;
+						var width = (Controls[i - 2].Location.X + Controls[i - 2].Width + 12) - Controls[i - 1].Location.X;
+						var rect = new Rectangle(x, y, width, height);
+						graphics.DrawRectangle(pen, rect);
+					}
+					else
+					{
+						var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
+						graphics.DrawLine(pen, startPoint, firstPoint);
+					}
 				}
 				// соединение параллельных (здесь улучшить для нескольких)
 				else
