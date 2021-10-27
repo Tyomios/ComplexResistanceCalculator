@@ -201,6 +201,12 @@ namespace ComplexResistanceCalculator.UI
 					var startPoint = new Point(Controls[i].Location.X, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
+				else if (parallelCont.SetNextParallel  &&
+				         !currentCont.SetNextParallel && !currentCont.SetParallel)
+				{
+					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width, firstPoint.Y);
+					graphics.DrawLine(pen, firstPoint, finalPoint);
+				}
 				// соединение последовательного с параллельным справа и соединение 3х парраллельных
 				else if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
 				    && Controls[i -1].Location.X == Controls[i - 2].Location.X)
