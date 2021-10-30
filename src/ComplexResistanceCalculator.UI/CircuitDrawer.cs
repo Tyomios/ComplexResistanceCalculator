@@ -198,13 +198,14 @@ namespace ComplexResistanceCalculator.UI
 				// соединение последовательного с параллельным слева
 				else if (Math.Abs(Controls[i - 1].Location.Y - Controls[i].Location.Y) == 60 && Controls[i].Location.X != Controls[i - 1].Location.X)
 				{
-					var startPoint = new Point(Controls[i].Location.X, secondPoint.Y);
+					var startPoint = new Point(Controls[i].Location.X - 12, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
+				// соединение сложного параллельного с последовательным справа
 				else if (parallelCont.SetNextParallel  &&
 				         !currentCont.SetNextParallel && !currentCont.SetParallel)
 				{
-					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width, firstPoint.Y);
+					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width + 12, firstPoint.Y);
 					graphics.DrawLine(pen, firstPoint, finalPoint);
 				}
 				// соединение последовательного с параллельным справа и соединение 3х парраллельных
@@ -234,7 +235,7 @@ namespace ComplexResistanceCalculator.UI
 					}
 					else
 					{
-						var startPoint = new Point(Controls[i - 3].Location.X, firstPoint.Y);
+						var startPoint = new Point(parallelControl.Location.X + parallelControl.Width + 12, firstPoint.Y);
 						graphics.DrawLine(pen, startPoint, firstPoint);
 					}
 				}
@@ -242,18 +243,20 @@ namespace ComplexResistanceCalculator.UI
 				else
 				{
 					var currentControl = (ElementControl)Controls[i];
-					if (currentControl.SetParallel && i + 1 < Controls.Count)
+					if (currentControl.SetParallel && i + 1 < Controls.Count
+						) // надо разделить на 2 случая основное параллельное и внутреннее параллельное
 					{
-						var parallelControl = (ElementControl)Controls[i + 1];
-						if (parallelControl.SetNextParallel)
+						var nextControl = (ElementControl)Controls[i + 1];
+						if (nextControl.SetNextParallel)
 						{
 							for (int k = i; k < Controls.Count - 1; k++)
 							{
 
-								if (currentControl.SetParallel && parallelControl.SetNextParallel)
+								if (currentControl.SetParallel && nextControl.SetNextParallel)
 								{
 									int j = k + 1;
 									var currentNextParallel = (ElementControl)Controls[j];
+									var mainY = Controls[0].Location.Y;
 									while (currentNextParallel.SetNextParallel)
 									{
 										j++;
@@ -282,7 +285,8 @@ namespace ComplexResistanceCalculator.UI
 						
 
 						}
-						else if (!parallelControl.SetNextParallel && !parallelControl.SetParallel)
+						// для двух парарллельных, когда есть следующий
+						else if (!nextControl.SetNextParallel && !nextControl.SetParallel)
 						{
 							var x = Controls[i - 1].Location.X - 10;
 							var y = Controls[i - 1].Location.Y + 30;
