@@ -181,6 +181,8 @@ namespace ComplexResistanceCalculator.UI
 			var graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			var pen = new Pen(Color.Black, 4);
 			graphics.Clear(Color.White);
+			var widthAdder = 15;
+			var rects = new List<Rectangle>();
 
 			for (int i = Controls.Count - 1; i > 0; i--)
 			{
@@ -243,47 +245,55 @@ namespace ComplexResistanceCalculator.UI
 				else
 				{
 					var currentControl = (ElementControl)Controls[i];
-					if (currentControl.SetParallel && i + 1 < Controls.Count
-						) // надо разделить на 2 случая основное параллельное и внутреннее параллельное
+					if (currentControl.SetParallel && i + 1 < Controls.Count) 
+						// надо разделить на 2 случая основное параллельное и внутреннее параллельное
 					{
 						var nextControl = (ElementControl)Controls[i + 1];
+
 						if (nextControl.SetNextParallel)
 						{
-							for (int k = i; k < Controls.Count - 1; k++)
+
+							if (currentControl.SetParallel && nextControl.SetNextParallel)
 							{
-
-								if (currentControl.SetParallel && nextControl.SetNextParallel)
+								int j = i + 1;
+								var currentNextParallel = (ElementControl)Controls[j];
+								var mainY = Controls[0].Location.Y;
+								while (currentNextParallel.SetNextParallel || currentNextParallel.SetParallel)
 								{
-									int j = k + 1;
-									var currentNextParallel = (ElementControl)Controls[j];
-									var mainY = Controls[0].Location.Y;
-									while (currentNextParallel.SetNextParallel)
+									j++;
+									if (j >= Controls.Count)
 									{
-										j++;
-										if (j >= Controls.Count)
-										{
-											--j;
-											break;
-										}
-
-										currentNextParallel = (ElementControl)Controls[j];
-										if (!currentNextParallel.SetNextParallel)
-										{
-											--j;
-											break;
-										}
+										--j;
+										break;
 									}
 
-									var x = Controls[k - 1].Location.X - 10;// элемент перед параллельным
-									var y = Controls[k - 1].Location.Y + 30;
-									var height = Controls[k].Location.Y - Controls[k - 1].Location.Y;
-									var width = (Controls[j].Location.X + Controls[j].Width + 20) - Controls[k - 1].Location.X;
-									var rect = new Rectangle(x, y, width, height);
-									graphics.DrawRectangle(pen, rect);
+									currentNextParallel = (ElementControl)Controls[j];
+									if (currentNextParallel.Location.Y == Controls[0].Location.Y)
+									{
+										--j;
+										break;
+									}
 								}
-							}
-						
 
+								var x = Controls[i - 1].Location.X - 10;
+								var y = Controls[i - 1].Location.Y + 30;
+								var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
+								var width = (Controls[j].Location.X + Controls[j].Width  + widthAdder) - Controls[i - 1].Location.X;
+								var rect = new Rectangle(x, y, width, height);
+								graphics.DrawRectangle(pen, rect);
+								widthAdder += 15;
+								if (rects.Count >= 1 && CheckRects(rect, rects[rects.Count - 1]))
+								{
+									var fPoint = new Point(rects[rects.Count - 1].X, secondPoint.Y + rect.Height);
+									var secPoint = new Point(fPoint.X + rects[rects.Count - 1].Width, fPoint.Y);
+									var linePen = new Pen(this.BackColor, pen.Width);
+									graphics.DrawLine(linePen, fPoint,secPoint);
+								}
+								rects.Add(rect);
+								
+							}
+							
+							
 						}
 						// для двух парарллельных, когда есть следующий
 						else if (!nextControl.SetNextParallel && !nextControl.SetParallel)
@@ -296,7 +306,7 @@ namespace ComplexResistanceCalculator.UI
 							graphics.DrawRectangle(pen, rect);
 						}
 					}
-					else
+					else // для двух параллельных в конце цепи
 					{
 						var x = Controls[i - 1].Location.X - 10;
 						var y = Controls[i - 1].Location.Y + 30;
@@ -309,6 +319,58 @@ namespace ComplexResistanceCalculator.UI
 				}
 			}
 			graphics.Dispose();
+		}
+
+
+		/// <summary>
+		/// Проверка пересечения двух прямоугольников
+		/// </summary>
+		/// <param name="rect1"> Больший прямоугольник </param>
+		/// <param name="rect2"> Меньший </param>
+		/// <returns>  </returns>
+		private bool CheckRects(Rectangle rect1, Rectangle rect2)
+		{
+
+			if (rect2.X < rect1.X + rect1.Width && rect2.Y < rect1.Y + rect1.Height)
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		private void FillWrongRectParts(List<Rectangle> rects)
+		{
+			if (rects.Count <= 1)
+			{
+				return;
+			}
+			
+		}
+		private void UniteMainParallel(Graphics graphics, int i, ElementControl nextControl, ElementControl currentControl, Pen pen)
+		{
+			var temp = nextControl;
+			while (temp.SetNextParallel && i <= Controls.Count - 1)
+			{
+				temp = (ElementControl)Controls[i + 1];
+				if (temp.SetParallel)
+				{
+					break;
+				}
+			}
+
+			while (temp.Location.Y != Controls[0].Location.Y && i <= Controls.Count - 1)
+			{
+				temp = (ElementControl)Controls[i + 1];
+			}
+
+			var prevIndex = Controls.IndexOf(currentControl) - 1;
+			var x = Controls[prevIndex].Location.X - 10;// элемент перед параллельным
+			var y = Controls[prevIndex].Location.Y + 30;
+			var height = currentControl.Location.Y - Controls[prevIndex].Location.Y;
+			var width = (temp.Location.X + temp.Width + 20) - Controls[prevIndex].Location.X;
+			var rect = new Rectangle(x, y, width, height);
+			graphics.DrawRectangle(pen, rect);
 		}
 
 		private void UniteInRectangle(Graphics graphics, Pen pen)
