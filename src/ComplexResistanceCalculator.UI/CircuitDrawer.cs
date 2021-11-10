@@ -74,7 +74,7 @@ namespace ComplexResistanceCalculator.UI
 					var prevCont = (ElementControl)Controls[i - 1];
 					if (prevCont.SetNextParallel)
 					{
-						var xAdder = 15 * ((prevCont.Location.Y - 80) / 70 );
+						var xAdder = 20 * ((prevCont.Location.Y - 80) / 70 );
 						Controls[i].Location = new Point(Controls[i].Location.X + xAdder, Controls[i].Location.Y);
 					}
 				}
@@ -188,7 +188,7 @@ namespace ComplexResistanceCalculator.UI
 			var graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			var pen = new Pen(Color.Black, 4);
 			graphics.Clear(Color.White);
-			int widthAdder = 15;
+			int widthAdder = 20;
 			var rects = new List<Rectangle>();
 
 			for (int i = Controls.Count - 1; i > 0; i--)
@@ -246,16 +246,15 @@ namespace ComplexResistanceCalculator.UI
 				else if (parallelCont.SetNextParallel &&
 				         !currentCont.SetNextParallel && !currentCont.SetParallel)
 				{
-					var adder = 15 * ((parallelCont.Location.Y - 80) / 70);
+					var adder = 20 * ((parallelCont.Location.Y - 80) / 70);
 					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width + adder - 12, firstPoint.Y);
 					graphics.DrawLine(pen, firstPoint, finalPoint);
 				}
-				// соединение параллельных (здесь улучшить для нескольких)
+				// соединение параллельных
 				else
 				{
 					var currentControl = (ElementControl)Controls[i];
-					if (currentControl.SetParallel && i + 1 < Controls.Count) 
-						// надо разделить на 2 случая основное параллельное и внутреннее параллельное
+					if (currentControl.SetParallel && i + 1 < Controls.Count)
 					{
 						var nextControl = (ElementControl)Controls[i + 1];
 
@@ -290,7 +289,9 @@ namespace ComplexResistanceCalculator.UI
 								var width = (Controls[j].Location.X + Controls[j].Width  + widthAdder) - Controls[i - 1].Location.X;
 								var rect = new Rectangle(x, y, width, height);
 								graphics.DrawRectangle(pen, rect);
-								widthAdder += 15;
+								widthAdder += 20;
+
+								// закрашивание лишних линий
 								if (rects.Count >= 1 && CheckRects(rect, rects[rects.Count - 1]))
 								{
 									var fPoint = new Point(rects[rects.Count - 1].X + 2, secondPoint.Y + rect.Height);
@@ -313,6 +314,16 @@ namespace ComplexResistanceCalculator.UI
 							var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 20) - Controls[i].Location.X;
 							var rect = new Rectangle(x, y, width, height);
 							graphics.DrawRectangle(pen, rect);
+
+							widthAdder += 20;
+							if (rects.Count >= 1 && CheckRects(rect, rects[rects.Count - 1]))
+							{
+								var fPoint = new Point(rects[rects.Count - 1].X + 2, secondPoint.Y + rect.Height);
+								var secPoint = new Point(fPoint.X + rects[rects.Count - 1].Width - 4, fPoint.Y);
+								var linePen = new Pen(this.BackColor, pen.Width);
+								graphics.DrawLine(linePen, fPoint, secPoint);
+							}
+							rects.Add(rect);
 						}
 					}
 					else // для двух параллельных в конце цепи
@@ -323,6 +334,24 @@ namespace ComplexResistanceCalculator.UI
 						var width = (Controls[i - 1].Location.X + Controls[i - 1].Width + 20) - Controls[i].Location.X; 
 						var rect = new Rectangle(x, y, width, height);
 						graphics.DrawRectangle(pen, rect);
+
+						if (i - 2 >= 0)
+						{
+							var twonextC = (ElementControl)Controls[i - 2];
+							if (twonextC.SetNextParallel)
+							{
+								if (rects.Count >= 1 && CheckRects(rect, rects[rects.Count - 1]))
+								{
+									widthAdder += 20;
+									var fPoint = new Point(rects[rects.Count - 1].X + 2, secondPoint.Y + rect.Height);
+									var secPoint = new Point(fPoint.X + rects[rects.Count - 1].Width - 4, fPoint.Y);
+									var linePen = new Pen(this.BackColor, pen.Width);
+									graphics.DrawLine(linePen, fPoint, secPoint);
+								}
+								rects.Add(rect);
+							}
+						}
+						
 					}
 						
 				}
