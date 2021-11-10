@@ -22,6 +22,7 @@ namespace ComplexResistanceCalculator.UI
 		
 		// TODO: xml
 		public event ParallelEvent SetParallel;
+		
 
 		/// <summary>
 		/// Шаблоны отображения элементов.
@@ -67,9 +68,15 @@ namespace ComplexResistanceCalculator.UI
 					Controls[i].Location = new Point(prevLocation.X, prevLocation.Y + 70);
 					Controls[i - 1].Location = new Point(Controls[i - 1].Location.X, Controls[i].Location.Y - 130);
 				}
-				if (!CheckParallel((ElementControl)Controls[i])/* || currentControl.SetNextParallel*/)
+				if (!CheckParallel((ElementControl)Controls[i]))
 				{
 					Controls[i].Location = new Point(prevLocation.X + 100, startLocation.Y);
+					var prevCont = (ElementControl)Controls[i - 1];
+					if (prevCont.SetNextParallel)
+					{
+						var xAdder = 15 * ((prevCont.Location.Y - 80) / 70 );
+						Controls[i].Location = new Point(Controls[i].Location.X + xAdder, Controls[i].Location.Y);
+					}
 				}
 				if (currentControl.SetNextParallel)
 				{
@@ -181,7 +188,7 @@ namespace ComplexResistanceCalculator.UI
 			var graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			var pen = new Pen(Color.Black, 4);
 			graphics.Clear(Color.White);
-			var widthAdder = 15;
+			int widthAdder = 15;
 			var rects = new List<Rectangle>();
 
 			for (int i = Controls.Count - 1; i > 0; i--)
@@ -203,13 +210,7 @@ namespace ComplexResistanceCalculator.UI
 					var startPoint = new Point(Controls[i].Location.X - 12, secondPoint.Y);
 					graphics.DrawLine(pen, startPoint, secondPoint);
 				}
-				// соединение сложного параллельного с последовательным справа
-				else if (parallelCont.SetNextParallel  &&
-				         !currentCont.SetNextParallel && !currentCont.SetParallel)
-				{
-					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width + 12, firstPoint.Y);
-					graphics.DrawLine(pen, firstPoint, finalPoint);
-				}
+				
 				// соединение последовательного с параллельным справа и соединение 3х парраллельных
 				else if (i - 3 >= 0 && Controls[i].Location.Y != Controls[i - 1].Location.Y && Controls[i].Location.Y == Controls[i - 3].Location.Y 
 				    && Controls[i -1].Location.X == Controls[i - 2].Location.X)
@@ -240,6 +241,14 @@ namespace ComplexResistanceCalculator.UI
 						var startPoint = new Point(parallelControl.Location.X + parallelControl.Width + 12, firstPoint.Y);
 						graphics.DrawLine(pen, startPoint, firstPoint);
 					}
+				}
+				// соединение сложного параллельного с последовательным справа
+				else if (parallelCont.SetNextParallel &&
+				         !currentCont.SetNextParallel && !currentCont.SetParallel)
+				{
+					var adder = 15 * ((parallelCont.Location.Y - 80) / 70);
+					var finalPoint = new Point(parallelCont.Location.X + parallelCont.Width + adder - 12, firstPoint.Y);
+					graphics.DrawLine(pen, firstPoint, finalPoint);
 				}
 				// соединение параллельных (здесь улучшить для нескольких)
 				else
@@ -284,8 +293,8 @@ namespace ComplexResistanceCalculator.UI
 								widthAdder += 15;
 								if (rects.Count >= 1 && CheckRects(rect, rects[rects.Count - 1]))
 								{
-									var fPoint = new Point(rects[rects.Count - 1].X, secondPoint.Y + rect.Height);
-									var secPoint = new Point(fPoint.X + rects[rects.Count - 1].Width, fPoint.Y);
+									var fPoint = new Point(rects[rects.Count - 1].X + 2, secondPoint.Y + rect.Height);
+									var secPoint = new Point(fPoint.X + rects[rects.Count - 1].Width - 4, fPoint.Y);
 									var linePen = new Pen(this.BackColor, pen.Width);
 									graphics.DrawLine(linePen, fPoint,secPoint);
 								}
@@ -339,72 +348,6 @@ namespace ComplexResistanceCalculator.UI
 			return false;
 		}
 
-		private void FillWrongRectParts(List<Rectangle> rects)
-		{
-			if (rects.Count <= 1)
-			{
-				return;
-			}
-			
-		}
-		private void UniteMainParallel(Graphics graphics, int i, ElementControl nextControl, ElementControl currentControl, Pen pen)
-		{
-			var temp = nextControl;
-			while (temp.SetNextParallel && i <= Controls.Count - 1)
-			{
-				temp = (ElementControl)Controls[i + 1];
-				if (temp.SetParallel)
-				{
-					break;
-				}
-			}
-
-			while (temp.Location.Y != Controls[0].Location.Y && i <= Controls.Count - 1)
-			{
-				temp = (ElementControl)Controls[i + 1];
-			}
-
-			var prevIndex = Controls.IndexOf(currentControl) - 1;
-			var x = Controls[prevIndex].Location.X - 10;// элемент перед параллельным
-			var y = Controls[prevIndex].Location.Y + 30;
-			var height = currentControl.Location.Y - Controls[prevIndex].Location.Y;
-			var width = (temp.Location.X + temp.Width + 20) - Controls[prevIndex].Location.X;
-			var rect = new Rectangle(x, y, width, height);
-			graphics.DrawRectangle(pen, rect);
-		}
-
-		private void UniteInRectangle(Graphics graphics, Pen pen)
-		{
-			for (int i = 0; i < Controls.Count - 1; i++)
-			{
-				var currentControl = (ElementControl)Controls[i];
-				ElementControl nextControl = (ElementControl)Controls[i + 1];
-				
-				if (currentControl.SetParallel && nextControl.SetNextParallel)
-				{
-					int j = i + 1;
-					var currentNextParallel = (ElementControl)Controls[j];
-					while (currentNextParallel.SetNextParallel)
-					{
-						++j;
-						if (j >= Controls.Count)
-						{
-							--j;
-							break;
-						}
-						currentNextParallel = (ElementControl)Controls[j];
-					}
-					var x = Controls[i - 1].Location.X - 10; // элемент перед параллельным
-					var y = Controls[i - 1].Location.Y + 30;
-					var height = Controls[i].Location.Y - Controls[i - 1].Location.Y;
-					var width = Controls[j].Location.X - Controls[i - 1].Location.X + 5; //крайний справа - элемент перед параллельным + разница
-					var rect = new Rectangle(x, y, width, height);
-					graphics.DrawRectangle(pen, rect);
-				}
-				
-			}
-			//graphics.Dispose(); //если включить будет странная ошибка с параметром в основном цикле UniteControls
-		}
 
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
 		{
