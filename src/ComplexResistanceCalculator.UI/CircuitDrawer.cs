@@ -47,6 +47,10 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ControlLocation()
 		{
+			if (Controls.Count == 0)
+			{
+				return;
+			}
 			Controls[0].Location = new Point(5, 80);
 			for (int i = 1; i < Controls.Count; i++)
 			{

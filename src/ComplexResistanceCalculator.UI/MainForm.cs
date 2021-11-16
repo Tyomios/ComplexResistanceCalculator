@@ -216,7 +216,7 @@ namespace ComplexResistanceCalculator.UI
 						}
 					}
 
-					_circuit.Frames[0].RemoveElement(_currentElement);
+					_circuit.RemoveElement(_currentElement);
                     // TODO: чтобы не забывать отнимать эти индексаторы, всегда проще обращаться к количеству элементов через Circuit. Если надо, это свойство можно сделать открытым в самом Circuit, если коллекцию элементов не хочется открывать на изменение.
 					--_elementsCount;
 					_currentElement = null;

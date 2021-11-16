@@ -38,6 +38,30 @@ namespace Model
 		}
 
 		/// <summary>
+		/// Удаление элемента и пустого сегмента. 
+		/// </summary>
+		/// <param name="element"> Удаляемый элемент. </param>
+		public void RemoveElement(BaseElement element)
+		{
+			for(int j = 0; j < Frames.Count; j++)
+			{
+				var segment = Frames[j];
+				for (int i = 0; i < segment.subSegments.Count; i++)
+				{
+					if (element == segment.subSegments[i])
+					{
+						segment.subSegments.RemoveAt(i);
+					}
+
+					if (segment.subSegments.Count == 0)
+					{
+						Frames.Remove(segment);
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// Подписка на событие ValueChanged.
 		/// </summary>
 		private void ElementOnValueChanged()
