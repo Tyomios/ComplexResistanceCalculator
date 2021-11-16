@@ -41,7 +41,7 @@ namespace Model
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
 			{
-				// TODO: неправильная формула для катушки. Правильная формула: 2 * Math.PI * frequency * Value+
+				// TODO: неправильная формула для катушки. Правильная формула: 2 * Math.PI * frequency * Value +
 				impedances.Add(new Complex(0, (2 * Math.PI * f * Value)) );
 			}
 

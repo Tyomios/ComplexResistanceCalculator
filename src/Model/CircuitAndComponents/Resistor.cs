@@ -39,13 +39,13 @@ namespace Model
 		public override List<Complex> CalculateZ(List<double> frequency)
 		{
             // TODO: что за сокращения в именованиях?
-			var res = new List<Complex>();
+			var result = new List<Complex>();
 			foreach (var f in frequency)
 			{
-				res.Add(new Complex(Value, 0));
+				result.Add(new Complex(Value, 0));
 			}
 
-			return res;
+			return result;
 		}
 	}
 }

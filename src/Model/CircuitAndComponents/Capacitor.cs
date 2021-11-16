@@ -36,10 +36,10 @@ namespace Model
 		public override List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
-			foreach (var f in frequency)
+			foreach (var freq in frequency)
 			{
-				// TODO: неправильная формула для конденсатора. Правильная формула: -1.0 / (2 * Math.PI * frequency * Value)+
-				impedances.Add(new Complex(0,-1 /(2 * Math.PI * f * Value) ));
+				// TODO: неправильная формула для конденсатора. Правильная формула: -1.0 / (2 * Math.PI * frequency * Value) +
+				impedances.Add(new Complex(0,-1 /(2 * Math.PI * freq * Value) ));
 			}
 
 			return impedances;

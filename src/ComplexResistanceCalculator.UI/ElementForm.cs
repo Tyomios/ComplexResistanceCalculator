@@ -54,9 +54,15 @@ namespace ComplexResistanceCalculator.UI
 	        }
         }
 
-		// TODO: xml
+
+		/// <summary>
+		/// Установка контрола параллельно.
+		/// </summary>
 		public bool SetParallel { get; private set; }
 
+		/// <summary>
+		/// Установка контрола в сложном параллельном соединении.
+		/// </summary>
 		public bool SetNextParallel { get; private set; }
 
 		private void saveButton_Click(object sender, EventArgs e)

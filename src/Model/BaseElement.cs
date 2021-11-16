@@ -17,7 +17,10 @@ namespace Model
 		/// </summary>
 		protected string _name;
 
-		protected List<ICommon> _subSegments = null;
+		/// <summary>
+		/// Подсегменты, закрытый доступ, так как у элемента не может быть элементов.
+		/// </summary>
+		private List<ICommon> _subSegments = null;
 
 		/// <summary>
 		/// Создает экземпляр <see cref="BaseElement"/>.
@@ -37,12 +40,18 @@ namespace Model
 		{
 		}
 
+		/// <summary>
+		/// Тип элемента.
+		/// </summary>
 		public ConnectionType Type { get; set; }
 
+		/// <summary>
+		/// Подсегменты.
+		/// </summary>
 		public List<ICommon> subSegments { get; set; }
 
 		/// <summary>
-		/// <inheritdoc cref="IElement.Name"/>
+		/// Возвращает или задает название элемента.
 		/// </summary>
 		public string Name
 		{
@@ -60,7 +69,7 @@ namespace Model
 
 		// TODO: xml+
 		/// <summary>
-		/// <inheritdoc cref="IElement.Value"/>
+		/// Возвращает или задает значение элемента.
 		/// </summary>
 		public double Value
 		{
@@ -76,6 +85,11 @@ namespace Model
 
 		}
 
+		/// <summary>
+		/// Рассчет импеданса. 
+		/// </summary>
+		/// <param name="frequency"> Диапазон частот </param>
+		/// <returns> Значения импедансов для частот.  </returns>
 		virtual public List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
@@ -88,6 +102,9 @@ namespace Model
 			return impedances;
 		}
 
+		/// <summary>
+		/// Событие изменения элемента.
+		/// </summary>
 		public event ValueChanged ValueChanged;
 	}
 }

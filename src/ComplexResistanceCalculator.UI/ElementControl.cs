@@ -81,9 +81,14 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
-        // TODO: xml
+		/// <summary>
+		/// Маркер, отвечающий за сообщение, что контрол стоит параллельно.
+		/// </summary>
 		public bool SetParallel { get; set; }
 
+		/// <summary>
+		/// Маркер, отвечающий за сообщение, что контрол стоит в сложном параллельном соединении.
+		/// </summary>
 		public bool SetNextParallel { get; set; }
 
 		/// <summary>
