@@ -37,6 +37,18 @@ namespace Model
 			return false;
 		}
 
+		public void AddElement(BaseElement element, ConnectionType frameType)
+		{
+			if (Frames.Count == 0 || Frames[Frames.Count - 1].Type != frameType)
+			{
+				Frames.Add(new BaseCircuitFrame(frameType));
+				Frames[Frames.Count - 1].subSegments.Add(element);
+				return;
+			}
+
+			Frames[Frames.Count - 1].subSegments.Add(element);
+		}
+
 		/// <summary>
 		/// Удаление элемента и пустого сегмента. 
 		/// </summary>

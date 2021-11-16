@@ -140,22 +140,17 @@ namespace ComplexResistanceCalculator.UI
 			newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
 			var isParallel = newElementUserControl.SetParallel || newElementUserControl.SetNextParallel;
-			if (_circuit.GetFramesCount() == 0)
-			{
-				_circuit.Frames.Add(new BaseCircuitFrame(ConnectionType.Common));
-			}
 
-			if (_circuit.CheckNewElement(element, isParallel))
-			{
-				_circuit.Frames[_circuit.GetFramesCount() - 1].AddElement(element);
-			}
-			
-			//_circuit.AddElement(element);
+			_circuit.AddElement(element, GetFrameType(newElementUserControl));
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
 		}
 
+		private ConnectionType GetFrameType(ElementControl control)
+		{
+			return control.SetParallel || control.SetNextParallel ? ConnectionType.Parallel : ConnectionType.Common;
+		}
 
 		private void UserControl_Click(object sender, EventArgs e)
 		{
