@@ -48,7 +48,7 @@ namespace Model
 		/// <param name="textFormatValue"> значение </param>
 		/// <param name="elementType"> тип элемента </param>
 		/// <returns> Возвращает значение в единицах СИ </returns>
-		public static double ConvertPrefixValue(double value, IElement elementType)
+		public static double ConvertPrefixValue(double value, BaseElement elementType)
 		{
             // TODO: почему на вход приходит строка? Метод должен заниматься конвертированием значений с префиксами, а не парсингом текста из контролов.+
             // Во-вторых, методы типа ConvertPrefix() и ConvertUndoPrefix()
@@ -65,7 +65,7 @@ namespace Model
 		/// <param name="value"> Рассчитанное значение </param>
 		/// <param name="elementType"> Тип элемента </param>
 		/// <returns> Результат в величине, выбранной пользователем </returns>
-		public static double ConvertUndoPrefix(double value, IElement elementType)
+		public static double ConvertUndoPrefix(double value, BaseElement elementType)
 		{
 			var pow = Math.Pow(10, pows[elementType.GetType()]);
 

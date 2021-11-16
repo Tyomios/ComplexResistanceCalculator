@@ -9,18 +9,8 @@ namespace Model
 	/// <summary>
 	/// Конденсатор.
 	/// </summary>
-	public class Capacitor : IElement
+	public class Capacitor : BaseElement
 	{
-		/// <summary>
-		/// Номинал.
-		/// </summary>
-		private double _value;
-
-		/// <summary>
-		/// Название.
-		/// </summary>
-		private string _name;
-
 		/// <summary>
 		/// Создает экземпляр <see cref="Capacitor"/>.
 		/// </summary>
@@ -30,6 +20,7 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
+			Type = ConnectionType.Capacitor;
 		}
 
 		/// <summary>
@@ -37,48 +28,12 @@ namespace Model
 		/// </summary>
 		public Capacitor()
 		{
-		}
-
-		// TODO: xml+
-		/// <summary>
-		/// <inheritdoc cref="IElement.Name"/>
-		/// </summary>
-		public string Name
-		{
-			get => _name;
-			set
-			{
-				if (value.Length > 10)
-				{
-					throw new ArgumentException("Capacitor's name might be shorter, " +
-					                            "then 10 symbols");
-				}
-				_name = value;
-			}
-		}
-
-		// TODO: xml+
-		/// <summary>
-		/// <inheritdoc cref="IElement.Value"/>
-		/// </summary>
-		public double Value
-		{
-			get => _value;
-			set
-			{
-				if (_value != value)
-				{
-					ValueChanged?.Invoke();
-				}
-				_value = value;
-			}
-
+			Type = ConnectionType.Capacitor;
 		}
 
 		// TODO: xml+
 		/// <inheritdoc cref="IElement.CalculateZ"/>
-
-		public List<Complex> CalculateZ(List<double> frequency)
+		public override List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
@@ -89,10 +44,5 @@ namespace Model
 
 			return impedances;
 		}
-
-		// TODO: xml+
-		/// <inheritdoc cref="IElement.CalculateZ"/>
-		public event ValueChanged ValueChanged;
 	}
-    // TODO: реализации классов дублируются больше чем на половину. Подумай, как можно избавиться от дублирования
 }

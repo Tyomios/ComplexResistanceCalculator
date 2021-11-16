@@ -5,19 +5,19 @@ using System.Text;
 
 namespace Model
 {
-	class BaseElement : ICommon
+	public class BaseElement : ICommon
 	{
 		/// <summary>
 		/// Номинал.
 		/// </summary>
-		private double _value;
+		protected double _value;
 
 		/// <summary>
 		/// Название.
 		/// </summary>
-		private string _name;
+		protected string _name;
 
-		private List<ICommon> _subSegments = null;
+		protected List<ICommon> _subSegments = null;
 
 		/// <summary>
 		/// Создает экземпляр <see cref="BaseElement"/>.
@@ -67,16 +67,16 @@ namespace Model
 			get => _value;
 			set
 			{
-				//if (_value != value)
-				//{
-				//	ValueChanged?.Invoke();
-				//}
+				if (_value != value)
+				{
+					ValueChanged?.Invoke();
+				}
 				_value = value;
 			}
 
 		}
 
-		public List<Complex> CalculateZ(List<double> frequency)
+		virtual public List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
@@ -87,5 +87,7 @@ namespace Model
 
 			return impedances;
 		}
+
+		public event ValueChanged ValueChanged;
 	}
 }

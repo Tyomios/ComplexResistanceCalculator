@@ -25,7 +25,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Содержимый элемент цепи.
 		/// </summary>
-		private IElement _containElement;
+		private BaseElement _containElement;
 
 		// TODO: RSDN
 		/// <summary>
@@ -70,7 +70,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Возвращает или задает хранящийся элемент.
 		/// </summary>
-		public IElement ContainElement
+		public BaseElement ContainElement
 		{
 			get => _containElement;
 			set

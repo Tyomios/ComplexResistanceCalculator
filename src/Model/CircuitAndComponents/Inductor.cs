@@ -10,18 +10,8 @@ namespace Model
 	/// <summary>
 	/// Катушка индуктивности.
 	/// </summary>
-	public class Inductor : IElement
+	public class Inductor : BaseElement
 	{
-		/// <summary>
-		/// Номинал.
-		/// </summary>
-		private double _value;
-
-		/// <summary>
-		/// Название.
-		/// </summary>
-		private string _name;
-
 		/// <summary>
 		/// Создает экземпляр <see cref="Inductor"/>.
 		/// </summary>
@@ -31,6 +21,7 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
+			Type = ConnectionType.Inductor;
 		}
 
 		/// <summary>
@@ -38,50 +29,14 @@ namespace Model
 		/// </summary>
 		public Inductor()
 		{
-
-		}
-
-		// TODO: xml+
-		/// <summary>
-		/// <inheritdoc cref="IElement.Name"/>
-		/// </summary>
-		public string Name 
-		{
-			get => _name;
-			set
-			{
-				if (value.Length > 10)
-				{
-					throw new ArgumentException("Inductor's name might be shorter, " +
-					                            "then 10 symbols");
-				}
-				_name = value;
-			}
-		}
-
-		// TODO: xml+
-		/// <summary>
-		/// <inheritdoc cref="IElement.Value"/>
-		/// </summary>
-		public double Value
-		{
-			get => _value;
-			set
-			{
-				if (_value != value)
-				{
-					ValueChanged?.Invoke();
-				}
-				_value = value;
-			}
-
+			Type = ConnectionType.Inductor;
 		}
 
 		// TODO: xml+
 		/// <summary>
 		/// <inheritdoc cref="IElement.CalculateZ"/>
 		/// </summary>
-		public List<Complex> CalculateZ(List<double> frequency)
+		public override List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
@@ -92,11 +47,5 @@ namespace Model
 
 			return impedances;
 		}
-
-		// TODO: xml+
-		/// <summary>
-		/// <inheritdoc cref="IElement.ValueChanged"/>
-		/// </summary>
-		public event ValueChanged ValueChanged;
 	}
 }

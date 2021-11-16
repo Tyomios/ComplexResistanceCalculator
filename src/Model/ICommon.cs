@@ -13,7 +13,9 @@ namespace Model
 		Parallel,
 		ContinueParallel,
 		Common,
-
+		Resistor,
+		Capacitor,
+		Inductor
 	}
 
 	public interface ICommon

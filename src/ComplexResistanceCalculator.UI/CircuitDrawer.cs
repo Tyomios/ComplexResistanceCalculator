@@ -18,7 +18,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Элемент, содержащийся в выбранном контроле.
 		/// </summary>
-		public IElement SelectedElement;
+		public BaseElement SelectedElement;
 		
 		// TODO: xml
 		public event ParallelEvent SetParallel;
@@ -401,47 +401,47 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="listIndex"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public List<List<IElement>> GetLineParts(List<IElement> line, int listIndex = 0, int y = 80)
-		{
-			var result = new List<List<IElement>>();
-			result.Add(line);
-			for (int i = 0; i < Controls.Count; i++)
-			{
-				var currentControl = (ElementControl)Controls[i];
-				if (currentControl.Location.Y == y)
-				{
-					result[listIndex].Add(currentControl.ContainElement);
-				}
-				else
-				{
-					++listIndex;
-					result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
-				}
-			}
+		//public List<List<IElement>> GetLineParts(List<IElement> line, int listIndex = 0, int y = 80)
+		//{
+		//	var result = new List<List<IElement>>();
+		//	result.Add(line);
+		//	for (int i = 0; i < Controls.Count; i++)
+		//	{
+		//		var currentControl = (ElementControl)Controls[i];
+		//		if (currentControl.Location.Y == y)
+		//		{
+		//			result[listIndex].Add(currentControl.ContainElement);
+		//		}
+		//		else
+		//		{
+		//			++listIndex;
+		//			result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
+		//		}
+		//	}
 
-			return result;
-		}
+		//	return result;
+		//}
 
-		public List<List<IElement>> GetParallelParts(List<IElement> line, int x, int listIndex = 0)
-		{
-			var result = new List<List<IElement>>();
-			result.Add(line);
-			for (int i = 0; i < Controls.Count; i++)
-			{
-				var currentControl = (ElementControl)Controls[i];
-				if (currentControl.Location.Y == x)
-				{
-					result[listIndex].Add(currentControl.ContainElement);
-				}
-				else
-				{
-					++listIndex;
-					result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
-				}
-			}
+		//public List<List<IElement>> GetParallelParts(List<IElement> line, int x, int listIndex = 0)
+		//{
+		//	var result = new List<List<IElement>>();
+		//	result.Add(line);
+		//	for (int i = 0; i < Controls.Count; i++)
+		//	{
+		//		var currentControl = (ElementControl)Controls[i];
+		//		if (currentControl.Location.Y == x)
+		//		{
+		//			result[listIndex].Add(currentControl.ContainElement);
+		//		}
+		//		else
+		//		{
+		//			++listIndex;
+		//			result.Add(GetLineParts(new List<IElement>(), listIndex, currentControl.Location.Y)[0]); // спорный момент ?????
+		//		}
+		//	}
 
-			return result;
-		}
+		//	return result;
+		//}
 
 		private void CircuitDrawer_ControlRemoved(object sender, ControlEventArgs e)
 		{

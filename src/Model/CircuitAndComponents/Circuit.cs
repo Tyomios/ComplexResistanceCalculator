@@ -20,32 +20,21 @@ namespace Model
 		/// <summary>
 		/// Список элементов в цепи.
 		/// </summary>
-		public List<IElement> Elements { get; set; } = new List<IElement>();
+		public List<BaseCircuitFrame> Frames { get; set; } = new List<BaseCircuitFrame>();
 
-		/// <summary>
-		/// Добавление элемента в цепь.
-		/// </summary>
-		/// <param name="element"> Добавляемый элемент </param>
-		public void AddElement(IElement element)
+		public bool CheckNewElement(BaseElement element, bool isParallel)
 		{
-            // TODO: не стоит ли проверять, что элемент уже добавлен в коллекцию?
-			Elements.Add(element);
-			element.ValueChanged += ElementOnValueChanged;
-			CircuitChanged?.Invoke();
-		}
-
-		/// <summary>
-		/// Удаление элемента из цепи.
-		/// </summary>
-		/// <param name="element"> Удаляемый элемент </param>
-		public void RemoveElement(IElement element)
-		{
-			if (Elements.Contains(element))
+			if (isParallel && Frames[GetFramesCount() - 1].Type == ConnectionType.Parallel)
 			{
-				element.ValueChanged -= ElementOnValueChanged;
-				Elements.Remove(element);
-				CircuitChanged?.Invoke();
+				return true;
 			}
+
+			if (!isParallel && Frames[GetFramesCount() - 1].Type == ConnectionType.Common)
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		/// <summary>
@@ -56,6 +45,8 @@ namespace Model
 			CircuitChanged?.Invoke();
 		}
 
+		public int GetFramesCount() => Frames.Count;
+
 		/// <summary>
 		/// Расчет импеданса в цепи для каждого значения частоты.
 		/// </summary>
@@ -63,10 +54,10 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			var allFrequenciesImpedance = Elements[0].CalculateZ(frequencies);
-			for (int i = 1; i < Elements.Count; i++)
+			var allFrequenciesImpedance = Frames[0].CalculateZ(frequencies);
+			for (int i = 1; i < Frames.Count; i++)
 			{
-				var elementZs = Elements[i].CalculateZ(frequencies);
+				var elementZs = Frames[i].CalculateZ(frequencies);
 				for (int j = 0; j < elementZs.Count; j++)
 				{
 					allFrequenciesImpedance[j] += elementZs[j];
@@ -77,43 +68,24 @@ namespace Model
 
 		}
 
-		/// <summary>
-		/// Расчет импеданса в цепи для каждого значения частоты в параллельном соединении.
-		/// </summary>
-		/// <param name="frequencies"> Список частот </param>
-		/// <returns> Список комплексных сопротивлений </returns>
-		public List<Complex> CalculateZParallel(List<double> frequencies)
+		public List<Complex> G(List<double> frequencies)
 		{
-			var allFrequenciesImpedance = ConvertToParallel(Elements[0].CalculateZ(frequencies));
-			
-			for (int i = 1; i < Elements.Count; i++)
+			var allFrequenciesImpedance = Frames[0].CalculateZ(frequencies);
+			if (Frames.Count < 2)
 			{
-				var elementZs = ConvertToParallel(Elements[i].CalculateZ(frequencies));
-				for (int j = 0; j < elementZs.Count; j++)
+				return allFrequenciesImpedance;
+			}
+			for (int i = 1; i < Frames.Count; i++)
+			{
+				var result = Frames[i].CalculateZ(frequencies);
+				for (int j = 0; j < frequencies.Count; j++)
 				{
-					allFrequenciesImpedance[j] += elementZs[j];
+					allFrequenciesImpedance[j] += result[j];
 				}
 			}
-
-			return ConvertToParallel(allFrequenciesImpedance);
-
+			return allFrequenciesImpedance;
 		}
 
-		/// <summary>
-		/// Преобразует данные последовательного соединения в рассчет импеданса параллельного соединения.
-		/// </summary>
-		/// <param name="values"> Значения для преобразования. </param>
-		/// <returns> Данные для последовательного соединения </returns>
-		private List<Complex> ConvertToParallel(List<Complex> values)
-		{
-			var results = new List<Complex>();
-			foreach (var value in values)
-			{
-				results.Add(1 / value);
-			}
-
-			return results;
-		}
 		// TODO: неправильное именование
 		/// <summary>
 		/// Событие изменения одного и более элемента цепи.

@@ -21,7 +21,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Выбранный пользователем элемент цепи.
 		/// </summary>
-		private IElement _currentElement;
+		private BaseElement _currentElement;
 
 		/// <summary>
 		/// Цепь.
@@ -120,7 +120,7 @@ namespace ComplexResistanceCalculator.UI
 		/// Добавление элемента в цепь.
 		/// </summary>
 		/// <param name="element"> Добавляемый элемент </param>
-		private void AddElement(IElement element)
+		private void AddElement(BaseElement element)
 		{
             // TODO: это что за ограничение такое? Не помню такого в ТЗ+
             // TODO: не забывай про var +
@@ -139,7 +139,18 @@ namespace ComplexResistanceCalculator.UI
 			elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
-			_circuit.AddElement(element);
+			var isParallel = newElementUserControl.SetParallel || newElementUserControl.SetNextParallel;
+			if (_circuit.GetFramesCount() == 0)
+			{
+				_circuit.Frames.Add(new BaseCircuitFrame(ConnectionType.Common));
+			}
+
+			if (_circuit.CheckNewElement(element, isParallel))
+			{
+				_circuit.Frames[_circuit.GetFramesCount() - 1].AddElement(element);
+			}
+			
+			//_circuit.AddElement(element);
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
@@ -205,7 +216,7 @@ namespace ComplexResistanceCalculator.UI
 						}
 					}
 
-					_circuit.RemoveElement(_currentElement);
+					_circuit.Frames[0].RemoveElement(_currentElement);
                     // TODO: чтобы не забывать отнимать эти индексаторы, всегда проще обращаться к количеству элементов через Circuit. Если надо, это свойство можно сделать открытым в самом Circuit, если коллекцию элементов не хочется открывать на изменение.
 					--_elementsCount;
 					_currentElement = null;

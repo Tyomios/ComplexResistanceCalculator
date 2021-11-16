@@ -15,7 +15,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Добавляемый или редактируемый элемент.
 		/// </summary>
-		private IElement _element;
+		private BaseElement _element;
 
 		/// <summary>
 		/// Содержит название величин для каждого типа элеметов
@@ -34,13 +34,12 @@ namespace ComplexResistanceCalculator.UI
 		public ElementForm()
 		{
 			InitializeComponent();
-			
 		}
 
 		/// <summary>
 		/// Возвращает или задает элемент.
 		/// </summary>
-        public IElement Element
+        public BaseElement Element
         {
 	        get
 	        {
