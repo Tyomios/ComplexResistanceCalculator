@@ -22,23 +22,15 @@ namespace Model
 		/// </summary>
 		public List<BaseCircuitFrame> Frames { get; set; } = new List<BaseCircuitFrame>();
 
-		public bool CheckNewElement(BaseElement element, bool isParallel)
-		{
-			if (isParallel && Frames[GetFramesCount() - 1].Type == ConnectionType.Parallel)
-			{
-				return true;
-			}
-
-			if (!isParallel && Frames[GetFramesCount() - 1].Type == ConnectionType.Common)
-			{
-				return true;
-			}
-
-			return false;
-		}
-
+		/// <summary>
+		/// Добавление элемента в цепь.
+		/// </summary>
+		/// <param name="element"> Добавляемый элемент </param>
+		/// <param name="frameType"> Тип последнего соединения </param>
 		public void AddElement(BaseElement element, ConnectionType frameType)
 		{
+			element.ValueChanged += ElementOnValueChanged;
+			CircuitChanged?.Invoke();
 			if (Frames.Count == 0 || Frames[Frames.Count - 1].Type != frameType)
 			{
 				Frames.Add(new BaseCircuitFrame(frameType));
@@ -55,7 +47,8 @@ namespace Model
 		/// <param name="element"> Удаляемый элемент. </param>
 		public void RemoveElement(BaseElement element)
 		{
-			for(int j = 0; j < Frames.Count; j++)
+			element.ValueChanged -= ElementOnValueChanged;
+			for (int j = 0; j < Frames.Count; j++)
 			{
 				var segment = Frames[j];
 				for (int i = 0; i < segment.subSegments.Count; i++)
@@ -71,6 +64,7 @@ namespace Model
 					}
 				}
 			}
+			CircuitChanged?.Invoke();
 		}
 
 		/// <summary>
@@ -79,33 +73,6 @@ namespace Model
 		private void ElementOnValueChanged()
 		{
 			CircuitChanged?.Invoke();
-		}
-
-		/// <summary>
-		/// Получение числа сегментов цепи.
-		/// </summary>
-		/// <returns> Число сегментов цепи </returns>
-		public int GetFramesCount() => Frames.Count;
-
-		/// <summary>
-		/// Расчет импеданса в цепи для каждого значения частоты.
-		/// </summary>
-		/// <param name="frequencies"> Список частот </param>
-		/// <returns> Список комплексных сопротивлений </returns>
-		public List<Complex> CalculateZ(List<double> frequencies)
-		{
-			var allFrequenciesImpedance = Frames[0].CalculateZ(frequencies);
-			for (int i = 1; i < Frames.Count; i++)
-			{
-				var elementZs = Frames[i].CalculateZ(frequencies);
-				for (int j = 0; j < elementZs.Count; j++)
-				{
-					allFrequenciesImpedance[j] += elementZs[j];
-				}
-			}
-
-			return allFrequenciesImpedance;
-
 		}
 
 		public List<Complex> G(List<double> frequencies)

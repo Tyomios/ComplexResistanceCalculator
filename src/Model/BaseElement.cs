@@ -82,7 +82,6 @@ namespace Model
 				}
 				_value = value;
 			}
-
 		}
 
 		/// <summary>

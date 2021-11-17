@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Model
 {
+	public delegate void FrameChanged();
 	public class BaseCircuitFrame : ICommon
 	{
 		public List<ICommon> subSegments { get; set; }
@@ -109,5 +110,12 @@ namespace Model
 
 			return results;
 		}
+
+		public void ElementOnValueChanged()
+		{
+			frameChanged?.Invoke();
+		}
+
+		public event FrameChanged frameChanged;
 	}
 }

@@ -98,6 +98,7 @@ namespace ComplexResistanceCalculator.UI
 		{
 			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ActivateEventPictureBox;
+			BackgroundImage = elementPictures[_containElement.GetType()];
 		}
 		
 		private void editButton_Click(object sender, EventArgs e)

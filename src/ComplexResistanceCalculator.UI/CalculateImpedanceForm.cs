@@ -68,7 +68,6 @@ namespace ComplexResistanceCalculator.UI
 					var result = impedances[index];
 					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[index], (FreqPrefixValue)prefixValue);
 					var showedResult = $"{Math.Round(result.Real, 4)}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
-					var test = result.ToString();
 					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}" });
 				}
 			}
