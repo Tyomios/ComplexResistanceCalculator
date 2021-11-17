@@ -12,7 +12,6 @@ using Model;
 
 namespace ComplexResistanceCalculator.UI
 {
-	public delegate void ParallelEvent();
 	public partial class CircuitDrawer : Panel
 	{
 		/// <summary>

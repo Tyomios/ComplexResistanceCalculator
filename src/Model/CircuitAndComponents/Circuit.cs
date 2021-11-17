@@ -81,6 +81,10 @@ namespace Model
 			CircuitChanged?.Invoke();
 		}
 
+		/// <summary>
+		/// Получение числа сегментов цепи.
+		/// </summary>
+		/// <returns> Число сегментов цепи </returns>
 		public int GetFramesCount() => Frames.Count;
 
 		/// <summary>

@@ -52,10 +52,12 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
+			
 			if (this.Type != ConnectionType.Common)
 			{
 				return CalculateZParallel(frequencies);
 			}
+
 			var allFrequenciesImpedance = subSegments[0].CalculateZ(frequencies);
 			for (int i = 1; i < subSegments.Count; i++)
 			{

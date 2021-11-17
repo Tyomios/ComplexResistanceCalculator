@@ -139,7 +139,6 @@ namespace ComplexResistanceCalculator.UI
 			elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
-			var isParallel = newElementUserControl.SetParallel || newElementUserControl.SetNextParallel;
 
 			_circuit.AddElement(element, GetFrameType(newElementUserControl));
 
@@ -147,6 +146,11 @@ namespace ComplexResistanceCalculator.UI
 			ShowCurrentElementInfo();
 		}
 
+		/// <summary>
+		/// Определяет подходящий тип сегмента для добавляемого элемента.
+		/// </summary>
+		/// <param name="control"> Контрол, содержащий элемент </param>
+		/// <returns> Тип сегмента для элемента. </returns>
 		private ConnectionType GetFrameType(ElementControl control)
 		{
 			return control.SetParallel || control.SetNextParallel ? ConnectionType.Parallel : ConnectionType.Common;
@@ -212,7 +216,6 @@ namespace ComplexResistanceCalculator.UI
 					}
 
 					_circuit.RemoveElement(_currentElement);
-                    // TODO: чтобы не забывать отнимать эти индексаторы, всегда проще обращаться к количеству элементов через Circuit. Если надо, это свойство можно сделать открытым в самом Circuit, если коллекцию элементов не хочется открывать на изменение.
 					--_elementsCount;
 					_currentElement = null;
 					

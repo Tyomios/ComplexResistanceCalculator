@@ -51,18 +51,6 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public Circuit Circuit { get; set; }
 
-		//private List<Complex> GetResult(List<ElementControl> lineParts, List<ElementControl> parallelParts)
-		//{
-		//	var result = new List<Complex>();
-
-		//	foreach (var element in lineParts)
-		//	{
-				
-		//	}
-		//}
-
-		
-
 		private void calculateButton_Click(object sender, EventArgs e)
 		{
 			var prefixValue = prefixValueComboBoxFirstVal.SelectedItem;
@@ -73,13 +61,13 @@ namespace ComplexResistanceCalculator.UI
 			try
 			{
 				
-				var impedances = Circuit.CalculateZ(Frequency);
+				var impedances = Circuit.G(Frequency);
 
 				for (int index = 0; index < impedances.Count; index++)
 				{
 					var result = impedances[index];
 					var showedFrequency = ValueConverter.ConvertUndoPrefixFrequency(Frequency[index], (FreqPrefixValue)prefixValue);
-					var showedResult = $"{result.Real}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
+					var showedResult = $"{Math.Round(result.Real, 4)}   {CompressResult(Math.Round(result.Imaginary, 3))} i";
 					var test = result.ToString();
 					resultData.Rows.Add(new Object[] { $"{showedFrequency}", $"{showedResult}" });
 				}
