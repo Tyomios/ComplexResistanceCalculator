@@ -46,6 +46,11 @@ namespace ComplexResistanceCalculator.UI
 			_circuit.CircuitChanged += OnСircuitChanged;
 		}
 
+
+		/// <summary>
+		/// Построение шаблонов
+		/// </summary>
+		/// <returns> Список контролов для отрисовки шаблона. </returns>
 		private List<List<Control>> BuildTemplates()
 		{
 			var templates = new List<List<Control>>();

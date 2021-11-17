@@ -34,7 +34,7 @@ namespace Model
 
 		// TODO: xml - с наследованием
 		/// <summary>
-		/// <inheritdoc cref="IElement.CalculateZ"/>
+		/// <inheritdoc cref="BaseElement.CalculateZ"/>
 		/// </summary>
 		public override List<Complex> CalculateZ(List<double> frequency)
 		{

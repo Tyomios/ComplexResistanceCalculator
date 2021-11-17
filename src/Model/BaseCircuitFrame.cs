@@ -5,45 +5,36 @@ using System.Text;
 
 namespace Model
 {
-	public delegate void FrameChanged();
+	/// <summary>
+	/// Базовый класс сегментов цепи.
+	/// </summary>
 	public class BaseCircuitFrame : ICommon
 	{
+		/// <summary>
+		/// Возвращает или задает список элементов соединения.
+		/// </summary>
 		public List<ICommon> subSegments { get; set; }
+
+		/// <summary>
+		/// Возвращает или задает тип соединения.
+		/// </summary>
 		public ConnectionType Type { get; set; }
 
 		/// <summary>
-		/// Добавление элемента в цепь.
+		/// Создает экземпляр класса <see cref="BaseCircuitFrame"/>
 		/// </summary>
-		/// <param name="element"> Добавляемый элемент </param>
-		public void AddElement(ICommon element)
-		{
-			subSegments.Add(element);
-			//element.ValueChanged += ElementOnValueChanged;
-			//CircuitChanged?.Invoke();
-		}
-
+		/// <param name="type"> Тип соединения </param>
 		public BaseCircuitFrame(ConnectionType type)
 		{
 			Type = type;
 			subSegments = new List<ICommon>();
 		}
 
+		/// <summary>
+		/// Создает экземпляр класса <see cref="BaseCircuitFrame"/>
+		/// </summary>
 		public BaseCircuitFrame()
 		{
-		}
-
-		/// <summary>
-		/// Удаление элемента из цепи.
-		/// </summary>
-		/// <param name="element"> Удаляемый элемент </param>
-		public void RemoveElement(ICommon element)
-		{
-			if (subSegments.Contains(element))
-			{
-				//element.ValueChanged -= ElementOnValueChanged;
-				subSegments.Remove(element);
-				//CircuitChanged?.Invoke();
-			}
 		}
 
 		/// <summary>
@@ -53,7 +44,6 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			
 			if (this.Type != ConnectionType.Common)
 			{
 				return CalculateZParallel(frequencies);
@@ -70,7 +60,6 @@ namespace Model
 			}
 
 			return allFrequenciesImpedance;
-
 		}
 
 		/// <summary>
@@ -92,7 +81,6 @@ namespace Model
 			}
 
 			return ConvertToParallel(allFrequenciesImpedance);
-
 		}
 
 		/// <summary>
@@ -110,12 +98,5 @@ namespace Model
 
 			return results;
 		}
-
-		public void ElementOnValueChanged()
-		{
-			frameChanged?.Invoke();
-		}
-
-		public event FrameChanged frameChanged;
 	}
 }

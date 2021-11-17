@@ -10,12 +10,12 @@ namespace Model
 	/// </summary>
 	public enum ConnectionType
 	{
-		Parallel,
-		ContinueParallel,
-		Common,
-		Resistor,
-		Capacitor,
-		Inductor
+		Parallel,			// Параллельное соединение
+		ContinueParallel,   //
+		Common,				// Последовательное соединение
+		Resistor,			// Резистор
+		Capacitor,			// Конденсатор
+		Inductor			// Катушка индуктивности
 	}
 
 	/// <summary>

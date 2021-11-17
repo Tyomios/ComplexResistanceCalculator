@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Model
 {
+	/// <summary>
+	/// Базовый класс элементов.
+	/// </summary>
 	public class BaseElement : ICommon
 	{
 		/// <summary>

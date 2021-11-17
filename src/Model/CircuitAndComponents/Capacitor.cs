@@ -32,7 +32,7 @@ namespace Model
 		}
 
 		// TODO: xml+
-		/// <inheritdoc cref="IElement.CalculateZ"/>
+		/// <inheritdoc cref="BaseElement.CalculateZ"/>
 		public override List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
