@@ -19,6 +19,8 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public BaseElement SelectedElement;
 
+		// TODO: RSDN 
+		// TODO: Сделать свойство
 		/// <summary>
 		/// Шаблоны отображения элементов.
 		/// </summary>
@@ -32,6 +34,7 @@ namespace ComplexResistanceCalculator.UI
 			InitializeComponent();
 		}
 
+		// TODO: xml
 		public void DrawTemplate(List<Control> template)
 		{
 			foreach (var control in template)
@@ -378,7 +381,7 @@ namespace ComplexResistanceCalculator.UI
 			return false;
 		}
 
-
+		// TODO: xml
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
 		{
 			var addedControl = (ElementControl)Controls[Controls.Count - 1];

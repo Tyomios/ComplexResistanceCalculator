@@ -64,6 +64,7 @@ namespace Model
 					}
 				}
 			}
+
 			CircuitChanged?.Invoke();
 		}
 
@@ -75,6 +76,7 @@ namespace Model
 			CircuitChanged?.Invoke();
 		}
 
+		// TODO: xml
 		public List<Complex> G(List<double> frequencies)
 		{
 			var allFrequenciesImpedance = Frames[0].CalculateZ(frequencies);

@@ -30,7 +30,6 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Создает экземпляр класса <see cref="Form"/>.
 		/// </summary>
-		/// <param name="newElement"> Элемент для внесения данных </param>
 		public ElementForm()
 		{
 			InitializeComponent();

@@ -70,7 +70,6 @@ namespace Model
 			}
 		}
 
-		// TODO: xml+
 		/// <summary>
 		/// Возвращает или задает значение элемента.
 		/// </summary>
@@ -87,23 +86,24 @@ namespace Model
 			}
 		}
 
+		// TODO: может в базовом классе лучше сделать данный метод абстрактным, а в дочерних уже переопределять?
 		/// <summary>
 		/// Рассчет импеданса. 
 		/// </summary>
 		/// <param name="frequency"> Диапазон частот </param>
 		/// <returns> Значения импедансов для частот.  </returns>
-		virtual public List<Complex> CalculateZ(List<double> frequency)
+		public virtual List<Complex> CalculateZ(List<double> frequency)
 		{
 			var impedances = new List<Complex>();
 			foreach (var f in frequency)
 			{
-				// TODO: неправильная формула для конденсатора. Правильная формула: -1.0 / (2 * Math.PI * frequency * Value)+
 				impedances.Add(new Complex(0, -1 / (2 * Math.PI * f * Value)));
 			}
 
 			return impedances;
 		}
 
+		// TODO: может стоит использовать EventHendler для всех событий?
 		/// <summary>
 		/// Событие изменения элемента.
 		/// </summary>

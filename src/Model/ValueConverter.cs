@@ -75,7 +75,7 @@ namespace Model
 		/// <summary>
 		/// Для преобразования частоты в герцы.
 		/// </summary>
-		/// <param name="valueText"> Значение </param>
+		/// <param name="value"> Значение </param>
 		/// <param name="prefixValue"> Выбранная пользователем величина </param>
 		/// <returns> Значение частоты в герцах </returns>
 		public static double ConvertPrefixFrequency(double value, FreqPrefixValue prefixValue)

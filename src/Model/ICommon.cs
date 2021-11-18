@@ -5,12 +5,17 @@ using System.Text;
 
 namespace Model
 {
+	// TODO: вынести перечисление в отдельный файл.
+	// TODO: Подписать перечисления используя xml. Оставил пример.
 	/// <summary>
 	/// Тип сегмента - соединение цепи или элемент.
 	/// </summary>
 	public enum ConnectionType
 	{
-		Parallel,			// Параллельное соединение
+		/// <summary>
+		/// Параллельное соединение
+		/// </summary>
+		Parallel,			
 		ContinueParallel,   //
 		Common,				// Последовательное соединение
 		Resistor,			// Резистор
@@ -33,6 +38,7 @@ namespace Model
 		/// </summary>
 		List<ICommon> subSegments { get; set; }
 
+		// TODO: переименовать frequency -> frequencies. Так везде
 		/// <summary>
 		/// Расчет импеданса
 		/// </summary>

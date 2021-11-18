@@ -28,6 +28,8 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
+		// TODO: xml
+		// TODO: RSDN
 		private CircuitDrawer elementControlsContainer = new CircuitDrawer();
 
 		/// <summary>
@@ -98,8 +100,7 @@ namespace ComplexResistanceCalculator.UI
 			_currentElement = elementControlsContainer.SelectedElement;
 			ShowCurrentElementInfo();
 		}
-
-		// TODO: xml+
+		
         // TODO: странное название+
 		/// <summary>
 		/// Сообщает об изменении цепи.

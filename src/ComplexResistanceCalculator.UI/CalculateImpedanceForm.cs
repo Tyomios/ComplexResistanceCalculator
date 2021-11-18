@@ -78,7 +78,7 @@ namespace ComplexResistanceCalculator.UI
 			}
 			
 		}
-        // TODO: xml +
+
 		/// <summary>
 		/// Приводит мнимое значение результата к более удобному для восприятия виду.
 		/// </summary>
