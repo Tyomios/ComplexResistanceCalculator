@@ -27,20 +27,23 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private BaseElement _containElement;
 
-		// TODO: RSDN
+		// TODO: RSDN+
 		/// <summary>
 		/// Содержит изображения элемента.
 		/// </summary>
-		private Dictionary<Type, Image> elementPictures = new Dictionary<Type, Image>()
+		private Dictionary<Type, Image> _elementPictures = new Dictionary<Type, Image>()
 		{
 			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newResistor.png"),
 			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newCapacitor.png"),
 			[typeof(Inductor)] = Image.FromFile($"{_iconPath}/newInductor.png")
 		};
 
-		// TODO: xml
-		// TODO: RSDN
-		private Dictionary<Type, Image> updateElementPictures = new Dictionary<Type, Image>()
+		// TODO: xml+
+		// TODO: RSDN+
+		/// <summary>
+		/// Словарь, содержащий изображение для каждого типа элемента.
+		/// </summary>
+		private Dictionary<Type, Image> _updateElementPictures = new Dictionary<Type, Image>()
 		{
 			[typeof(Resistor)] = Image.FromFile($"{_iconPath}/newEventResistorIcon1.png"),
 			[typeof(Capacitor)] = Image.FromFile($"{_iconPath}/newEventCapacitorIcon1.png"),
@@ -77,7 +80,7 @@ namespace ComplexResistanceCalculator.UI
 			{
 				_containElement = value;
 				_containElement.ValueChanged += ContainElementOnValueChanged;
-				BackgroundImage = elementPictures[value.GetType()];
+				BackgroundImage = _elementPictures[value.GetType()];
 			}
 		}
 
@@ -98,7 +101,7 @@ namespace ComplexResistanceCalculator.UI
 		{
 			_eventPictureBoxToolTip.Active = false;
 			ContainElement.ValueChanged -= ActivateEventPictureBox;
-			BackgroundImage = elementPictures[_containElement.GetType()];
+			BackgroundImage = _elementPictures[_containElement.GetType()];
 		}
 		
 		private void editButton_Click(object sender, EventArgs e)
@@ -119,7 +122,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private void ActivateEventPictureBox()
 		{
-			BackgroundImage = updateElementPictures[_containElement.GetType()];
+			BackgroundImage = _updateElementPictures[_containElement.GetType()];
 		}
 		
 		private void editButton_MouseEnter(object sender, EventArgs e)

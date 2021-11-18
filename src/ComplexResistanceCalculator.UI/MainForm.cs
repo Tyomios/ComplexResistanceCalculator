@@ -28,9 +28,12 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
-		// TODO: xml
-		// TODO: RSDN
-		private CircuitDrawer elementControlsContainer = new CircuitDrawer();
+		// TODO: xml+
+		// TODO: RSDN+
+		/// <summary>
+		/// Элемент, отвечающий за отрисовку цепи.
+		/// </summary>
+		private CircuitDrawer _elementControlsContainer = new CircuitDrawer();
 
 		/// <summary>
 		/// Создает экземпляр класса <see cref="MainForm"/>.
@@ -38,13 +41,13 @@ namespace ComplexResistanceCalculator.UI
 		public MainForm()
 		{
 			InitializeComponent();
-			elementControlsContainer.templates = BuildTemplates();
-			foreach (var template in elementControlsContainer.templates)
+			_elementControlsContainer.Templates = BuildTemplates();
+			foreach (var template in _elementControlsContainer.Templates)
 			{
 				templatesComboBox.Items.Add(template);
 			}
-			circuitElementsPanel.Controls.Add(elementControlsContainer);
-			elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
+			circuitElementsPanel.Controls.Add(_elementControlsContainer);
+			_elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
 		}
 
@@ -97,7 +100,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void ElementControlsContainerOnControlAdded(object sender, ControlEventArgs e)
 		{
-			_currentElement = elementControlsContainer.SelectedElement;
+			_currentElement = _elementControlsContainer.SelectedElement;
 			ShowCurrentElementInfo();
 		}
 		
@@ -142,7 +145,7 @@ namespace ComplexResistanceCalculator.UI
 			newElementUserControl.SetParallel = addForm.SetParallel;
 			newElementUserControl.SetNextParallel = addForm.SetNextParallel;
 			newElementUserControl.ContainElement = element;
-			elementControlsContainer.Controls.Add(newElementUserControl);
+			_elementControlsContainer.Controls.Add(newElementUserControl);
 			newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
 
@@ -213,11 +216,11 @@ namespace ComplexResistanceCalculator.UI
 													"", MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes)
 				{
-					foreach (ElementControl control in elementControlsContainer.Controls)
+					foreach (ElementControl control in _elementControlsContainer.Controls)
 					{
 						if (control.ContainElement == _currentElement)
 						{
-							elementControlsContainer.Controls.Remove(control);
+							_elementControlsContainer.Controls.Remove(control);
 						}
 					}
 
@@ -237,9 +240,9 @@ namespace ComplexResistanceCalculator.UI
 
 		private void mainForm_SizeChanged(object sender, EventArgs e)
 		{
-			elementControlsContainer.Size = circuitElementsPanel.Size;
-			elementControlsContainer.Height += 10;
-			elementControlsContainer.Width += 40;
+			_elementControlsContainer.Size = circuitElementsPanel.Size;
+			_elementControlsContainer.Height += 10;
+			_elementControlsContainer.Width += 40;
 		}
 
 
@@ -254,7 +257,7 @@ namespace ComplexResistanceCalculator.UI
 			CalculateImpedanceForm calculateImpedanceForm = new CalculateImpedanceForm();
 			calculateImpedanceForm.Circuit = _circuit;
 			calculateImpedanceForm.ShowDialog();
-			foreach (ElementControl control in elementControlsContainer.Controls)
+			foreach (ElementControl control in _elementControlsContainer.Controls)
 			{
 				control.HideEventPictureBox();
 			}
@@ -263,7 +266,7 @@ namespace ComplexResistanceCalculator.UI
 
 		private void templatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			elementControlsContainer.DrawTemplate((List<Control>)templatesComboBox.SelectedItem);
+			_elementControlsContainer.DrawTemplate((List<Control>)templatesComboBox.SelectedItem);
 		}
 	}
 }

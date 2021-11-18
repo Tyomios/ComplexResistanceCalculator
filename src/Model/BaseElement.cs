@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Model
 {
+	public delegate void ValueChanged();
 	/// <summary>
 	/// Базовый класс элементов.
 	/// </summary>
@@ -86,16 +87,15 @@ namespace Model
 			}
 		}
 
-		// TODO: может в базовом классе лучше сделать данный метод абстрактным, а в дочерних уже переопределять?
 		/// <summary>
 		/// Рассчет импеданса. 
 		/// </summary>
-		/// <param name="frequency"> Диапазон частот </param>
+		/// <param name="frequencies"> Диапазон частот </param>
 		/// <returns> Значения импедансов для частот.  </returns>
-		public virtual List<Complex> CalculateZ(List<double> frequency)
+		public virtual List<Complex> CalculateZ(List<double> frequencies)
 		{
 			var impedances = new List<Complex>();
-			foreach (var f in frequency)
+			foreach (var f in frequencies)
 			{
 				impedances.Add(new Complex(0, -1 / (2 * Math.PI * f * Value)));
 			}
@@ -103,7 +103,6 @@ namespace Model
 			return impedances;
 		}
 
-		// TODO: может стоит использовать EventHendler для всех событий?
 		/// <summary>
 		/// Событие изменения элемента.
 		/// </summary>

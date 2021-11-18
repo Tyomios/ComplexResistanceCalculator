@@ -15,8 +15,7 @@ namespace Model
 		/// <summary>
 		/// Параллельное соединение
 		/// </summary>
-		Parallel,			
-		ContinueParallel,   //
+		Parallel,
 		Common,				// Последовательное соединение
 		Resistor,			// Резистор
 		Capacitor,			// Конденсатор
@@ -38,12 +37,12 @@ namespace Model
 		/// </summary>
 		List<ICommon> subSegments { get; set; }
 
-		// TODO: переименовать frequency -> frequencies. Так везде
+		// TODO: переименовать frequency -> frequencies. Так везде+
 		/// <summary>
 		/// Расчет импеданса
 		/// </summary>
-		/// <param name="frequency"> Диапазон частот для расчета </param>
+		/// <param name="frequencies"> Диапазон частот для расчета </param>
 		/// <returns> Значения импеданса для каждой частоты </returns>
-		abstract List<Complex> CalculateZ(List<double> frequency);
+		abstract List<Complex> CalculateZ(List<double> frequencies);
 	}
 }

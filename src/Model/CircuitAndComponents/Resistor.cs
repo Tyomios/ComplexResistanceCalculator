@@ -38,7 +38,7 @@ namespace Model
 		/// </summary>
 		public override List<Complex> CalculateZ(List<double> frequency)
 		{
-            // TODO: что за сокращения в именованиях?
+            // TODO: что за сокращения в именованиях?+
 			var result = new List<Complex>();
 			foreach (var f in frequency)
 			{

@@ -19,12 +19,12 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public BaseElement SelectedElement;
 
-		// TODO: RSDN 
-		// TODO: Сделать свойство
+		// TODO: RSDN +
+		// TODO: Сделать свойство+
 		/// <summary>
 		/// Шаблоны отображения элементов.
 		/// </summary>
-		public List<List<Control>> templates = new List<List<Control>>();
+		public List<List<Control>> Templates { get; set; }
 
 		/// <summary>
 		/// Создает экземпляр <see cref="CircuitDrawer"/>.
@@ -34,7 +34,11 @@ namespace ComplexResistanceCalculator.UI
 			InitializeComponent();
 		}
 
-		// TODO: xml
+		// TODO: xml+
+		/// <summary>
+		/// Отрисовывает элементы по готовому щаблону.
+		/// </summary>
+		/// <param name="template"> Шаблон. </param>
 		public void DrawTemplate(List<Control> template)
 		{
 			foreach (var control in template)
@@ -381,7 +385,6 @@ namespace ComplexResistanceCalculator.UI
 			return false;
 		}
 
-		// TODO: xml
 		private void CircuitDrawer_ControlAdded(object sender, ControlEventArgs e)
 		{
 			var addedControl = (ElementControl)Controls[Controls.Count - 1];
