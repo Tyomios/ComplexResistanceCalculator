@@ -20,7 +20,7 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
-			Type = ConnectionType.Capacitor;
+			Type = ElementType.Capacitor;
 		}
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Model
 		/// </summary>
 		public Capacitor()
 		{
-			Type = ConnectionType.Capacitor;
+			Type = ElementType.Capacitor;
 		}
 		
 		/// <inheritdoc cref="BaseElement.CalculateZ"/>

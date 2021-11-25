@@ -61,7 +61,7 @@ namespace ComplexResistanceCalculator.UI
 			try
 			{
 				
-				var impedances = Circuit.G(Frequency);
+				var impedances = Circuit.CalculateZ(Frequency);
 
 				for (int index = 0; index < impedances.Count; index++)
 				{

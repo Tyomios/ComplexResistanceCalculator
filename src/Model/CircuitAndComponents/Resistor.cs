@@ -21,7 +21,7 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
-			Type = ConnectionType.Resistor;
+			Type = ElementType.Resistor;
 		}
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Model
 		/// </summary>
 		public Resistor()
 		{
-			Type = ConnectionType.Resistor;
+			Type = ElementType.Resistor;
 		}
 
 		// TODO: xml - с наследованием

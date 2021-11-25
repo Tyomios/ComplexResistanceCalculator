@@ -21,7 +21,7 @@ namespace Model
 		{
 			Name = name;
 			Value = value;
-			Type = ConnectionType.Inductor;
+			Type = ElementType.Inductor;
 		}
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Model
 		/// </summary>
 		public Inductor()
 		{
-			Type = ConnectionType.Inductor;
+			Type = ElementType.Inductor;
 		}
 		
 		/// <summary>

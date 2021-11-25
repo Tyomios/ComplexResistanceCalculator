@@ -10,16 +10,32 @@ namespace Model
 	/// <summary>
 	/// Тип сегмента - соединение цепи или элемент.
 	/// </summary>
-	public enum ConnectionType
+	public enum ElementType
 	{
 		/// <summary>
 		/// Параллельное соединение
 		/// </summary>
 		Parallel,
-		Common,				// Последовательное соединение
-		Resistor,			// Резистор
-		Capacitor,			// Конденсатор
-		Inductor			// Катушка индуктивности
+		
+		/// <summary>
+		/// Последовательное соединение
+		/// </summary>
+		Serial,
+		
+		/// <summary>
+		/// Резистор
+		/// </summary>
+		Resistor,
+		
+		/// <summary>
+		/// Конденсатор
+		/// </summary>
+		Capacitor,
+		
+		/// <summary>
+		/// Катушка индуктивности
+		/// </summary>
+		Inductor			
 	}
 
 	/// <summary>
@@ -30,12 +46,12 @@ namespace Model
 		/// <summary>
 		/// Тип обьекта.
 		/// </summary>
-		public ConnectionType Type { get; set; }
+		public ElementType Type { get; set; }
 
 		/// <summary>
 		/// Подсегменты обьекта (для соединений).
 		/// </summary>
-		List<ICommon> subSegments { get; set; }
+		List<ICommon> SubSegments { get; set; }
 
 		// TODO: переименовать frequency -> frequencies. Так везде+
 		/// <summary>

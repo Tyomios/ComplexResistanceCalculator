@@ -27,18 +27,18 @@ namespace Model
 		/// </summary>
 		/// <param name="element"> Добавляемый элемент </param>
 		/// <param name="frameType"> Тип последнего соединения </param>
-		public void AddElement(BaseElement element, ConnectionType frameType)
+		public void AddElement(BaseElement element, ElementType frameType)
 		{
 			element.ValueChanged += ElementOnValueChanged;
 			CircuitChanged?.Invoke();
 			if (Frames.Count == 0 || Frames[Frames.Count - 1].Type != frameType)
 			{
 				Frames.Add(new BaseCircuitFrame(frameType));
-				Frames[Frames.Count - 1].subSegments.Add(element);
+				Frames[Frames.Count - 1].SubSegments.Add(element);
 				return;
 			}
 
-			Frames[Frames.Count - 1].subSegments.Add(element);
+			Frames[Frames.Count - 1].SubSegments.Add(element);
 		}
 
 		/// <summary>
@@ -51,14 +51,14 @@ namespace Model
 			for (int j = 0; j < Frames.Count; j++)
 			{
 				var segment = Frames[j];
-				for (int i = 0; i < segment.subSegments.Count; i++)
+				for (int i = 0; i < segment.SubSegments.Count; i++)
 				{
-					if (element == segment.subSegments[i])
+					if (element == segment.SubSegments[i])
 					{
-						segment.subSegments.RemoveAt(i);
+						segment.SubSegments.RemoveAt(i);
 					}
 
-					if (segment.subSegments.Count == 0)
+					if (segment.SubSegments.Count == 0)
 					{
 						Frames.Remove(segment);
 					}
@@ -76,8 +76,13 @@ namespace Model
 			CircuitChanged?.Invoke();
 		}
 
-		// TODO: xml
-		public List<Complex> G(List<double> frequencies)
+		// TODO: xml+
+		/// <summary>
+		/// Расчет импеданса цепи.
+		/// </summary>
+		/// <param name="frequencies"> Частоты для расчета. </param>
+		/// <returns> Список импеданса. </returns>
+		public List<Complex> CalculateZ(List<double> frequencies)
 		{
 			var allFrequenciesImpedance = Frames[0].CalculateZ(frequencies);
 			if (Frames.Count < 2)

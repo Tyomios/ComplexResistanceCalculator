@@ -13,21 +13,21 @@ namespace Model
 		/// <summary>
 		/// Возвращает или задает список элементов соединения.
 		/// </summary>
-		public List<ICommon> subSegments { get; set; }
+		public List<ICommon> SubSegments { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает тип соединения.
 		/// </summary>
-		public ConnectionType Type { get; set; }
+		public ElementType Type { get; set; }
 
 		/// <summary>
 		/// Создает экземпляр класса <see cref="BaseCircuitFrame"/>
 		/// </summary>
 		/// <param name="type"> Тип соединения </param>
-		public BaseCircuitFrame(ConnectionType type)
+		public BaseCircuitFrame(ElementType type)
 		{
 			Type = type;
-			subSegments = new List<ICommon>();
+			SubSegments = new List<ICommon>();
 		}
 
 		/// <summary>
@@ -38,21 +38,35 @@ namespace Model
 		}
 
 		/// <summary>
-		/// Расчет импеданса в цепи для каждого значения частоты.
+		/// Выбирает какой метод расчета применить для участка цепи.
 		/// </summary>
 		/// <param name="frequencies"> Список частот </param>
 		/// <returns> Список комплексных сопротивлений </returns>
 		public List<Complex> CalculateZ(List<double> frequencies)
 		{
-			if (this.Type != ConnectionType.Common)
+			if (this.Type != ElementType.Serial)
 			{
 				return CalculateZParallel(frequencies);
 			}
-
-			var allFrequenciesImpedance = subSegments[0].CalculateZ(frequencies);
-			for (int i = 1; i < subSegments.Count; i++)
+			if (this.Type == ElementType.Serial)
 			{
-				var elementZs = subSegments[i].CalculateZ(frequencies);
+				return CalculateZSerial(frequencies);
+			}
+
+			return null;
+		}
+
+		/// <summary>
+		/// Расчет импеданса в цепи для каждого значения частоты.
+		/// </summary>
+		/// <param name="frequencies"> Список частот </param>
+		/// <returns> Список комплексных сопротивлений </returns>
+		private List<Complex> CalculateZSerial(List<double> frequencies)
+		{
+			var allFrequenciesImpedance = SubSegments[0].CalculateZ(frequencies);
+			for (int i = 1; i < SubSegments.Count; i++)
+			{
+				var elementZs = SubSegments[i].CalculateZ(frequencies);
 				for (int j = 0; j < elementZs.Count; j++)
 				{
 					allFrequenciesImpedance[j] += elementZs[j];
@@ -69,11 +83,11 @@ namespace Model
 		/// <returns> Список комплексных сопротивлений </returns>
 		private List<Complex> CalculateZParallel(List<double> frequencies)
 		{
-			var allFrequenciesImpedance = ConvertToParallel(subSegments[0].CalculateZ(frequencies));
+			var allFrequenciesImpedance = ConvertToParallel(SubSegments[0].CalculateZ(frequencies));
 
-			for (int i = 1; i < subSegments.Count; i++)
+			for (int i = 1; i < SubSegments.Count; i++)
 			{
-				var elementZs = ConvertToParallel(subSegments[i].CalculateZ(frequencies));
+				var elementZs = ConvertToParallel(SubSegments[i].CalculateZ(frequencies));
 				for (int j = 0; j < elementZs.Count; j++)
 				{
 					allFrequenciesImpedance[j] += elementZs[j];

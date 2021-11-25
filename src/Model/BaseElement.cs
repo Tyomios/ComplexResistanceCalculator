@@ -9,7 +9,7 @@ namespace Model
 	/// <summary>
 	/// Базовый класс элементов.
 	/// </summary>
-	public class BaseElement : ICommon
+	public abstract class BaseElement : ICommon
 	{
 		/// <summary>
 		/// Номинал.
@@ -47,12 +47,12 @@ namespace Model
 		/// <summary>
 		/// Тип элемента.
 		/// </summary>
-		public ConnectionType Type { get; set; }
+		public ElementType Type { get; set; }
 
 		/// <summary>
 		/// Подсегменты.
 		/// </summary>
-		public List<ICommon> subSegments { get; set; }
+		public List<ICommon> SubSegments { get; set; }
 
 		/// <summary>
 		/// Возвращает или задает название элемента.
@@ -92,16 +92,7 @@ namespace Model
 		/// </summary>
 		/// <param name="frequencies"> Диапазон частот </param>
 		/// <returns> Значения импедансов для частот.  </returns>
-		public virtual List<Complex> CalculateZ(List<double> frequencies)
-		{
-			var impedances = new List<Complex>();
-			foreach (var f in frequencies)
-			{
-				impedances.Add(new Complex(0, -1 / (2 * Math.PI * f * Value)));
-			}
-
-			return impedances;
-		}
+		public abstract List<Complex> CalculateZ(List<double> frequencies);
 
 		/// <summary>
 		/// Событие изменения элемента.

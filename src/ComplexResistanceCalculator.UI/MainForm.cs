@@ -160,9 +160,9 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		/// <param name="control"> Контрол, содержащий элемент </param>
 		/// <returns> Тип сегмента для элемента. </returns>
-		private ConnectionType GetFrameType(ElementControl control)
+		private ElementType GetFrameType(ElementControl control)
 		{
-			return control.SetParallel || control.SetNextParallel ? ConnectionType.Parallel : ConnectionType.Common;
+			return control.SetParallel || control.SetNextParallel ? ElementType.Parallel : ElementType.Serial;
 		}
 
 		private void UserControl_Click(object sender, EventArgs e)
