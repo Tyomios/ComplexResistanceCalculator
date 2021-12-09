@@ -490,10 +490,13 @@ namespace ComplexResistanceCalculator.UI
 			{
 				DrawResistor(x, y);
 			}
-
 			if (element is Capacitor)
 			{
 				DrawCapacitor(x, y);
+			}
+			if (element is Inductor)
+			{
+				DrawInductor(x, y);
 			}
 		}
 
@@ -527,6 +530,27 @@ namespace ComplexResistanceCalculator.UI
 			Graphics.DrawLine(_pen, lineEnd, y + height / 2, lineEnd, y - height / 2);
 			Graphics.DrawLine(_pen, lineEnd + s, y + height / 2, lineEnd + s, y - height / 2);
 			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 35, y); // соединительная ножка справа.
+		}
+
+		/// <summary>
+		/// Отрисовка катушки индуктивности
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		private void DrawInductor(int x, int y)
+		{
+			var lineEnd = x + 20;
+			var height = 15;
+			var startAngle = 180;
+			var sweepAngle = 179;
+			var width = 15;
+			var rightLineStart = lineEnd + 3 * width;
+
+			Graphics.DrawLine(_pen, x, y, lineEnd, y); // соединительная ножка слева.
+			Graphics.DrawArc(_pen, lineEnd, y - 5, width, height, startAngle, sweepAngle);
+			Graphics.DrawArc(_pen, lineEnd + width, y - 5, width, height, startAngle, sweepAngle);
+			Graphics.DrawArc(_pen, lineEnd + 2 * width, y - 5, width, height, startAngle, sweepAngle);
+			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 20, y); // соединительная ножка слева.
 		}
 
 		/// <summary>
