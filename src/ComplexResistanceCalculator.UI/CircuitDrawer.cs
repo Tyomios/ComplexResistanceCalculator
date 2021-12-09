@@ -26,6 +26,16 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		public List<List<Control>> Templates { get; set; }
 
+		private List<Panel> uiFrames { get; set; }
+
+		public List<ICommon> Frames { get; set; }
+
+		private Point _startLocation = new Point(5, 80);
+
+		private Graphics Graphics { get; set; }
+
+		private Pen _pen = new Pen(Color.Black, 4);
+
 		/// <summary>
 		/// Создает экземпляр <see cref="CircuitDrawer"/>.
 		/// </summary>
@@ -410,6 +420,121 @@ namespace ComplexResistanceCalculator.UI
 		private void CircuitDrawer_SizeChanged(object sender, EventArgs e)
 		{
 			UniteControls();
+		}
+
+		/// <summary>
+		/// Отрисовка цепи
+		/// </summary>
+		/// <param name="frames"> Сегменты цепи </param>
+		public void Draw(List<BaseCircuitFrame> frames)
+		{
+			foreach (var frame in frames)
+			{
+				if (frame.Type == ElementType.Serial)
+				{
+					DrawSerialFrame(frame);
+				}
+
+				if (frame.Type == ElementType.Parallel)
+				{
+					DrawParallelFrame(frame);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Проверка части цепи на внутренние компоненты
+		/// </summary>
+		/// <param name="frame"> Часть цепи </param>
+		/// <returns> наличие внутренних компонентов </returns>
+		private bool CheckSubSegments(ICommon frame)
+		{
+			if (frame.SubSegments == null)
+			{
+				return false;
+			}
+
+			return true;
+
+		}
+
+		/// <summary>
+		/// Отрисовка последовательного соединения 
+		/// </summary>
+		/// <param name="frame"> Сегмент цепи с последовательным соединением </param>
+		private void DrawSerialFrame(ICommon frame)
+		{
+			var x = 5;
+			var y = 80;
+			var step = 80;
+			Graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
+			foreach (var element in frame.SubSegments)
+			{
+				DrawElement(element, x, y);
+				x += step;
+			}
+		}
+
+		/// <summary>
+		/// Отрисовка параллельного соединения.
+		/// </summary>
+		/// <param name="frame"> Сегмент цепи с параллельным соединением </param>
+		private void DrawParallelFrame(ICommon frame)
+		{
+
+		}
+
+		private void DrawElement(ICommon element, int x, int y)
+		{
+			if (element is Resistor)
+			{
+				DrawResistor(x, y);
+			}
+
+			if (element is Capacitor)
+			{
+				DrawCapacitor(x, y);
+			}
+		}
+
+		/// <summary>
+		/// Отрисовка резистора
+		/// </summary>
+		/// <param name="x"> Координата начала соединительной линии X</param>
+		/// <param name="y"> Координата начала соединительной линии Y</param>
+		private void DrawResistor(int x, int y)
+		{
+			var lineEnd = x + 15;
+			var width = 50;
+			var rightLineStart = lineEnd + width;
+			Graphics.DrawLine(_pen, x, y, lineEnd, y); // соединительная ножка слева.
+			Graphics.DrawRectangle(_pen, lineEnd, y - 15, 50, 30);
+			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 15, y);
+		}
+
+		/// <summary>
+		/// Отрисовка конденсатора.
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		private void DrawCapacitor(int x, int y)
+		{
+			var lineEnd = x + 35;
+			var s = 10;
+			var rightLineStart = lineEnd + s;
+			var height = 30;
+			Graphics.DrawLine(_pen, x, y, lineEnd, y); // соединительная ножка слева.
+			Graphics.DrawLine(_pen, lineEnd, y + height / 2, lineEnd, y - height / 2);
+			Graphics.DrawLine(_pen, lineEnd + s, y + height / 2, lineEnd + s, y - height / 2);
+			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 35, y); // соединительная ножка справа.
+		}
+
+		/// <summary>
+		/// Расположение учатков цепи.
+		/// </summary>
+		private void FramesLocation(List<Panel> frames)
+		{
+
 		}
 	}
 }

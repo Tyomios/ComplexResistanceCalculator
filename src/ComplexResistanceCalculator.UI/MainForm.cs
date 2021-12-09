@@ -141,18 +141,19 @@ namespace ComplexResistanceCalculator.UI
 				return;
 			}
 
-			var newElementUserControl = new ElementControl();
-			newElementUserControl.SetParallel = addForm.SetParallel;
-			newElementUserControl.SetNextParallel = addForm.SetNextParallel;
-			newElementUserControl.ContainElement = element;
-			_elementControlsContainer.Controls.Add(newElementUserControl);
-			newElementUserControl.Click += UserControl_Click;
+			//var newElementUserControl = new ElementControl();
+			//newElementUserControl.SetParallel = addForm.SetParallel;
+			//newElementUserControl.SetNextParallel = addForm.SetNextParallel;
+			//newElementUserControl.ContainElement = element;
+			//_elementControlsContainer.Controls.Add(newElementUserControl);
+			//newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
 
-			_circuit.AddElement(element, GetFrameType(newElementUserControl));
+			_circuit.AddElement(element, ElementType.Serial/*GetFrameType(newElementUserControl)*/);
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
+			_elementControlsContainer.Draw(_circuit.Frames);
 		}
 
 		/// <summary>
