@@ -428,16 +428,32 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="frames"> Сегменты цепи </param>
 		public void Draw(List<BaseCircuitFrame> frames)
 		{
+			var startPosition = new Point(5, 80);
+			var tempPosition = new Point(0, 0);
+
 			foreach (var frame in frames)
 			{
 				if (frame.Type == ElementType.Serial)
 				{
-					DrawSerialFrame(frame);
+					if (tempPosition.Y != 0)
+					{
+						tempPosition = DrawSerialFrame(frame, tempPosition.X, tempPosition.Y);
+					}
+					else
+					{
+						tempPosition = DrawSerialFrame(frame, startPosition.X, startPosition.Y);
+					}
 				}
-
 				if (frame.Type == ElementType.Parallel)
 				{
-					DrawParallelFrame(frame);
+					if (tempPosition.Y != 0)
+					{
+						tempPosition = DrawParallelFrame(frame);
+					}
+					else
+					{
+						tempPosition = DrawParallelFrame(frame);
+					}
 				}
 			}
 		}
@@ -462,42 +478,45 @@ namespace ComplexResistanceCalculator.UI
 		/// Отрисовка последовательного соединения 
 		/// </summary>
 		/// <param name="frame"> Сегмент цепи с последовательным соединением </param>
-		private void DrawSerialFrame(ICommon frame)
+		private Point DrawSerialFrame(ICommon frame, int x, int y)
 		{
-			var x = 5;
-			var y = 80;
+			var lastElementEnd = new Point();
 			var step = 80;
 			Graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			foreach (var element in frame.SubSegments)
 			{
-				DrawElement(element, x, y);
+				lastElementEnd = DrawElement(element, x, y);
 				x += step;
 			}
+
+			return lastElementEnd;
 		}
 
 		/// <summary>
 		/// Отрисовка параллельного соединения.
 		/// </summary>
 		/// <param name="frame"> Сегмент цепи с параллельным соединением </param>
-		private void DrawParallelFrame(ICommon frame)
+		private Point DrawParallelFrame(ICommon frame)
 		{
-
+			last
 		}
 
-		private void DrawElement(ICommon element, int x, int y)
+		private Point DrawElement(ICommon element, int x, int y)
 		{
 			if (element is Resistor)
 			{
-				DrawResistor(x, y);
+				return DrawResistor(x, y);
 			}
 			if (element is Capacitor)
 			{
-				DrawCapacitor(x, y);
+				return DrawCapacitor(x, y);
 			}
 			if (element is Inductor)
 			{
-				DrawInductor(x, y);
+				return DrawInductor(x, y);
 			}
+
+			return new Point();
 		}
 
 		/// <summary>
@@ -505,7 +524,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		/// <param name="x"> Координата начала соединительной линии X</param>
 		/// <param name="y"> Координата начала соединительной линии Y</param>
-		private void DrawResistor(int x, int y)
+		private Point DrawResistor(int x, int y)
 		{
 			var lineEnd = x + 15;
 			var width = 50;
@@ -513,6 +532,8 @@ namespace ComplexResistanceCalculator.UI
 			Graphics.DrawLine(_pen, x, y, lineEnd, y); // соединительная ножка слева.
 			Graphics.DrawRectangle(_pen, lineEnd, y - 15, 50, 30);
 			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 15, y);
+
+			return new Point(rightLineStart + 15, y);
 		}
 
 		/// <summary>
@@ -520,7 +541,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		private void DrawCapacitor(int x, int y)
+		private Point DrawCapacitor(int x, int y)
 		{
 			var lineEnd = x + 35;
 			var s = 10;
@@ -530,6 +551,8 @@ namespace ComplexResistanceCalculator.UI
 			Graphics.DrawLine(_pen, lineEnd, y + height / 2, lineEnd, y - height / 2);
 			Graphics.DrawLine(_pen, lineEnd + s, y + height / 2, lineEnd + s, y - height / 2);
 			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 35, y); // соединительная ножка справа.
+
+			return new Point(rightLineStart + 35, y);
 		}
 
 		/// <summary>
@@ -537,7 +560,7 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		private void DrawInductor(int x, int y)
+		private Point DrawInductor(int x, int y)
 		{
 			var lineEnd = x + 20;
 			var height = 15;
@@ -551,14 +574,8 @@ namespace ComplexResistanceCalculator.UI
 			Graphics.DrawArc(_pen, lineEnd + width, y - 5, width, height, startAngle, sweepAngle);
 			Graphics.DrawArc(_pen, lineEnd + 2 * width, y - 5, width, height, startAngle, sweepAngle);
 			Graphics.DrawLine(_pen, rightLineStart, y, rightLineStart + 20, y); // соединительная ножка слева.
-		}
 
-		/// <summary>
-		/// Расположение учатков цепи.
-		/// </summary>
-		private void FramesLocation(List<Panel> frames)
-		{
-
+			return new Point(rightLineStart + 20, y);
 		}
 	}
 }
