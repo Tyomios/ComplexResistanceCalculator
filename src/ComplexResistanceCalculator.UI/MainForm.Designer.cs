@@ -50,7 +50,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.AddResistorButton.FlatAppearance.BorderSize = 0;
 			this.AddResistorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddResistorButton.Location = new System.Drawing.Point(74, 400);
+			this.AddResistorButton.Location = new System.Drawing.Point(58, 12);
 			this.AddResistorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddResistorButton.Name = "AddResistorButton";
 			this.AddResistorButton.Size = new System.Drawing.Size(31, 26);
@@ -67,7 +67,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.AddInductorButton.FlatAppearance.BorderSize = 0;
 			this.AddInductorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddInductorButton.Location = new System.Drawing.Point(134, 398);
+			this.AddInductorButton.Location = new System.Drawing.Point(112, 12);
 			this.AddInductorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddInductorButton.Name = "AddInductorButton";
 			this.AddInductorButton.Size = new System.Drawing.Size(31, 26);
@@ -85,7 +85,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddCapacitorButton.FlatAppearance.BorderSize = 0;
 			this.AddCapacitorButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 			this.AddCapacitorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddCapacitorButton.Location = new System.Drawing.Point(12, 400);
+			this.AddCapacitorButton.Location = new System.Drawing.Point(162, 12);
 			this.AddCapacitorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddCapacitorButton.Name = "AddCapacitorButton";
 			this.AddCapacitorButton.Size = new System.Drawing.Size(31, 26);
@@ -102,7 +102,7 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.calculateZbutton.FlatAppearance.BorderSize = 0;
 			this.calculateZbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.calculateZbutton.Location = new System.Drawing.Point(181, 400);
+			this.calculateZbutton.Location = new System.Drawing.Point(224, 11);
 			this.calculateZbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.calculateZbutton.Name = "calculateZbutton";
 			this.calculateZbutton.Size = new System.Drawing.Size(28, 24);
@@ -118,7 +118,7 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.RemoveElementButton.FlatAppearance.BorderSize = 0;
 			this.RemoveElementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RemoveElementButton.Location = new System.Drawing.Point(224, 11);
+			this.RemoveElementButton.Location = new System.Drawing.Point(12, 11);
 			this.RemoveElementButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.RemoveElementButton.Name = "RemoveElementButton";
 			this.RemoveElementButton.Size = new System.Drawing.Size(31, 27);
@@ -143,12 +143,19 @@ namespace ComplexResistanceCalculator.UI
 			// 
 			// ElementsDataGridView
 			// 
-			this.ElementsDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.ElementsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.ElementsDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+			this.ElementsDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+			this.ElementsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.ElementsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.ElementsDataGridView.Location = new System.Drawing.Point(2, 11);
+			this.ElementsDataGridView.GridColor = System.Drawing.SystemColors.Control;
+			this.ElementsDataGridView.Location = new System.Drawing.Point(12, 49);
+			this.ElementsDataGridView.MultiSelect = false;
 			this.ElementsDataGridView.Name = "ElementsDataGridView";
+			this.ElementsDataGridView.ReadOnly = true;
+			this.ElementsDataGridView.RowHeadersVisible = false;
 			this.ElementsDataGridView.RowTemplate.Height = 25;
-			this.ElementsDataGridView.Size = new System.Drawing.Size(216, 382);
+			this.ElementsDataGridView.Size = new System.Drawing.Size(206, 375);
 			this.ElementsDataGridView.TabIndex = 12;
 			// 
 			// MainForm

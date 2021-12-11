@@ -46,7 +46,13 @@ namespace ComplexResistanceCalculator.UI
 			circuitElementsPanel.Controls.Add(_elementControlsContainer);
 			_elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
+
+			_elements.Columns.Add("Name");
+			_elements.Columns.Add("Value");
+			ElementsDataGridView.DataSource = _elements;
 		}
+
+		private DataTable _elements = new DataTable();
 
 
 		/// <summary>
@@ -98,7 +104,7 @@ namespace ComplexResistanceCalculator.UI
 		private void ElementControlsContainerOnControlAdded(object sender, ControlEventArgs e)
 		{
 			_currentElement = _elementControlsContainer.SelectedElement;
-			ShowCurrentElementInfo();
+			//UpdateElementsInfo();
 		}
 		
         // TODO: странное название+
@@ -113,16 +119,27 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Отображение данных выбранного элемента.
 		/// </summary>
-		private void ShowCurrentElementInfo()
+		private void UpdateElementsInfo()
 		{
-			if (_currentElement != null)
+			if (_circuit.Frames.Count > 0)
 			{
-				elementNameTextBox.Text = _currentElement.Name;
-				elementsValueTextBox.Text = ValueConverter.ConvertUndoPrefix(_currentElement.Value, _currentElement).ToString();
+				_elements.Clear();
+				foreach (var frame in _circuit.Frames)
+				{
+					foreach (var element in frame.SubSegments)
+					{
+						_elements.Rows.Add(new Object[] { $"{GetElementName((BaseElement)element)}",
+							$"{ValueConverter.ConvertUndoPrefix(GetElementValue((BaseElement) element), (BaseElement) element)}" });
+					}
+				}
 			}
 		}
 
-		/// <summary>
+		private string GetElementName(BaseElement element) => element.Name;
+
+		private double GetElementValue(BaseElement element) => element.Value;
+
+			/// <summary>
 		/// Добавление элемента в цепь.
 		/// </summary>
 		/// <param name="element"> Добавляемый элемент </param>
@@ -149,7 +166,7 @@ namespace ComplexResistanceCalculator.UI
 			_circuit.AddElement(element, GetFrameType(newElementUserControl));
 
 			_currentElement = element;
-			ShowCurrentElementInfo();
+			UpdateElementsInfo();
 			_elementControlsContainer.Draw(_circuit.Frames);
 		}
 
@@ -163,11 +180,6 @@ namespace ComplexResistanceCalculator.UI
 			return control.SetParallel || control.SetNextParallel ? ElementType.Parallel : ElementType.Serial;
 		}
 
-		private void UserControl_Click(object sender, EventArgs e)
-		{
-			_currentElement = (sender as ElementControl).ContainElement;
-			ShowCurrentElementInfo();
-		}
 
         // TODO: странное название. "Изменить событие контрола цепи"? О_О+
 		/// <summary>
@@ -226,7 +238,7 @@ namespace ComplexResistanceCalculator.UI
 					--_elementsCount;
 					_currentElement = null;
 					
-					ShowCurrentElementInfo();
+					//UpdateElementsInfo();
 				}
 			}
 			else
