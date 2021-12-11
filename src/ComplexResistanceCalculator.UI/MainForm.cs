@@ -42,10 +42,7 @@ namespace ComplexResistanceCalculator.UI
 		{
 			InitializeComponent();
 			_elementControlsContainer.Templates = BuildTemplates();
-			foreach (var template in _elementControlsContainer.Templates)
-			{
-				templatesComboBox.Items.Add(template);
-			}
+			
 			circuitElementsPanel.Controls.Add(_elementControlsContainer);
 			_elementControlsContainer.ControlAdded += ElementControlsContainerOnControlAdded; 
 			_circuit.CircuitChanged += OnСircuitChanged;
@@ -141,15 +138,15 @@ namespace ComplexResistanceCalculator.UI
 				return;
 			}
 
-			//var newElementUserControl = new ElementControl();
-			//newElementUserControl.SetParallel = addForm.SetParallel;
-			//newElementUserControl.SetNextParallel = addForm.SetNextParallel;
+			var newElementUserControl = new ElementControl();
+			newElementUserControl.SetParallel = addForm.SetParallel;
+			newElementUserControl.SetNextParallel = addForm.SetNextParallel;
 			//newElementUserControl.ContainElement = element;
 			//_elementControlsContainer.Controls.Add(newElementUserControl);
 			//newElementUserControl.Click += UserControl_Click;
 			++_elementsCount;
 
-			_circuit.AddElement(element, ElementType.Serial/*GetFrameType(newElementUserControl)*/);
+			_circuit.AddElement(element, GetFrameType(newElementUserControl));
 
 			_currentElement = element;
 			ShowCurrentElementInfo();
@@ -263,11 +260,6 @@ namespace ComplexResistanceCalculator.UI
 				control.HideEventPictureBox();
 			}
 			HideEventCircuitChanged();
-		}
-
-		private void templatesComboBox_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			_elementControlsContainer.DrawTemplate((List<Control>)templatesComboBox.SelectedItem);
 		}
 	}
 }

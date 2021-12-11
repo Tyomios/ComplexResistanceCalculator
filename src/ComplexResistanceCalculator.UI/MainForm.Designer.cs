@@ -34,15 +34,12 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton = new System.Windows.Forms.Button();
 			this.AddInductorButton = new System.Windows.Forms.Button();
 			this.AddCapacitorButton = new System.Windows.Forms.Button();
-			this.ElementsNameLabel = new System.Windows.Forms.Label();
-			this.ElementsValueLabel = new System.Windows.Forms.Label();
-			this.elementNameTextBox = new System.Windows.Forms.TextBox();
-			this.elementsValueTextBox = new System.Windows.Forms.TextBox();
 			this.calculateZbutton = new System.Windows.Forms.Button();
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
 			this.mainFormToolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.templatesComboBox = new System.Windows.Forms.ComboBox();
+			this.ElementsDataGridView = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.ElementsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -53,7 +50,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddResistorButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.AddResistorButton.FlatAppearance.BorderSize = 0;
 			this.AddResistorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddResistorButton.Location = new System.Drawing.Point(24, 160);
+			this.AddResistorButton.Location = new System.Drawing.Point(74, 400);
 			this.AddResistorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddResistorButton.Name = "AddResistorButton";
 			this.AddResistorButton.Size = new System.Drawing.Size(31, 26);
@@ -70,7 +67,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddInductorButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.AddInductorButton.FlatAppearance.BorderSize = 0;
 			this.AddInductorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddInductorButton.Location = new System.Drawing.Point(24, 224);
+			this.AddInductorButton.Location = new System.Drawing.Point(134, 398);
 			this.AddInductorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddInductorButton.Name = "AddInductorButton";
 			this.AddInductorButton.Size = new System.Drawing.Size(31, 26);
@@ -88,7 +85,7 @@ namespace ComplexResistanceCalculator.UI
 			this.AddCapacitorButton.FlatAppearance.BorderSize = 0;
 			this.AddCapacitorButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
 			this.AddCapacitorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.AddCapacitorButton.Location = new System.Drawing.Point(24, 86);
+			this.AddCapacitorButton.Location = new System.Drawing.Point(12, 400);
 			this.AddCapacitorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.AddCapacitorButton.Name = "AddCapacitorButton";
 			this.AddCapacitorButton.Size = new System.Drawing.Size(31, 26);
@@ -96,42 +93,6 @@ namespace ComplexResistanceCalculator.UI
 			this.mainFormToolTip.SetToolTip(this.AddCapacitorButton, "Add capacitor");
 			this.AddCapacitorButton.UseVisualStyleBackColor = true;
 			this.AddCapacitorButton.Click += new System.EventHandler(this.AddCapacitorButton_Click);
-			// 
-			// ElementsNameLabel
-			// 
-			this.ElementsNameLabel.AutoSize = true;
-			this.ElementsNameLabel.Location = new System.Drawing.Point(86, 26);
-			this.ElementsNameLabel.Name = "ElementsNameLabel";
-			this.ElementsNameLabel.Size = new System.Drawing.Size(39, 15);
-			this.ElementsNameLabel.TabIndex = 3;
-			this.ElementsNameLabel.Text = "Name";
-			// 
-			// ElementsValueLabel
-			// 
-			this.ElementsValueLabel.AutoSize = true;
-			this.ElementsValueLabel.Location = new System.Drawing.Point(257, 26);
-			this.ElementsValueLabel.Name = "ElementsValueLabel";
-			this.ElementsValueLabel.Size = new System.Drawing.Size(35, 15);
-			this.ElementsValueLabel.TabIndex = 4;
-			this.ElementsValueLabel.Text = "Value";
-			// 
-			// elementNameTextBox
-			// 
-			this.elementNameTextBox.Location = new System.Drawing.Point(134, 24);
-			this.elementNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.elementNameTextBox.Name = "elementNameTextBox";
-			this.elementNameTextBox.ReadOnly = true;
-			this.elementNameTextBox.Size = new System.Drawing.Size(100, 23);
-			this.elementNameTextBox.TabIndex = 6;
-			// 
-			// elementsValueTextBox
-			// 
-			this.elementsValueTextBox.Location = new System.Drawing.Point(302, 24);
-			this.elementsValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.elementsValueTextBox.Name = "elementsValueTextBox";
-			this.elementsValueTextBox.ReadOnly = true;
-			this.elementsValueTextBox.Size = new System.Drawing.Size(101, 23);
-			this.elementsValueTextBox.TabIndex = 7;
 			// 
 			// calculateZbutton
 			// 
@@ -141,7 +102,7 @@ namespace ComplexResistanceCalculator.UI
 			this.calculateZbutton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.calculateZbutton.FlatAppearance.BorderSize = 0;
 			this.calculateZbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.calculateZbutton.Location = new System.Drawing.Point(24, 288);
+			this.calculateZbutton.Location = new System.Drawing.Point(181, 400);
 			this.calculateZbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.calculateZbutton.Name = "calculateZbutton";
 			this.calculateZbutton.Size = new System.Drawing.Size(28, 24);
@@ -157,7 +118,7 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.RemoveElementButton.FlatAppearance.BorderSize = 0;
 			this.RemoveElementButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.RemoveElementButton.Location = new System.Drawing.Point(24, 17);
+			this.RemoveElementButton.Location = new System.Drawing.Point(224, 11);
 			this.RemoveElementButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.RemoveElementButton.Name = "RemoveElementButton";
 			this.RemoveElementButton.Size = new System.Drawing.Size(31, 27);
@@ -174,37 +135,32 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.AutoScroll = true;
 			this.circuitElementsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.circuitElementsPanel.Cursor = System.Windows.Forms.Cursors.Default;
-			this.circuitElementsPanel.Location = new System.Drawing.Point(78, 49);
+			this.circuitElementsPanel.Location = new System.Drawing.Point(224, 49);
 			this.circuitElementsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.circuitElementsPanel.Name = "circuitElementsPanel";
-			this.circuitElementsPanel.Size = new System.Drawing.Size(617, 286);
+			this.circuitElementsPanel.Size = new System.Drawing.Size(636, 375);
 			this.circuitElementsPanel.TabIndex = 11;
 			// 
-			// templatesComboBox
+			// ElementsDataGridView
 			// 
-			this.templatesComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.templatesComboBox.FormattingEnabled = true;
-			this.templatesComboBox.ImeMode = System.Windows.Forms.ImeMode.On;
-			this.templatesComboBox.Location = new System.Drawing.Point(558, 20);
-			this.templatesComboBox.Name = "templatesComboBox";
-			this.templatesComboBox.Size = new System.Drawing.Size(121, 23);
-			this.templatesComboBox.TabIndex = 12;
-			this.templatesComboBox.SelectedIndexChanged += new System.EventHandler(this.templatesComboBox_SelectedIndexChanged);
+			this.ElementsDataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+			this.ElementsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.ElementsDataGridView.Location = new System.Drawing.Point(2, 11);
+			this.ElementsDataGridView.Name = "ElementsDataGridView";
+			this.ElementsDataGridView.RowTemplate.Height = 25;
+			this.ElementsDataGridView.Size = new System.Drawing.Size(216, 382);
+			this.ElementsDataGridView.TabIndex = 12;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.ClientSize = new System.Drawing.Size(704, 346);
-			this.Controls.Add(this.templatesComboBox);
+			this.ClientSize = new System.Drawing.Size(869, 435);
+			this.Controls.Add(this.ElementsDataGridView);
 			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
 			this.Controls.Add(this.calculateZbutton);
-			this.Controls.Add(this.elementsValueTextBox);
-			this.Controls.Add(this.elementNameTextBox);
-			this.Controls.Add(this.ElementsValueLabel);
-			this.Controls.Add(this.ElementsNameLabel);
 			this.Controls.Add(this.AddCapacitorButton);
 			this.Controls.Add(this.AddInductorButton);
 			this.Controls.Add(this.AddResistorButton);
@@ -214,8 +170,8 @@ namespace ComplexResistanceCalculator.UI
 			this.Name = "MainForm";
 			this.Text = "ComplexResistance Calculator";
 			this.SizeChanged += new System.EventHandler(this.mainForm_SizeChanged);
+			((System.ComponentModel.ISupportInitialize)(this.ElementsDataGridView)).EndInit();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -224,16 +180,12 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Button AddResistorButton;
 		private System.Windows.Forms.Button AddInductorButton;
 		private System.Windows.Forms.Button AddCapacitorButton;
-		private System.Windows.Forms.Label ElementsNameLabel;
-		private System.Windows.Forms.Label ElementsValueLabel;
-		private System.Windows.Forms.TextBox elementNameTextBox;
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Button calculateZbutton;
 		private System.Windows.Forms.Button RemoveElementButton;
-		private System.Windows.Forms.TextBox elementsValueTextBox;
 		private System.Windows.Forms.Panel circuitElementsPanel;
 		private System.Windows.Forms.ToolTip mainFormToolTip;
-		private System.Windows.Forms.ComboBox templatesComboBox;
+		private System.Windows.Forms.DataGridView ElementsDataGridView;
 	}
 }
 

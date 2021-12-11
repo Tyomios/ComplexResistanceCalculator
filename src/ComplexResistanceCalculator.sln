@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexResistanceCalculator.UI", "ComplexResistanceCalculator.UI\ComplexResistanceCalculator.UI.csproj", "{31B04282-FDB6-4068-8A22-63C771C76A14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestModel", "TestModel\TestModel.csproj", "{B7C4655A-66CA-4CFF-BF84-9A8981642821}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{31B04282-FDB6-4068-8A22-63C771C76A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31B04282-FDB6-4068-8A22-63C771C76A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31B04282-FDB6-4068-8A22-63C771C76A14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7C4655A-66CA-4CFF-BF84-9A8981642821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7C4655A-66CA-4CFF-BF84-9A8981642821}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7C4655A-66CA-4CFF-BF84-9A8981642821}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7C4655A-66CA-4CFF-BF84-9A8981642821}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -428,6 +428,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <param name="frames"> Сегменты цепи </param>
 		public void Draw(List<BaseCircuitFrame> frames)
 		{
+			Graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			var startPosition = new Point(5, 80);
 			var tempPosition = new Point(0, 0);
 
@@ -448,11 +449,11 @@ namespace ComplexResistanceCalculator.UI
 				{
 					if (tempPosition.Y != 0)
 					{
-						tempPosition = DrawParallelFrame(frame);
+						tempPosition = DrawParallelFrame(frame, tempPosition.X, tempPosition.Y);
 					}
 					else
 					{
-						tempPosition = DrawParallelFrame(frame);
+						tempPosition = DrawParallelFrame(frame, startPosition.X, startPosition.Y);
 					}
 				}
 			}
@@ -482,7 +483,6 @@ namespace ComplexResistanceCalculator.UI
 		{
 			var lastElementEnd = new Point();
 			var step = 80;
-			Graphics = Graphics.FromImage(BackgroundImage = Image.FromFile("../../../../icons/panelBack.png"));
 			foreach (var element in frame.SubSegments)
 			{
 				lastElementEnd = DrawElement(element, x, y);
@@ -496,9 +496,28 @@ namespace ComplexResistanceCalculator.UI
 		/// Отрисовка параллельного соединения.
 		/// </summary>
 		/// <param name="frame"> Сегмент цепи с параллельным соединением </param>
-		private Point DrawParallelFrame(ICommon frame)
+		private Point DrawParallelFrame(ICommon frame, int x, int y)
 		{
-			last
+			var lastElementEnd = new Point();
+			var step = 40;
+			var startLocation = new Point(x, y - 30);
+			if (frame.SubSegments.Count == 1)
+			{
+				return new Point(DrawElement(frame.SubSegments[0], x, y).X, DrawElement(frame.SubSegments[0], x, y).Y);
+			}
+
+			foreach (var element in frame.SubSegments)
+			{
+				lastElementEnd = DrawElement(element, x, y);
+				y += step;
+			}
+
+			var rectHeight = lastElementEnd.Y + 30 - startLocation.Y;
+			var rectWidht = lastElementEnd.X - startLocation.X;
+
+			Graphics.DrawRectangle(_pen, new Rectangle(startLocation.X, startLocation.Y, rectWidht, rectHeight));
+
+			return lastElementEnd;
 		}
 
 		private Point DrawElement(ICommon element, int x, int y)
