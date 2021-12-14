@@ -434,6 +434,8 @@ namespace ComplexResistanceCalculator.UI
 
 			foreach (var frame in frames)
 			{
+				if(!CheckFrame(frame))
+				{}
 				if (frame.Type == ElementType.Serial)
 				{
 					if (tempPosition.Y != 0)
@@ -459,6 +461,19 @@ namespace ComplexResistanceCalculator.UI
 			}
 		}
 
+
+		private bool CheckFrame(BaseCircuitFrame frame)
+		{
+			foreach (var subsegment in frame.SubSegments)
+			{
+				if (CheckSubSegments(subsegment))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 		/// <summary>
 		/// Проверка части цепи на внутренние компоненты
 		/// </summary>
@@ -472,7 +487,6 @@ namespace ComplexResistanceCalculator.UI
 			}
 
 			return true;
-
 		}
 
 		/// <summary>
@@ -485,8 +499,24 @@ namespace ComplexResistanceCalculator.UI
 			var step = 80;
 			foreach (var element in frame.SubSegments)
 			{
-				lastElementEnd = DrawElement(element, x, y);
-				x += step;
+				if (element.Type == ElementType.Inductor ||
+				    element.Type == ElementType.Capacitor ||
+				    element.Type == ElementType.Resistor)
+				{
+					lastElementEnd = DrawElement(element, x, y);
+					x += step;
+				}
+
+				if (element.Type == ElementType.Serial)
+				{
+					lastElementEnd = DrawSerialFrame(element, lastElementEnd.X, lastElementEnd.Y);
+				}
+
+				if (element.Type == ElementType.Parallel)
+				{
+					lastElementEnd = DrawParallelFrame(element, lastElementEnd.X, lastElementEnd.Y);
+				}
+				
 			}
 
 			return lastElementEnd;
@@ -508,8 +538,22 @@ namespace ComplexResistanceCalculator.UI
 
 			foreach (var element in frame.SubSegments)
 			{
-				lastElementEnd = DrawElement(element, x, y);
-				y += step;
+				if (element.Type == ElementType.Inductor ||
+				    element.Type == ElementType.Capacitor ||
+				    element.Type == ElementType.Resistor)
+				{
+					lastElementEnd = DrawElement(element, x, y);
+					y += step;
+				}
+
+				if (element.Type == ElementType.Serial)
+				{
+					lastElementEnd = DrawSerialFrame(element, lastElementEnd.X, lastElementEnd.Y);
+				}
+				if (element.Type == ElementType.Parallel)
+				{
+					lastElementEnd = DrawParallelFrame(element, lastElementEnd.X, lastElementEnd.Y);
+				}
 			}
 
 			var rectHeight = lastElementEnd.Y + 30 - startLocation.Y;

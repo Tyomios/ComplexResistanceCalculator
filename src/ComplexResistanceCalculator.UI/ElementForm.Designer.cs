@@ -38,23 +38,24 @@ namespace ComplexResistanceCalculator.UI
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.dimensionLabel = new System.Windows.Forms.Label();
 			this.parallelCheckBox = new System.Windows.Forms.CheckBox();
-			this.setNextParallelcheckBox = new System.Windows.Forms.CheckBox();
+			this.newSegmentCheckBox = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// elementNameLabel
 			// 
 			this.elementNameLabel.AutoSize = true;
-			this.elementNameLabel.Location = new System.Drawing.Point(11, 44);
+			this.elementNameLabel.Location = new System.Drawing.Point(10, 33);
 			this.elementNameLabel.Name = "elementNameLabel";
-			this.elementNameLabel.Size = new System.Drawing.Size(49, 20);
+			this.elementNameLabel.Size = new System.Drawing.Size(39, 15);
 			this.elementNameLabel.TabIndex = 0;
 			this.elementNameLabel.Text = "Name";
 			// 
 			// saveButton
 			// 
-			this.saveButton.Location = new System.Drawing.Point(129, 165);
+			this.saveButton.Location = new System.Drawing.Point(113, 124);
+			this.saveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(69, 51);
+			this.saveButton.Size = new System.Drawing.Size(60, 38);
 			this.saveButton.TabIndex = 1;
 			this.saveButton.Text = "Save";
 			this.saveButton.UseVisualStyleBackColor = true;
@@ -63,31 +64,34 @@ namespace ComplexResistanceCalculator.UI
 			// elementValueLabel
 			// 
 			this.elementValueLabel.AutoSize = true;
-			this.elementValueLabel.Location = new System.Drawing.Point(11, 83);
+			this.elementValueLabel.Location = new System.Drawing.Point(10, 62);
 			this.elementValueLabel.Name = "elementValueLabel";
-			this.elementValueLabel.Size = new System.Drawing.Size(45, 20);
+			this.elementValueLabel.Size = new System.Drawing.Size(35, 15);
 			this.elementValueLabel.TabIndex = 2;
 			this.elementValueLabel.Text = "Value";
 			// 
 			// elementNameTextBox
 			// 
-			this.elementNameTextBox.Location = new System.Drawing.Point(63, 41);
+			this.elementNameTextBox.Location = new System.Drawing.Point(55, 31);
+			this.elementNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.elementNameTextBox.Name = "elementNameTextBox";
-			this.elementNameTextBox.Size = new System.Drawing.Size(121, 27);
+			this.elementNameTextBox.Size = new System.Drawing.Size(106, 23);
 			this.elementNameTextBox.TabIndex = 4;
 			// 
 			// elementValueTextBox
 			// 
-			this.elementValueTextBox.Location = new System.Drawing.Point(63, 79);
+			this.elementValueTextBox.Location = new System.Drawing.Point(55, 59);
+			this.elementValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.elementValueTextBox.Name = "elementValueTextBox";
-			this.elementValueTextBox.Size = new System.Drawing.Size(121, 27);
+			this.elementValueTextBox.Size = new System.Drawing.Size(106, 23);
 			this.elementValueTextBox.TabIndex = 5;
 			// 
 			// cancelButton
 			// 
-			this.cancelButton.Location = new System.Drawing.Point(11, 165);
+			this.cancelButton.Location = new System.Drawing.Point(10, 124);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(69, 51);
+			this.cancelButton.Size = new System.Drawing.Size(60, 38);
 			this.cancelButton.TabIndex = 6;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -96,41 +100,43 @@ namespace ComplexResistanceCalculator.UI
 			// dimensionLabel
 			// 
 			this.dimensionLabel.AutoSize = true;
-			this.dimensionLabel.Location = new System.Drawing.Point(186, 89);
+			this.dimensionLabel.Location = new System.Drawing.Point(163, 67);
 			this.dimensionLabel.Name = "dimensionLabel";
-			this.dimensionLabel.Size = new System.Drawing.Size(13, 20);
+			this.dimensionLabel.Size = new System.Drawing.Size(10, 15);
 			this.dimensionLabel.TabIndex = 7;
 			this.dimensionLabel.Text = "l";
 			// 
 			// parallelCheckBox
 			// 
 			this.parallelCheckBox.AutoSize = true;
-			this.parallelCheckBox.Location = new System.Drawing.Point(15, 119);
-			this.parallelCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			this.parallelCheckBox.Location = new System.Drawing.Point(13, 89);
 			this.parallelCheckBox.Name = "parallelCheckBox";
-			this.parallelCheckBox.Size = new System.Drawing.Size(124, 24);
+			this.parallelCheckBox.Size = new System.Drawing.Size(97, 19);
 			this.parallelCheckBox.TabIndex = 8;
 			this.parallelCheckBox.Text = "Set as parallel";
 			this.parallelCheckBox.UseVisualStyleBackColor = true;
 			this.parallelCheckBox.CheckedChanged += new System.EventHandler(this.parallelCheckBox_CheckedChanged);
 			// 
-			// setNextParallelcheckBox
+			// newSegmentCheckBox
 			// 
-			this.setNextParallelcheckBox.AutoSize = true;
-			this.setNextParallelcheckBox.Location = new System.Drawing.Point(13, 151);
-			this.setNextParallelcheckBox.Name = "setNextParallelcheckBox";
-			this.setNextParallelcheckBox.Size = new System.Drawing.Size(175, 24);
-			this.setNextParallelcheckBox.TabIndex = 9;
-			this.setNextParallelcheckBox.Text = "Continue parallel part";
-			this.setNextParallelcheckBox.UseVisualStyleBackColor = true;
-			this.setNextParallelcheckBox.CheckedChanged += new System.EventHandler(this.setNextParallelcheckBox_CheckedChanged);
+			this.newSegmentCheckBox.AutoSize = true;
+			this.newSegmentCheckBox.Checked = true;
+			this.newSegmentCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.newSegmentCheckBox.Location = new System.Drawing.Point(11, 113);
+			this.newSegmentCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.newSegmentCheckBox.Name = "newSegmentCheckBox";
+			this.newSegmentCheckBox.Size = new System.Drawing.Size(134, 19);
+			this.newSegmentCheckBox.TabIndex = 9;
+			this.newSegmentCheckBox.Text = "Create new segment";
+			this.newSegmentCheckBox.UseVisualStyleBackColor = true;
+			this.newSegmentCheckBox.CheckedChanged += new System.EventHandler(this.setNextParallelcheckBox_CheckedChanged);
 			// 
 			// ElementForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(211, 225);
-			this.Controls.Add(this.setNextParallelcheckBox);
+			this.ClientSize = new System.Drawing.Size(186, 175);
+			this.Controls.Add(this.newSegmentCheckBox);
 			this.Controls.Add(this.parallelCheckBox);
 			this.Controls.Add(this.dimensionLabel);
 			this.Controls.Add(this.cancelButton);
@@ -140,8 +146,9 @@ namespace ComplexResistanceCalculator.UI
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.elementNameLabel);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximumSize = new System.Drawing.Size(229, 272);
-			this.MinimumSize = new System.Drawing.Size(229, 272);
+			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.MaximumSize = new System.Drawing.Size(202, 214);
+			this.MinimumSize = new System.Drawing.Size(202, 214);
 			this.Name = "ElementForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.ResumeLayout(false);
@@ -162,6 +169,6 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Label dimentionLabel;
 		private System.Windows.Forms.Label elementValueLabel;
 		private System.Windows.Forms.CheckBox parallelCheckBox;
-		private System.Windows.Forms.CheckBox setNextParallelcheckBox;
+		private System.Windows.Forms.CheckBox newSegmentCheckBox;
 	}
 }

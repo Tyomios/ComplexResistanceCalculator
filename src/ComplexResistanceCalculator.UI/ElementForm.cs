@@ -33,6 +33,7 @@ namespace ComplexResistanceCalculator.UI
 		public ElementForm()
 		{
 			InitializeComponent();
+			CreateNewSegment = true;
 		}
 
 		/// <summary>
@@ -60,9 +61,9 @@ namespace ComplexResistanceCalculator.UI
 		public bool SetParallel { get; private set; }
 
 		/// <summary>
-		/// Установка контрола в сложном параллельном соединении.
+		/// Создать новый сегмент
 		/// </summary>
-		public bool SetNextParallel { get; private set; }
+		public bool CreateNewSegment { get; private set; }
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
@@ -93,7 +94,15 @@ namespace ComplexResistanceCalculator.UI
 
 		private void setNextParallelcheckBox_CheckedChanged(object sender, EventArgs e)
 		{
-			SetNextParallel = true;
+			if (newSegmentCheckBox.Checked)
+			{
+				CreateNewSegment = true;
+			}
+			if (!newSegmentCheckBox.Checked)
+			{
+				CreateNewSegment = false;
+			}
+			
 		}
 	}
 }

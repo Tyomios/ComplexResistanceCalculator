@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -50,10 +51,41 @@ namespace ComplexResistanceCalculator.UI
 			_elements.Columns.Add("Name");
 			_elements.Columns.Add("Value");
 			ElementsDataGridView.DataSource = _elements;
+
+			//_elementControlsContainer.Draw(TestCircuit().Frames);
 		}
 
 		private DataTable _elements = new DataTable();
 
+		/// <summary>
+		/// создает цепь с сегментом, имеющим несколько вложенных подсегментов
+		/// </summary>
+		/// <returns> цепь с сегментом, имеющим несколько вложенных подсегментов </returns>
+		private Circuit TestCircuit()
+		{
+			var circuit = new Circuit();
+			var segment = new BaseCircuitFrame(ElementType.Parallel);
+			segment.SubSegments.Add(new Resistor("1", 3));
+
+			var fSub = new BaseCircuitFrame(ElementType.Serial);
+			fSub.SubSegments.Add(new Inductor("2", 3));
+			fSub.SubSegments.Add(new Inductor("3", 3));
+			segment.SubSegments.Add(fSub);
+			segment.SubSegments.Add(new Resistor("4", 4));
+			segment.SubSegments.Add(new Resistor("5", 5));
+
+			var sSub = new BaseCircuitFrame(ElementType.Serial);
+			sSub.SubSegments.Add(new Inductor("6", 6));
+
+			var ssSub = new BaseCircuitFrame(ElementType.Parallel);
+			ssSub.SubSegments.Add(new Capacitor("7", 7));
+			ssSub.SubSegments.Add(new Capacitor("8", 8));
+			sSub.SubSegments.Add(ssSub);
+			segment.SubSegments.Add(sSub);
+
+			circuit.Frames.Add(segment);
+			return circuit;
+		}
 
 		/// <summary>
 		/// Построение шаблонов
@@ -119,20 +151,32 @@ namespace ComplexResistanceCalculator.UI
 		/// <summary>
 		/// Отображение данных выбранного элемента.
 		/// </summary>
-		private void UpdateElementsInfo()
+		private void UpdateElementsInfo(BaseCircuitFrame frame)
 		{
-			if (_circuit.Frames.Count > 0)
+			foreach (var element in frame.SubSegments)
 			{
-				_elements.Clear();
-				foreach (var frame in _circuit.Frames)
+				if (!ElementIsFrame(element))
 				{
-					foreach (var element in frame.SubSegments)
-					{
-						_elements.Rows.Add(new Object[] { $"{GetElementName((BaseElement)element)}",
-							$"{ValueConverter.ConvertUndoPrefix(GetElementValue((BaseElement) element), (BaseElement) element)}" });
-					}
+					_elements.Rows.Add(new Object[] { $"{GetElementName((BaseElement)element)}",
+						$"{ValueConverter.ConvertUndoPrefix(GetElementValue((BaseElement)element), (BaseElement)element)}" });
 				}
+				else
+				{
+					UpdateElementsInfo((BaseCircuitFrame)element);
+				}
+
 			}
+		}
+
+		private bool ElementIsFrame(ICommon element)
+		{
+			if (element.Type == ElementType.Serial
+			    || element.Type == ElementType.Parallel)
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		private string GetElementName(BaseElement element) => element.Name;
@@ -157,16 +201,22 @@ namespace ComplexResistanceCalculator.UI
 
 			var newElementUserControl = new ElementControl();
 			newElementUserControl.SetParallel = addForm.SetParallel;
-			newElementUserControl.SetNextParallel = addForm.SetNextParallel;
-			//newElementUserControl.ContainElement = element;
-			//_elementControlsContainer.Controls.Add(newElementUserControl);
-			//newElementUserControl.Click += UserControl_Click;
+			//if (!addForm.CreateNewSegment  /*_circuit.Frames[_circuit.Frames.Count - 1].Type != GetFrameType(newElementUserControl)*/)
+			//{
+			//	_circuit.AddSegmentInSegment(new BaseCircuitFrame(GetFrameType(newElementUserControl)));
+			//}
 			++_elementsCount;
 
-			_circuit.AddElement(element, GetFrameType(newElementUserControl));
+			_circuit.AddElement(element, GetFrameType(newElementUserControl), addForm.CreateNewSegment);
 
 			_currentElement = element;
-			UpdateElementsInfo();
+
+			_elements.Clear();
+			foreach (var frame in _circuit.Frames)
+			{
+				UpdateElementsInfo(frame);
+			}
+
 			_elementControlsContainer.Draw(_circuit.Frames);
 		}
 
@@ -177,7 +227,7 @@ namespace ComplexResistanceCalculator.UI
 		/// <returns> Тип сегмента для элемента. </returns>
 		private ElementType GetFrameType(ElementControl control)
 		{
-			return control.SetParallel || control.SetNextParallel ? ElementType.Parallel : ElementType.Serial;
+			return control.SetParallel ? ElementType.Parallel : ElementType.Serial;
 		}
 
 
@@ -253,6 +303,7 @@ namespace ComplexResistanceCalculator.UI
 			_elementControlsContainer.Size = circuitElementsPanel.Size;
 			_elementControlsContainer.Height += 10;
 			_elementControlsContainer.Width += 40;
+			_elementControlsContainer.Draw(_circuit.Frames);
 		}
 
 
