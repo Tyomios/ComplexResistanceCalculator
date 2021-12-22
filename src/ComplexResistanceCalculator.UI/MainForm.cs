@@ -29,6 +29,8 @@ namespace ComplexResistanceCalculator.UI
 		/// </summary>
 		private Circuit _circuit = new Circuit();
 
+		private Circuit _circuitView = new Circuit();
+
 		// TODO: xml+
 		// TODO: RSDN+
 		/// <summary>
@@ -50,7 +52,7 @@ namespace ComplexResistanceCalculator.UI
 
 			_elements.Columns.Add("Name");
 			_elements.Columns.Add("Value");
-			ElementsDataGridView.DataSource = _elements;
+			//ElementsDataGridView.DataSource = _elements;
 
 			//_elementControlsContainer.Draw(TestCircuit().Frames);
 		}

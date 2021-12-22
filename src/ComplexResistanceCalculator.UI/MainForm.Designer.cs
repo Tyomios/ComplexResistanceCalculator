@@ -38,8 +38,6 @@ namespace ComplexResistanceCalculator.UI
 			this.RemoveElementButton = new System.Windows.Forms.Button();
 			this.circuitElementsPanel = new System.Windows.Forms.Panel();
 			this.mainFormToolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.ElementsDataGridView = new System.Windows.Forms.DataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.ElementsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// AddResistorButton
@@ -141,30 +139,12 @@ namespace ComplexResistanceCalculator.UI
 			this.circuitElementsPanel.Size = new System.Drawing.Size(636, 375);
 			this.circuitElementsPanel.TabIndex = 11;
 			// 
-			// ElementsDataGridView
-			// 
-			this.ElementsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.ElementsDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-			this.ElementsDataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-			this.ElementsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.ElementsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.ElementsDataGridView.GridColor = System.Drawing.SystemColors.Control;
-			this.ElementsDataGridView.Location = new System.Drawing.Point(12, 49);
-			this.ElementsDataGridView.MultiSelect = false;
-			this.ElementsDataGridView.Name = "ElementsDataGridView";
-			this.ElementsDataGridView.ReadOnly = true;
-			this.ElementsDataGridView.RowHeadersVisible = false;
-			this.ElementsDataGridView.RowTemplate.Height = 25;
-			this.ElementsDataGridView.Size = new System.Drawing.Size(206, 375);
-			this.ElementsDataGridView.TabIndex = 12;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.ClientSize = new System.Drawing.Size(869, 435);
-			this.Controls.Add(this.ElementsDataGridView);
 			this.Controls.Add(this.circuitElementsPanel);
 			this.Controls.Add(this.RemoveElementButton);
 			this.Controls.Add(this.calculateZbutton);
@@ -177,7 +157,6 @@ namespace ComplexResistanceCalculator.UI
 			this.Name = "MainForm";
 			this.Text = "ComplexResistance Calculator";
 			this.SizeChanged += new System.EventHandler(this.mainForm_SizeChanged);
-			((System.ComponentModel.ISupportInitialize)(this.ElementsDataGridView)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -192,7 +171,6 @@ namespace ComplexResistanceCalculator.UI
 		private System.Windows.Forms.Button RemoveElementButton;
 		private System.Windows.Forms.Panel circuitElementsPanel;
 		private System.Windows.Forms.ToolTip mainFormToolTip;
-		private System.Windows.Forms.DataGridView ElementsDataGridView;
 	}
 }
 
